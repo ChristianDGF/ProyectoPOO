@@ -3,17 +3,28 @@ package logico;
 public class Paciente extends Persona {
 
 	private String estado;
-	//agregar historial medico 
+	private HistorialMedico miHistorial;
+	
 	public Paciente(String nombre, String direccion, String fechaNacimiento, String genero, String cedula,
-			String telefono,String estado) {
+			String telefono,String estado,HistorialMedico historial) {
 		super(nombre, direccion, fechaNacimiento, genero, cedula, telefono);
-		this.setEstado(estado);
+		this.estado = estado;
+		this.miHistorial = historial;
 	}
+	
 	public String getEstado() {
 		return estado;
 	}
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public HistorialMedico getMiHistorial() {
+		return miHistorial;
+	}
+
+	public void setMiHistorial(HistorialMedico miHistorial) {
+		this.miHistorial = miHistorial;
 	}
 
 }
