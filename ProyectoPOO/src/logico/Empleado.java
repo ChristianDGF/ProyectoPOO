@@ -5,7 +5,7 @@ public class Empleado extends Persona {
 	protected String cargo;
 	protected String idempleado;
 	protected Double sueldo;
-	protected String departamento;
+	protected String departamento; 
 	
 	public Empleado(String nombre, String direccion, String fechaNacimiento, String genero, String cedula,
 			String telefono,String cargo,String idempleado,Double sueldo,String departamento) {

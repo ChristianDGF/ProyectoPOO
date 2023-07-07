@@ -6,7 +6,7 @@ public class Persona {
 	protected String direccion;
 	protected String fechaNacimiento;
 	protected String genero;
-	protected String cedula;
+	protected String cedula; 
 	protected String telefono;
     
 	public Persona(String nombre, String direccion, String fechaNacimiento, String genero, String cedula,

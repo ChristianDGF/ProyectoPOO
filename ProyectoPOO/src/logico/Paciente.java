@@ -3,7 +3,7 @@ package logico;
 public class Paciente extends Persona {
 
 	private String estado;
-	//agregar historial medico
+	//agregar historial medico 
 	public Paciente(String nombre, String direccion, String fechaNacimiento, String genero, String cedula,
 			String telefono,String estado) {
 		super(nombre, direccion, fechaNacimiento, genero, cedula, telefono);
