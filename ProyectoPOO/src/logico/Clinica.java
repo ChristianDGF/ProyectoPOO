@@ -292,6 +292,24 @@ public class Clinica {
 		
 	}
 	
+	public Estudio getEstudioByCode(String EstudioCode)
+	{
+		Estudio temp = null;
+		boolean encontrado = false;
+		int ind = 0;
+		
+		while(!encontrado && ind < misEstudios.size()) {
+			if(misEstudios.get(ind).getCodigo().equalsIgnoreCase(EstudioCode))
+			{
+				temp = misEstudios.get(ind);
+				encontrado = true;
+			}	    
+			ind++;
+		}
+		return temp;
+		
+	}
+	
 	public Enfermedad getEnfermedadByStatusVigilancia(String StatusVigilancia)
 	{
 		Enfermedad temp = null;
@@ -310,8 +328,66 @@ public class Clinica {
 		
 	}
 	
+	public void AgregarVacuna(Vacuna vacuna)
+	{
+		misVacunas.add(vacuna);
+	}
+	public void EliminarVacuna(Vacuna vacuna)
+	{
+		misVacunas.remove(vacuna);
+	}
 	
-
-
-
+	public void AgregarPaciente(Paciente paciente)
+	{
+		misPacientes.add(paciente);
+	}
+	public void EliminarPaciente(Paciente paciente)
+	{
+		misPacientes.remove(paciente);
+	}
+	
+	public void AgregarEstudio(Estudio estudio)
+	{
+		misEstudios.add(estudio);
+	}
+	public void EliminarEstudio(Estudio estudio)
+	{
+		misEstudios.remove(estudio);
+	}
+	
+	public void AgregarEnfermedad(Enfermedad enfermedad)
+	{
+		misEnfermedades.add(enfermedad);
+	}
+	public void EliminarEnfermedad(Enfermedad enfermedad)
+	{
+		misEnfermedades.remove(enfermedad);
+	}
+	
+	public void AgregarCita(Cita cita)
+	{
+		misCitas.add(cita);
+	}
+	public void EliminarCita(Cita cita)
+	{
+		misCitas.remove(cita);
+	}
+	
+	public void AgregarConsulta(Consulta consulta)
+	{
+		misConsultas.add(consulta);
+	}
+	public void EliminarConsulta(Consulta consulta)
+	{
+		misConsultas.remove(consulta);
+	}
+	
+	public void AgregarEmpleado(Empleado empleado)
+	{
+		misEmpleados.add(empleado);
+	}
+	public void EliminarEmpleado(Empleado empleado)
+	{
+		misEmpleados.remove(empleado);
+	}
 }
