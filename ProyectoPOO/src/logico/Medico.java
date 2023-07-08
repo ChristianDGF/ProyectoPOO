@@ -1,17 +1,21 @@
 package logico;
 
+import java.util.ArrayList;
 
 public class Medico extends Empleado {
 
 	private String especialidad;
 	private String idcolegiomedico;
-	//agregar arraylist de consultas  
+	private ArrayList<Consulta> misconsultas;
 	
 	public Medico(String nombre, String direccion, String fechaNacimiento, String genero, String cedula,
-			String telefono, String cargo, String idempleado, Double sueldo, String departamento,String especialidad,String idcolegiomedico) {
+			String telefono, String cargo, String idempleado, Double sueldo, String departamento,String especialidad,String idcolegiomedico,
+			ArrayList<Consulta> misconsultas) {
+		
 		super(nombre, direccion, fechaNacimiento, genero, cedula, telefono, cargo, idempleado, sueldo, departamento);
 		this.especialidad = especialidad;
 		this.idcolegiomedico = idcolegiomedico;
+		this.misconsultas = misconsultas;
 	}
 
 	public String getEspecialidad() {
@@ -30,4 +34,7 @@ public class Medico extends Empleado {
 		this.idcolegiomedico = idcolegiomedico;
 	}
 
+	public ArrayList<Consulta> getMisconsultas() {
+		return misconsultas;
+	}
 }
