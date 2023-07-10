@@ -3,14 +3,19 @@ package logico;
 public class Consulta {
 	private String codigo;
 	private Cita cita;
-	private Diagnostico diagnostico;
+	private String sintomas;
+	private String diagnostico;
+	private Enfermedad enfermedad;
 	private String estado;
 	
-	public Consulta(String codigo, Cita cita, Diagnostico diagnostico, String estado) {
+	public Consulta(String codigo, Cita cita, String sintomas,String diagnostico
+			,Enfermedad enfermedad,String estado) {
 		super();
 		this.codigo = codigo;
 		this.cita = cita;
+		this.sintomas = sintomas;
 		this.diagnostico = diagnostico;
+		this.enfermedad = enfermedad;	
 		this.estado = estado;
 	}
 
@@ -30,20 +35,36 @@ public class Consulta {
 		this.cita = cita;
 	}
 
-	public Diagnostico getDiagnostico() {
-		return diagnostico;
-	}
-
-	public void setDiagnostico(Diagnostico diagnostico) {
-		this.diagnostico = diagnostico;
-	}
-
 	public String getEstado() {
 		return estado;
 	}
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public String getSintomas() {
+		return sintomas;
+	}
+
+	public void setSintomas(String sintomas) {
+		this.sintomas = sintomas;
+	}
+
+	public String getDiagnostico() {
+		return diagnostico;
+	}
+
+	public void setDiagnostico(String diagnostico) {
+		this.diagnostico = diagnostico;
+	}
+
+	public Enfermedad getEnfermedad() {
+		return enfermedad;
+	}
+
+	public void setEnfermedad(Enfermedad enfermedad) {
+		this.enfermedad = enfermedad;
 	}
 
 }

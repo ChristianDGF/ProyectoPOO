@@ -1,20 +1,16 @@
 package logico;
 
-import java.util.Date;
-
 public class Vacuna {
 	
 	private String codigo;
 	private String laboratorio;
-	private Date fechaAdministracion;
-	private String dosis;
+	private String descripcion;
 	
-	public Vacuna(String codigo, String laboratorio, Date fechaAdministracion, String dosis) {
+	public Vacuna(String codigo, String laboratorio, String descripcion) {
 		super();
 		this.codigo = codigo;
 		this.laboratorio = laboratorio;
-		this.fechaAdministracion = fechaAdministracion;
-		this.dosis = dosis;
+		this.setDescripcion(descripcion);
 	}
 
 	public String getCodigo() {
@@ -33,20 +29,13 @@ public class Vacuna {
 		this.laboratorio = laboratorio;
 	}
 
-	public Date getFechaAdministracion() {
-		return fechaAdministracion;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setFechaAdministracion(Date fechaAdministracion) {
-		this.fechaAdministracion = fechaAdministracion;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
-	public String getDosis() {
-		return dosis;
-	}
-
-	public void setDosis(String dosis) {
-		this.dosis = dosis;
-	}
 
 }

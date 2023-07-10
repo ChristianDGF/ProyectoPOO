@@ -11,7 +11,6 @@ public class Clinica {
 	private ArrayList<Enfermedad> misEnfermedades;
 	private ArrayList<Consulta> misConsultas;
 	private ArrayList<Cita> misCitas;
-	private ArrayList<Estudio> misEstudios;
 	private ArrayList<Vacuna> misVacunas;
 	public static Clinica clinica = null;
 	
@@ -24,7 +23,6 @@ public class Clinica {
 		this.misEnfermedades = new ArrayList<Enfermedad>();
 		this.misConsultas = new ArrayList<Consulta>();
 		this.misCitas = new ArrayList<Cita>();
-		this.misEstudios = new ArrayList<Estudio>();
 		this.misVacunas = new ArrayList<Vacuna>();
 	}
 	
@@ -92,14 +90,6 @@ public class Clinica {
 
 	public void setMisCitas(ArrayList<Cita> misCitas) {
 		this.misCitas = misCitas;
-	}
-
-	public ArrayList<Estudio> getMisEstudios() {
-		return misEstudios;
-	}
-
-	public void setMisEstudios(ArrayList<Estudio> misEstudios) {
-		this.misEstudios = misEstudios;
 	}
 
 	public ArrayList<Vacuna> getMisVacunas() {
@@ -292,23 +282,6 @@ public class Clinica {
 		
 	}
 	
-	public Estudio getEstudioByCode(String EstudioCode)
-	{
-		Estudio temp = null;
-		boolean encontrado = false;
-		int ind = 0;
-		
-		while(!encontrado && ind < misEstudios.size()) {
-			if(misEstudios.get(ind).getCodigo().equalsIgnoreCase(EstudioCode))
-			{
-				temp = misEstudios.get(ind);
-				encontrado = true;
-			}	    
-			ind++;
-		}
-		return temp;
-		
-	}
 	
 	public Enfermedad getEnfermedadByStatusVigilancia(String StatusVigilancia)
 	{
@@ -344,15 +317,6 @@ public class Clinica {
 	public void EliminarPaciente(Paciente paciente)
 	{
 		misPacientes.remove(paciente);
-	}
-	
-	public void AgregarEstudio(Estudio estudio)
-	{
-		misEstudios.add(estudio);
-	}
-	public void EliminarEstudio(Estudio estudio)
-	{
-		misEstudios.remove(estudio);
 	}
 	
 	public void AgregarEnfermedad(Enfermedad enfermedad)
