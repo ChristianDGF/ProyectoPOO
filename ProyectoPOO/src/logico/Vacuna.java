@@ -5,12 +5,16 @@ public class Vacuna {
 	private String codigo;
 	private String laboratorio;
 	private String descripcion;
+	private String enfermedad;
+	private String tipo;
 	
-	public Vacuna(String codigo, String laboratorio, String descripcion) {
+	public Vacuna(String codigo, String laboratorio, String descripcion, String enfermedad,String tipo) {
 		super();
 		this.codigo = codigo;
 		this.laboratorio = laboratorio;
-		this.setDescripcion(descripcion);
+		this.enfermedad = enfermedad;
+		this.tipo = tipo;
+		this.descripcion = descripcion;
 	}
 
 	public String getCodigo() {
@@ -35,6 +39,22 @@ public class Vacuna {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public String getEnfermedad() {
+		return enfermedad;
+	}
+
+	public void setEnfermedad(String enfermedad) {
+		this.enfermedad = enfermedad;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 
