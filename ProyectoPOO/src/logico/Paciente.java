@@ -5,9 +5,9 @@ public class Paciente extends Persona {
 	private String estado;
 	private HistorialMedico miHistorial;
 	
-	public Paciente(String nombre, String direccion, String fechaNacimiento, String genero, String cedula,
+	public Paciente(String nombre,String apellido,String direccion, String fechaNacimiento, String genero, String cedula,
 			String telefono,String estado,HistorialMedico historial) {
-		super(nombre, direccion, fechaNacimiento, genero, cedula, telefono);
+		super(nombre, apellido, direccion, fechaNacimiento, genero, cedula, telefono);
 		this.estado = estado;
 		this.miHistorial = historial;
 	}

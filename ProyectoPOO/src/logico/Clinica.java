@@ -126,8 +126,7 @@ public class Clinica {
 		int ind = 0;
 		
 		while(!encontrado && ind < misMedicos.size()) {
-			Empleado aux = misMedicos.get(ind);
-			if(aux.getIdempleado().equalsIgnoreCase(MedicoCode))
+			if(misMedicos.get(ind).getExequatur().equalsIgnoreCase(MedicoCode))
 			{
 				temp = misMedicos.get(ind);
 				encontrado = true;

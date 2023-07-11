@@ -5,17 +5,18 @@ import java.util.ArrayList;
 public class Medico extends Empleado {
 
 	private String especialidad;
-	private String idcolegiomedico;
+	private String exequatur;
+	private String numeroconsultorio;
 	private ArrayList<Consulta> misconsultas;
 	
-	public Medico(String nombre, String direccion, String fechaNacimiento, String genero, String cedula,
-			String telefono, String cargo, String idempleado, Double sueldo, String departamento,String especialidad,String idcolegiomedico,
-			ArrayList<Consulta> misconsultas) {
-		
-		super(nombre, direccion, fechaNacimiento, genero, cedula, telefono, cargo, idempleado, sueldo, departamento);
+	public Medico(String nombre, String apellido, String direccion, String fechaNacimiento, String genero,
+			String cedula, String telefono, String cargo, String departamento,String especialidad,String exequatur,
+			String numeroconsultorio) {
+		super(nombre, apellido, direccion, fechaNacimiento, genero, cedula, telefono, cargo, departamento);
 		this.especialidad = especialidad;
-		this.idcolegiomedico = idcolegiomedico;
-		this.misconsultas = misconsultas;
+		this.exequatur = exequatur;
+		this.numeroconsultorio = numeroconsultorio;
+		this.misconsultas = new ArrayList<Consulta>();
 	}
 
 	public String getEspecialidad() {
@@ -26,15 +27,28 @@ public class Medico extends Empleado {
 		this.especialidad = especialidad;
 	}
 
-	public String getIdcolegiomedico() {
-		return idcolegiomedico;
-	}
-
-	public void setIdcolegiomedico(String idcolegiomedico) {
-		this.idcolegiomedico = idcolegiomedico;
-	}
 
 	public ArrayList<Consulta> getMisconsultas() {
 		return misconsultas;
+	}
+
+	public String getExequatur() {
+		return exequatur;
+	}
+
+	public void setExequatur(String exequatur) {
+		this.exequatur = exequatur;
+	}
+
+	public String getNumeroconsultorio() {
+		return numeroconsultorio;
+	}
+
+	public void setNumeroconsultorio(String numeroconsultorio) {
+		this.numeroconsultorio = numeroconsultorio;
+	}
+
+	public void setMisconsultas(ArrayList<Consulta> misconsultas) {
+		this.misconsultas = misconsultas;
 	}
 }

@@ -3,17 +3,19 @@ package logico;
 public class Persona {
 	
 	protected String nombre;
+	protected String apellido;
 	protected String direccion;
 	protected String fechaNacimiento;
 	protected String genero;
 	protected String cedula; 
 	protected String telefono;
     
-	public Persona(String nombre, String direccion, String fechaNacimiento, String genero, String cedula,
+	public Persona(String nombre,String apellido,String direccion, String fechaNacimiento, String genero, String cedula,
 			String telefono) 
 	{
 		super();
-		this.setNombre(nombre);
+		this.nombre = nombre;
+		this.apellido = apellido;
 		this.direccion = direccion;
 		this.fechaNacimiento = fechaNacimiento;
 		this.genero = genero;
@@ -67,5 +69,13 @@ public class Persona {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 }
