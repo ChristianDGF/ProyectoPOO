@@ -54,7 +54,7 @@ public class RegistrarEmpleado extends JDialog {
 	public RegistrarEmpleado() {
 		setTitle("Registrar Empleado");
 		setResizable(false);
-		setBounds(100, 100, 699, 557);
+		setBounds(100, 100, 716, 607);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -63,7 +63,7 @@ public class RegistrarEmpleado extends JDialog {
 		JPanel panel = new JPanel();
 		panel.setBackground(UIManager.getColor("Button.background"));
 		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Informacion General:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel.setBounds(10, 11, 661, 320);
+		panel.setBounds(10, 11, 673, 367);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
@@ -73,16 +73,16 @@ public class RegistrarEmpleado extends JDialog {
 		panel.add(lblcedula);
 		
 		txtcedula = new JFormattedTextField();
-		txtcedula.setBounds(97, 29, 185, 20);
+		txtcedula.setBounds(118, 31, 185, 20);
 		panel.add(txtcedula);
 		
 		JLabel lblfechanacim = new JLabel("Fecha Nacimiento:");
 		lblfechanacim.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblfechanacim.setBounds(312, 34, 110, 14);
+		lblfechanacim.setBounds(333, 34, 110, 14);
 		panel.add(lblfechanacim);
 		
 		txtfechanacimiento = new JFormattedTextField();
-		txtfechanacimiento.setBounds(442, 29, 185, 20);
+		txtfechanacimiento.setBounds(463, 31, 185, 20);
 		panel.add(txtfechanacimiento);
 		
 		JLabel lblnombre = new JLabel("Nombre:");
@@ -91,17 +91,17 @@ public class RegistrarEmpleado extends JDialog {
 		panel.add(lblnombre);
 		
 		txtnombre = new JTextField();
-		txtnombre.setBounds(97, 78, 185, 20);
+		txtnombre.setBounds(118, 79, 185, 20);
 		panel.add(txtnombre);
 		txtnombre.setColumns(10);
 		
 		JLabel lblapellido = new JLabel("Apellido:");
 		lblapellido.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblapellido.setBounds(312, 82, 65, 14);
+		lblapellido.setBounds(333, 82, 65, 14);
 		panel.add(lblapellido);
 		
 		txtapellido = new JTextField();
-		txtapellido.setBounds(442, 78, 185, 20);
+		txtapellido.setBounds(463, 79, 185, 20);
 		panel.add(txtapellido);
 		txtapellido.setColumns(10);
 		
@@ -111,12 +111,12 @@ public class RegistrarEmpleado extends JDialog {
 		panel.add(lbltelefono);
 		
 		txttelefono = new JFormattedTextField();
-		txttelefono.setBounds(97, 127, 185, 20);
+		txttelefono.setBounds(118, 127, 185, 20);
 		panel.add(txttelefono);
 		
 		JLabel lblcargo = new JLabel("Cargo:");
 		lblcargo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblcargo.setBounds(312, 130, 53, 14);
+		lblcargo.setBounds(333, 130, 53, 14);
 		panel.add(lblcargo);
 		
 		cmbcargo = new JComboBox();
@@ -133,16 +133,16 @@ public class RegistrarEmpleado extends JDialog {
 			}
 		});
 		cmbcargo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Doctor", "Secretaria", "Vedel"}));
-		cmbcargo.setBounds(442, 127, 185, 20);
+		cmbcargo.setBounds(463, 127, 185, 20);
 		panel.add(cmbcargo);
 		
 		JLabel lblcorreo = new JLabel("Correo Electronico:");
 		lblcorreo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblcorreo.setBounds(312, 178, 110, 14);
+		lblcorreo.setBounds(333, 178, 110, 14);
 		panel.add(lblcorreo);
 		
 		txtcorreo = new JFormattedTextField();
-		txtcorreo.setBounds(442, 176, 185, 20);
+		txtcorreo.setBounds(463, 175, 185, 20);
 		panel.add(txtcorreo);
 		
 		JLabel lblsexo = new JLabel("Sexo:");
@@ -152,21 +152,31 @@ public class RegistrarEmpleado extends JDialog {
 		
 		cmbsexo = new JComboBox();
 		cmbsexo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Masculino", "Femenino"}));
-		cmbsexo.setBounds(97, 176, 185, 20);
+		cmbsexo.setBounds(118, 175, 185, 20);
 		panel.add(cmbsexo);
 		
 		JLabel lbldireccion = new JLabel("Direcci\u00F3n:");
 		lbldireccion.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lbldireccion.setBounds(21, 223, 58, 14);
+		lbldireccion.setBounds(26, 263, 58, 14);
 		panel.add(lbldireccion);
 		
 		txtdireccion = new JTextArea();
-		txtdireccion.setBounds(97, 223, 530, 70);
+		txtdireccion.setBounds(97, 263, 551, 70);
 		panel.add(txtdireccion);
+		
+		JLabel lblNewLabel = new JLabel("Departamento:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel.setBounds(26, 221, 95, 14);
+		panel.add(lblNewLabel);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Administracion", "Pediatria", "Cirugia", "Laboratorio"}));
+		comboBox.setBounds(118, 218, 185, 20);
+		panel.add(comboBox);
 		
 		DoctorPanel = new JPanel();
 		DoctorPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		DoctorPanel.setBounds(10, 342, 661, 119);
+		DoctorPanel.setBounds(10, 389, 673, 119);
 		contentPanel.add(DoctorPanel);
 		DoctorPanel.setLayout(null);
 		DoctorPanel.setVisible(false);
@@ -275,6 +285,4 @@ public class RegistrarEmpleado extends JDialog {
 	    txtexequatur.setText("");
 	    txtconsultorio.setText("");
 	}
-
-
 }

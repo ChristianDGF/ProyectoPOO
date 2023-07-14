@@ -46,7 +46,7 @@ public class RegistrarVacuna extends JDialog {
 	 */
 	public RegistrarVacuna() {
 		setTitle("Registrar Vacuna");
-		setBounds(100, 100, 580, 296);
+		setBounds(100, 100, 580, 308);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -58,28 +58,28 @@ public class RegistrarVacuna extends JDialog {
 			panel.setLayout(null);
 			
 			JLabel lblcodigo = new JLabel("Codigo:");
-			lblcodigo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblcodigo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			lblcodigo.setBounds(287, 25, 56, 16);
 			panel.add(lblcodigo);
 			
 			txtenfermedad = new JTextField();
-			txtenfermedad.setBounds(99, 23, 174, 22);
+			txtenfermedad.setBounds(99, 22, 174, 22);
 			panel.add(txtenfermedad);
 			txtenfermedad.setColumns(10);
 			
 			JLabel lblenfermedad = new JLabel("Enfermedad:");
-			lblenfermedad.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblenfermedad.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			lblenfermedad.setBounds(12, 25, 94, 16);
 			panel.add(lblenfermedad);
 			
 			txtcodigo = new JTextField();
 			txtcodigo.setColumns(10);
-			txtcodigo.setBounds(355, 23, 174, 22);
+			txtcodigo.setBounds(355, 22, 174, 22);
 			panel.add(txtcodigo);
 			
 			JLabel lbllaboratorio = new JLabel("Laboratorio:");
-			lbllaboratorio.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			lbllaboratorio.setBounds(12, 58, 75, 16);
+			lbllaboratorio.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lbllaboratorio.setBounds(12, 61, 75, 16);
 			panel.add(lbllaboratorio);
 			
 			txtlaboratorio = new JTextField();
@@ -88,8 +88,8 @@ public class RegistrarVacuna extends JDialog {
 			panel.add(txtlaboratorio);
 			
 			JLabel lbltipo = new JLabel("Tipo:");
-			lbltipo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			lbltipo.setBounds(287, 58, 56, 16);
+			lbltipo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lbltipo.setBounds(287, 61, 56, 16);
 			panel.add(lbltipo);
 			
 			JComboBox cmbtipo = new JComboBox();
@@ -98,17 +98,17 @@ public class RegistrarVacuna extends JDialog {
 			panel.add(cmbtipo);
 			
 			JLabel lbldescripcion = new JLabel("Descripcion:");
-			lbldescripcion.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			lbldescripcion.setBounds(12, 94, 88, 16);
+			lbldescripcion.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lbldescripcion.setBounds(12, 100, 88, 16);
 			panel.add(lbldescripcion);
 			
 			JTextPane textdescripcion = new JTextPane();
-			textdescripcion.setBounds(99, 100, 430, 54);
+			textdescripcion.setBounds(99, 100, 430, 107);
 			panel.add(textdescripcion);
 		}
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBorder(null);
+			buttonPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{

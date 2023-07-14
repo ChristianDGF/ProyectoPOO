@@ -15,6 +15,8 @@ import javax.swing.JComboBox;
 import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.EtchedBorder;
+import javax.swing.DefaultComboBoxModel;
 
 public class RegistrarEnfermedad extends JDialog {
 
@@ -41,7 +43,7 @@ public class RegistrarEnfermedad extends JDialog {
 	 */
 	public RegistrarEnfermedad() {
 		setTitle("Registrar Enfermedad");
-		setBounds(100, 100, 576, 275);
+		setBounds(100, 100, 576, 288);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -53,8 +55,8 @@ public class RegistrarEnfermedad extends JDialog {
 			panel.setLayout(null);
 			{
 				JLabel lblnombre = new JLabel("Nombre:");
-				lblnombre.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				lblnombre.setBounds(12, 15, 94, 16);
+				lblnombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblnombre.setBounds(12, 18, 94, 16);
 				panel.add(lblnombre);
 			}
 			{
@@ -65,8 +67,8 @@ public class RegistrarEnfermedad extends JDialog {
 			}
 			{
 				JLabel lbltipo = new JLabel("Tipo:");
-				lbltipo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				lbltipo.setBounds(12, 48, 75, 16);
+				lbltipo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lbltipo.setBounds(12, 53, 75, 16);
 				panel.add(lbltipo);
 			}
 			{
@@ -77,8 +79,8 @@ public class RegistrarEnfermedad extends JDialog {
 			}
 			{
 				JLabel lblcodigo = new JLabel("Codigo:");
-				lblcodigo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				lblcodigo.setBounds(287, 15, 56, 16);
+				lblcodigo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblcodigo.setBounds(287, 18, 56, 16);
 				panel.add(lblcodigo);
 			}
 			{
@@ -89,30 +91,31 @@ public class RegistrarEnfermedad extends JDialog {
 			}
 			{
 				JComboBox cmbestado = new JComboBox();
+				cmbestado.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Vigilancia"}));
 				cmbestado.setBounds(355, 50, 174, 22);
 				panel.add(cmbestado);
 			}
 			{
 				JLabel lblestado = new JLabel("Estado:");
-				lblestado.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				lblestado.setBounds(287, 50, 56, 16);
+				lblestado.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblestado.setBounds(287, 53, 56, 16);
 				panel.add(lblestado);
 			}
 			{
 				JLabel label = new JLabel("Descripcion:");
-				label.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				label.setBounds(12, 85, 88, 16);
+				label.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				label.setBounds(12, 91, 88, 16);
 				panel.add(label);
 			}
 			{
 				JTextPane txtdescripcion = new JTextPane();
-				txtdescripcion.setBounds(99, 91, 430, 54);
+				txtdescripcion.setBounds(99, 91, 430, 91);
 				panel.add(txtdescripcion);
 			}
 		}
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBorder(null);
+			buttonPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
