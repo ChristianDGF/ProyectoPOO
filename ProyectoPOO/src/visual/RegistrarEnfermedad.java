@@ -48,7 +48,7 @@ public class RegistrarEnfermedad extends JDialog {
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
 			JPanel panel = new JPanel();
-			panel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+			panel.setBorder(null);
 			contentPanel.add(panel, BorderLayout.CENTER);
 			panel.setLayout(null);
 			{
@@ -112,7 +112,7 @@ public class RegistrarEnfermedad extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+			buttonPane.setBorder(null);
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{

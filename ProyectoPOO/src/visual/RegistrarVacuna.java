@@ -19,6 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
 
 public class RegistrarVacuna extends JDialog {
 
@@ -52,7 +53,7 @@ public class RegistrarVacuna extends JDialog {
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
 			JPanel panel = new JPanel();
-			panel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+			panel.setBorder(null);
 			contentPanel.add(panel, BorderLayout.CENTER);
 			panel.setLayout(null);
 			
@@ -92,6 +93,7 @@ public class RegistrarVacuna extends JDialog {
 			panel.add(lbltipo);
 			
 			JComboBox cmbtipo = new JComboBox();
+			cmbtipo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Vivas atenuadas", "Inactivadas", "Toxoides", "Subunidades", "Vector recombinante", "Vacuna de ADN", "Vacuna de ARN"}));
 			cmbtipo.setBounds(355, 58, 174, 22);
 			panel.add(cmbtipo);
 			
@@ -106,7 +108,7 @@ public class RegistrarVacuna extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+			buttonPane.setBorder(null);
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
