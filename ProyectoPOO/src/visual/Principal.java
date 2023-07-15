@@ -55,28 +55,22 @@ public class Principal {
 		JMenuBar menuBar = new JMenuBar();
 		frmClinicaCw.setJMenuBar(menuBar);
 		
-		JMenu mnNewMenu = new JMenu("Enfermedades");
-		menuBar.add(mnNewMenu);
+		JMenu menuempleados = new JMenu("Administracion");
+		menuBar.add(menuempleados);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Agregar");
-		mntmNewMenuItem.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Registrar Empleados");
+		mntmNewMenuItem_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrarEnfermedad regenfermedad = new RegistrarEnfermedad();
-				regenfermedad.setModal(true);
-				regenfermedad.setLocationRelativeTo(null);
-				regenfermedad.setVisible(true);
+				RegistrarEmpleado regempleado = new RegistrarEmpleado();
+				regempleado.setModal(true);
+				regempleado.setLocationRelativeTo(null);
+				regempleado.setVisible(true);
 			}
 		});
-		mnNewMenu.add(mntmNewMenuItem);
+		menuempleados.add(mntmNewMenuItem_4);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Listar");
-		mnNewMenu.add(mntmNewMenuItem_1);
-		
-		JMenu mnNewMenu_1 = new JMenu("Vacunas");
-		menuBar.add(mnNewMenu_1);
-		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Agregar");
-		mntmNewMenuItem_2.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Registrar Vacunas");
+		mntmNewMenuItem_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RegistrarVacuna regvacuna = new RegistrarVacuna();
 				regvacuna.setModal(true);
@@ -84,10 +78,18 @@ public class Principal {
 				regvacuna.setVisible(true);
 			}
 		});
-		mnNewMenu_1.add(mntmNewMenuItem_2);
+		menuempleados.add(mntmNewMenuItem_5);
 		
-		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Listar");
-		mnNewMenu_1.add(mntmNewMenuItem_3);
+		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Registrar Enfermedades");
+		mntmNewMenuItem_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrarEnfermedad regenfermedad = new RegistrarEnfermedad();
+				regenfermedad.setModal(true);
+				regenfermedad.setLocationRelativeTo(null);
+				regenfermedad.setVisible(true);
+			}
+		});
+		menuempleados.add(mntmNewMenuItem_6);
 	}
 
 }

@@ -9,9 +9,10 @@ public class Persona {
 	protected String genero;
 	protected String cedula; 
 	protected String telefono;
+	protected String correoelectronico;
     
 	public Persona(String nombre,String apellido,String direccion, String fechaNacimiento, String genero, String cedula,
-			String telefono) 
+			String telefono,String correoelectronico) 
 	{
 		super();
 		this.nombre = nombre;
@@ -21,6 +22,7 @@ public class Persona {
 		this.genero = genero;
 		this.cedula = cedula;
 		this.telefono = telefono;
+		this.correoelectronico = correoelectronico;
 	}
 
 	public String getNombre() {
@@ -77,5 +79,13 @@ public class Persona {
 
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
+	}
+
+	public String getCorreoelectronico() {
+		return correoelectronico;
+	}
+
+	public void setCorreoelectronico(String correoelectronico) {
+		this.correoelectronico = correoelectronico;
 	}
 }

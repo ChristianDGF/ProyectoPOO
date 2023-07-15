@@ -11,8 +11,15 @@ import javax.swing.border.EtchedBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
+
+import logico.Clinica;
+import logico.Empleado;
+import logico.Medico;
+
 import javax.swing.UIManager;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
@@ -21,34 +28,29 @@ import javax.swing.JTextArea;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Color;
 import java.awt.event.ItemListener;
+import java.text.SimpleDateFormat;
 import java.awt.event.ItemEvent;
 
 public class RegistrarEmpleado extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-	private JComboBox comboBoxCargo;
-	private JComboBox comboBoxSexo;
-	private JTextField textField_2;
+	private JTextField txtnombre;
+	private JTextField txtapellido;
+	private JComboBox cmbcargo;
+	private JComboBox cmbsexo;
+	private JTextField txtconsultorio;
 	private JPanel DoctorPanel;
+	private JFormattedTextField txtcedula;
+	private JFormattedTextField txtfechanacimiento;
+	private JFormattedTextField txttelefono;
+	private JFormattedTextField txtcorreo;
+	private JTextArea txtdireccion;
+	private JComboBox cmbespecialidad;
+	private JFormattedTextField txtexequatur;
+	private SimpleDateFormat dateFormat = new SimpleDateFormat("DD/MM/YYYY");
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			RegistrarEmpleado dialog = new RegistrarEmpleado();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
-	/**
-	 * Create the dialog.
-	 */
+
 	public RegistrarEmpleado() {
 		setTitle("Registrar Empleado");
 		setResizable(false);
@@ -65,60 +67,60 @@ public class RegistrarEmpleado extends JDialog {
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Cedula:");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel.setBounds(26, 34, 53, 14);
-		panel.add(lblNewLabel);
+		JLabel lblcedula = new JLabel("Cedula:");
+		lblcedula.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblcedula.setBounds(26, 34, 53, 14);
+		panel.add(lblcedula);
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField();
-		formattedTextField.setBounds(97, 29, 185, 20);
-		panel.add(formattedTextField);
+		txtcedula = new JFormattedTextField();
+		txtcedula.setBounds(97, 29, 185, 20);
+		panel.add(txtcedula);
 		
-		JLabel lblNewLabel_1 = new JLabel("Fecha Nacimiento:");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_1.setBounds(312, 34, 110, 14);
-		panel.add(lblNewLabel_1);
+		JLabel lblfechanacim = new JLabel("Fecha Nacimiento:");
+		lblfechanacim.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblfechanacim.setBounds(312, 34, 110, 14);
+		panel.add(lblfechanacim);
 		
-		JFormattedTextField formattedTextField_1 = new JFormattedTextField();
-		formattedTextField_1.setBounds(442, 29, 185, 20);
-		panel.add(formattedTextField_1);
+		txtfechanacimiento = new JFormattedTextField();
+		txtfechanacimiento.setBounds(442, 29, 185, 20);
+		panel.add(txtfechanacimiento);
 		
-		JLabel lblNewLabel_2 = new JLabel("Nombre:");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_2.setBounds(26, 82, 53, 14);
-		panel.add(lblNewLabel_2);
+		JLabel lblnombre = new JLabel("Nombre:");
+		lblnombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblnombre.setBounds(26, 82, 53, 14);
+		panel.add(lblnombre);
 		
-		textField = new JTextField();
-		textField.setBounds(97, 78, 185, 20);
-		panel.add(textField);
-		textField.setColumns(10);
+		txtnombre = new JTextField();
+		txtnombre.setBounds(97, 78, 185, 20);
+		panel.add(txtnombre);
+		txtnombre.setColumns(10);
 		
-		JLabel lblNewLabel_3 = new JLabel("Apellido:");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_3.setBounds(312, 82, 65, 14);
-		panel.add(lblNewLabel_3);
+		JLabel lblapellido = new JLabel("Apellido:");
+		lblapellido.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblapellido.setBounds(312, 82, 65, 14);
+		panel.add(lblapellido);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(442, 78, 185, 20);
-		panel.add(textField_1);
-		textField_1.setColumns(10);
+		txtapellido = new JTextField();
+		txtapellido.setBounds(442, 78, 185, 20);
+		panel.add(txtapellido);
+		txtapellido.setColumns(10);
 		
-		JLabel lblNewLabel_4 = new JLabel("Telefono:");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_4.setBounds(26, 130, 53, 14);
-		panel.add(lblNewLabel_4);
+		JLabel lbltelefono = new JLabel("Telefono:");
+		lbltelefono.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lbltelefono.setBounds(26, 130, 53, 14);
+		panel.add(lbltelefono);
 		
-		JFormattedTextField formattedTextField_2 = new JFormattedTextField();
-		formattedTextField_2.setBounds(97, 127, 185, 20);
-		panel.add(formattedTextField_2);
+		txttelefono = new JFormattedTextField();
+		txttelefono.setBounds(97, 127, 185, 20);
+		panel.add(txttelefono);
 		
-		JLabel lblNewLabel_5 = new JLabel("Cargo:");
-		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_5.setBounds(312, 130, 53, 14);
-		panel.add(lblNewLabel_5);
+		JLabel lblcargo = new JLabel("Cargo:");
+		lblcargo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblcargo.setBounds(312, 130, 53, 14);
+		panel.add(lblcargo);
 		
-		comboBoxCargo = new JComboBox();
-		comboBoxCargo.addItemListener(new ItemListener() {
+		cmbcargo = new JComboBox();
+		cmbcargo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if(e.getItem().toString() == "Doctor")
 				{
@@ -130,37 +132,37 @@ public class RegistrarEmpleado extends JDialog {
 				}
 			}
 		});
-		comboBoxCargo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Doctor", "Secretaria", "Vedel"}));
-		comboBoxCargo.setBounds(442, 127, 185, 20);
-		panel.add(comboBoxCargo);
+		cmbcargo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Doctor", "Secretaria", "Vedel"}));
+		cmbcargo.setBounds(442, 127, 185, 20);
+		panel.add(cmbcargo);
 		
-		JLabel lblNewLabel_6 = new JLabel("Correo Electronico:");
-		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_6.setBounds(312, 178, 110, 14);
-		panel.add(lblNewLabel_6);
+		JLabel lblcorreo = new JLabel("Correo Electronico:");
+		lblcorreo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblcorreo.setBounds(312, 178, 110, 14);
+		panel.add(lblcorreo);
 		
-		JFormattedTextField formattedTextField_3 = new JFormattedTextField();
-		formattedTextField_3.setBounds(442, 176, 185, 20);
-		panel.add(formattedTextField_3);
+		txtcorreo = new JFormattedTextField();
+		txtcorreo.setBounds(442, 176, 185, 20);
+		panel.add(txtcorreo);
 		
-		JLabel lblNewLabel_7 = new JLabel("Sexo:");
-		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_7.setBounds(26, 178, 46, 14);
-		panel.add(lblNewLabel_7);
+		JLabel lblsexo = new JLabel("Sexo:");
+		lblsexo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblsexo.setBounds(26, 178, 46, 14);
+		panel.add(lblsexo);
 		
-		comboBoxSexo = new JComboBox();
-		comboBoxSexo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Masculino", "Femenino"}));
-		comboBoxSexo.setBounds(97, 176, 185, 20);
-		panel.add(comboBoxSexo);
+		cmbsexo = new JComboBox();
+		cmbsexo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Masculino", "Femenino"}));
+		cmbsexo.setBounds(97, 176, 185, 20);
+		panel.add(cmbsexo);
 		
-		JLabel lblNewLabel_8 = new JLabel("Direcci\u00F3n:");
-		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_8.setBounds(21, 223, 58, 14);
-		panel.add(lblNewLabel_8);
+		JLabel lbldireccion = new JLabel("Direcci\u00F3n:");
+		lbldireccion.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lbldireccion.setBounds(21, 223, 58, 14);
+		panel.add(lbldireccion);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(97, 223, 530, 70);
-		panel.add(textArea);
+		txtdireccion = new JTextArea();
+		txtdireccion.setBounds(97, 223, 530, 70);
+		panel.add(txtdireccion);
 		
 		DoctorPanel = new JPanel();
 		DoctorPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -170,34 +172,34 @@ public class RegistrarEmpleado extends JDialog {
 		DoctorPanel.setVisible(false);
 		DoctorPanel.setEnabled(false);
 		
-		JLabel lblNewLabel_9 = new JLabel("Especialidad:");
-		lblNewLabel_9.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_9.setBounds(27, 22, 76, 14);
-		DoctorPanel.add(lblNewLabel_9);
+		JLabel lblespecialidad = new JLabel("Especialidad:");
+		lblespecialidad.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblespecialidad.setBounds(27, 22, 76, 14);
+		DoctorPanel.add(lblespecialidad);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Cardiolog\u00EDa", "Neurolog\u00EDa", "Nefrolog\u00EDa", "Pediatr\u00EDa", "Reumatolog\u00EDa", "Cirug\u00EDa pedi\u00E1trica", "Cirug\u00EDa ortop\u00E9dica y traumatolog\u00EDa", "Cirug\u00EDa tor\u00E1cica", "Neurocirug\u00EDa", "An\u00E1lisis cl\u00EDnicos", "Anatom\u00EDa patol\u00F3gica", "Bioqu\u00EDmica cl\u00EDnica", "Farmacolog\u00EDa cl\u00EDnica", "Inmunolog\u00EDa", "Medicina nuclear", "Microbiolog\u00EDa y parasitolog\u00EDa", "Neurofisiolog\u00EDa cl\u00EDnica", "Radiodiagn\u00F3stico"}));
-		comboBox.setBounds(130, 20, 189, 20);
-		DoctorPanel.add(comboBox);
+		cmbespecialidad = new JComboBox();
+		cmbespecialidad.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Cardiolog\u00EDa", "Neurolog\u00EDa", "Nefrolog\u00EDa", "Pediatr\u00EDa", "Reumatolog\u00EDa", "Cirug\u00EDa pedi\u00E1trica", "Cirug\u00EDa ortop\u00E9dica y traumatolog\u00EDa", "Cirug\u00EDa tor\u00E1cica", "Neurocirug\u00EDa", "An\u00E1lisis cl\u00EDnicos", "Anatom\u00EDa patol\u00F3gica", "Bioqu\u00EDmica cl\u00EDnica", "Farmacolog\u00EDa cl\u00EDnica", "Inmunolog\u00EDa", "Medicina nuclear", "Microbiolog\u00EDa y parasitolog\u00EDa", "Neurofisiolog\u00EDa cl\u00EDnica", "Radiodiagn\u00F3stico"}));
+		cmbespecialidad.setBounds(130, 20, 189, 20);
+		DoctorPanel.add(cmbespecialidad);
 		
-		JLabel lblNewLabel_10 = new JLabel("Exequatur:");
-		lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_10.setBounds(346, 22, 76, 14);
-		DoctorPanel.add(lblNewLabel_10);
+		JLabel lblexequatur = new JLabel("Exequatur:");
+		lblexequatur.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblexequatur.setBounds(346, 22, 76, 14);
+		DoctorPanel.add(lblexequatur);
 		
-		JFormattedTextField formattedTextField_4 = new JFormattedTextField();
-		formattedTextField_4.setBounds(449, 20, 185, 20);
-		DoctorPanel.add(formattedTextField_4);
+		txtexequatur = new JFormattedTextField();
+		txtexequatur.setBounds(449, 20, 185, 20);
+		DoctorPanel.add(txtexequatur);
 		
-		JLabel lblNewLabel_11 = new JLabel("Numero de Consultorio:");
-		lblNewLabel_11.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_11.setBounds(27, 68, 138, 14);
-		DoctorPanel.add(lblNewLabel_11);
+		JLabel lblnumeroconsultorio = new JLabel("Numero de Consultorio:");
+		lblnumeroconsultorio.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblnumeroconsultorio.setBounds(27, 68, 138, 14);
+		DoctorPanel.add(lblnumeroconsultorio);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(171, 65, 185, 20);
-		DoctorPanel.add(textField_2);
-		textField_2.setColumns(10);
+		txtconsultorio = new JTextField();
+		txtconsultorio.setBounds(171, 65, 185, 20);
+		DoctorPanel.add(txtconsultorio);
+		txtconsultorio.setColumns(10);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -205,6 +207,11 @@ public class RegistrarEmpleado extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Registrar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						registrarEmpleado();
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 			}
@@ -220,4 +227,54 @@ public class RegistrarEmpleado extends JDialog {
 			}
 		}
 	}
+	private void registrarEmpleado()
+	{
+	    String cedula = txtcedula.getText();
+	    String fechaNacimiento = dateFormat.format(txtfechanacimiento.getValue());
+	    String nombre = txtnombre.getText();
+	    String apellido = txtapellido.getText();
+	    String telefono = txttelefono.getText();
+	    String cargo = cmbcargo.getSelectedItem().toString();
+	    String correoElectronico = txtcorreo.getText();
+	    String sexo = cmbsexo.getSelectedItem().toString();
+	    String direccion = txtdireccion.getText();
+	    String departamento = "General";
+	    
+	    if (cargo.equals("Doctor")) 
+	    {
+	        String especialidad = cmbespecialidad.getSelectedItem().toString();
+	        String exequatur = txtexequatur.getText();
+	        String numeroConsultorio = txtconsultorio.getText();
+	        
+	        Medico medico = new Medico(nombre, apellido, direccion, fechaNacimiento, sexo, cedula, telefono,
+	            correoElectronico, cargo, departamento, especialidad, exequatur, numeroConsultorio);
+	        
+	        Clinica.getInstance().AgregarMedico(medico);
+	        
+	    } else {
+	        Empleado empleado = new Empleado(nombre, apellido, direccion, fechaNacimiento, sexo, cedula, telefono,
+	            correoElectronico, cargo, departamento);
+	        
+	        Clinica.getInstance().AgregarEmpleado(empleado);
+	    }
+	    JOptionPane.showMessageDialog(null, "Operación satisfactoria", "Registro",
+				JOptionPane.INFORMATION_MESSAGE);
+	    clean();
+	}
+	private void clean() {
+	    txtcedula.setText("");
+	    txtfechanacimiento.setValue(null);
+	    txtnombre.setText("");
+	    txtapellido.setText("");
+	    txttelefono.setText("");
+	    cmbcargo.setSelectedIndex(0);
+	    txtcorreo.setText("");
+	    cmbsexo.setSelectedIndex(0);
+	    txtdireccion.setText("");
+	    cmbespecialidad.setSelectedIndex(0);
+	    txtexequatur.setText("");
+	    txtconsultorio.setText("");
+	}
+
+
 }

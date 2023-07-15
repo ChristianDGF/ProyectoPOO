@@ -353,4 +353,13 @@ public class Clinica {
 	{
 		misEmpleados.remove(empleado);
 	}
+	
+	public void AgregarMedico(Medico medico)
+	{
+		misMedicos.add(medico);
+	}
+	public void EliminarMedico(Medico medico)
+	{
+		misMedicos.remove(medico);
+	}
 }
