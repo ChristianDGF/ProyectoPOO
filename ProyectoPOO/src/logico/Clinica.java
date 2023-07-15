@@ -300,6 +300,23 @@ public class Clinica {
 		
 	}
 	
+	public ArrayList<Empleado> getEmpleadosPorCargo(String cargo) {
+	    ArrayList<Empleado> empleadosPorCargo = new ArrayList<>();
+
+	    for (Empleado empleado : misEmpleados) {
+	        if (empleado.getCargo().equals(cargo)) {
+	            empleadosPorCargo.add(empleado);
+	        }
+	        if(cargo.equalsIgnoreCase("<Todos>"))
+	        {
+	        	empleadosPorCargo = misEmpleados;
+	        }
+	    }
+
+	    return empleadosPorCargo;
+	}
+
+	
 	public void AgregarVacuna(Vacuna vacuna)
 	{
 		misVacunas.add(vacuna);

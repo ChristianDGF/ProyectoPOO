@@ -29,6 +29,7 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.Color;
 import java.awt.event.ItemListener;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.awt.event.ItemEvent;
 
 public class RegistrarEmpleado extends JDialog {
@@ -122,7 +123,7 @@ public class RegistrarEmpleado extends JDialog {
 		cmbcargo = new JComboBox();
 		cmbcargo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				if(e.getItem().toString() == "Doctor")
+				if(e.getItem().toString() == "Medico")
 				{
 					DoctorPanel.setVisible(true);
 					DoctorPanel.setEnabled(true);
@@ -132,7 +133,7 @@ public class RegistrarEmpleado extends JDialog {
 				}
 			}
 		});
-		cmbcargo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Doctor", "Secretaria", "Vedel"}));
+		cmbcargo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Medico", "Secretaria", "Vedel"}));
 		cmbcargo.setBounds(463, 127, 185, 20);
 		panel.add(cmbcargo);
 		
@@ -240,7 +241,7 @@ public class RegistrarEmpleado extends JDialog {
 	private void registrarEmpleado()
 	{
 	    String cedula = txtcedula.getText();
-	    String fechaNacimiento = dateFormat.format(txtfechanacimiento.getValue());
+	    String fechanacimiento = txtfechanacimiento.getText();
 	    String nombre = txtnombre.getText();
 	    String apellido = txtapellido.getText();
 	    String telefono = txttelefono.getText();
@@ -256,13 +257,13 @@ public class RegistrarEmpleado extends JDialog {
 	        String exequatur = txtexequatur.getText();
 	        String numeroConsultorio = txtconsultorio.getText();
 	        
-	        Medico medico = new Medico(nombre, apellido, direccion, fechaNacimiento, sexo, cedula, telefono,
+	        Medico medico = new Medico(nombre, apellido, direccion, fechanacimiento, sexo, cedula, telefono,
 	            correoElectronico, cargo, departamento, especialidad, exequatur, numeroConsultorio);
 	        
 	        Clinica.getInstance().AgregarMedico(medico);
 	        
 	    } else {
-	        Empleado empleado = new Empleado(nombre, apellido, direccion, fechaNacimiento, sexo, cedula, telefono,
+	        Empleado empleado = new Empleado(nombre, apellido, direccion, fechanacimiento, sexo, cedula, telefono,
 	            correoElectronico, cargo, departamento);
 	        
 	        Clinica.getInstance().AgregarEmpleado(empleado);

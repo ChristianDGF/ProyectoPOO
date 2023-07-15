@@ -90,6 +90,17 @@ public class Principal {
 			}
 		});
 		menuempleados.add(mntmNewMenuItem_6);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Listar Empleados");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarEmpleados listarempleados = new ListarEmpleados();
+				listarempleados.setModal(true);
+				listarempleados.setLocationRelativeTo(null);
+				listarempleados.setVisible(true);
+			}
+		});
+		menuempleados.add(mntmNewMenuItem);
 	}
 
 }
