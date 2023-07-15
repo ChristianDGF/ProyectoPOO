@@ -262,7 +262,7 @@ public class RegistrarEmpleado extends JDialog {
 	            correoElectronico, cargo, departamento, especialidad, exequatur, numeroConsultorio);
 	        
 	        Clinica.getInstance().AgregarMedico(medico);
-	        
+	        Clinica.getInstance().AgregarEmpleado(medico);
 	    } else {
 	        Empleado empleado = new Empleado(nombre, apellido, direccion, fechanacimiento, sexo, cedula, telefono,
 	            correoElectronico, cargo, departamento);

@@ -303,13 +303,13 @@ public class Clinica {
 	public ArrayList<Empleado> getEmpleadosPorCargo(String cargo) {
 	    ArrayList<Empleado> empleadosPorCargo = new ArrayList<>();
 
+	    if (cargo.equalsIgnoreCase("<Todos>")) {
+	        return getMisEmpleados();
+	    }
+
 	    for (Empleado empleado : misEmpleados) {
-	        if (empleado.getCargo().equals(cargo)) {
+	        if (empleado.getCargo().equalsIgnoreCase(cargo)) {
 	            empleadosPorCargo.add(empleado);
-	        }
-	        if(cargo.equalsIgnoreCase("<Todos>"))
-	        {
-	        	empleadosPorCargo = getMisEmpleados();
 	        }
 	    }
 
@@ -349,6 +349,23 @@ public class Clinica {
 
         return medicosPorEspecialidad;
     }
+	
+	public ArrayList<Vacuna> getVacunasPorTipo(String tipo) {
+	    ArrayList<Vacuna> vacunasPorTipo = new ArrayList<>();
+
+	    for (Vacuna vacuna : misVacunas) {
+	        if (vacuna.getTipo().equals(tipo)) {
+	            vacunasPorTipo.add(vacuna);
+	        }
+	        if(tipo.equalsIgnoreCase("<Todos>"))
+            {
+	        	vacunasPorTipo = getMisVacunas();
+            }
+	    }
+
+	    return vacunasPorTipo;
+	}
+
 	
 	public void AgregarVacuna(Vacuna vacuna)
 	{

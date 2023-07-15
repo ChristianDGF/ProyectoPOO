@@ -11,8 +11,14 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.border.SoftBevelBorder;
+
+import logico.Clinica;
+import logico.Vacuna;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -27,23 +33,9 @@ public class RegistrarVacuna extends JDialog {
 	private JTextField txtenfermedad;
 	private JTextField txtcodigo;
 	private JTextField txtlaboratorio;
+	private JComboBox cmbtipo;
+	private JTextPane textdescripcion;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			RegistrarVacuna dialog = new RegistrarVacuna();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Create the dialog.
-	 */
 	public RegistrarVacuna() {
 		setTitle("Registrar Vacuna");
 		setBounds(100, 100, 580, 308);
@@ -92,7 +84,7 @@ public class RegistrarVacuna extends JDialog {
 			lbltipo.setBounds(287, 61, 56, 16);
 			panel.add(lbltipo);
 			
-			JComboBox cmbtipo = new JComboBox();
+			cmbtipo = new JComboBox();
 			cmbtipo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Vivas atenuadas", "Inactivadas", "Toxoides", "Subunidades", "Vector recombinante", "Vacuna de ADN", "Vacuna de ARN"}));
 			cmbtipo.setBounds(355, 58, 174, 22);
 			panel.add(cmbtipo);
@@ -102,7 +94,7 @@ public class RegistrarVacuna extends JDialog {
 			lbldescripcion.setBounds(12, 100, 88, 16);
 			panel.add(lbldescripcion);
 			
-			JTextPane textdescripcion = new JTextPane();
+			textdescripcion = new JTextPane();
 			textdescripcion.setBounds(99, 100, 430, 107);
 			panel.add(textdescripcion);
 		}
@@ -113,6 +105,11 @@ public class RegistrarVacuna extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Registrar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						registrarVacuna();
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -129,4 +126,29 @@ public class RegistrarVacuna extends JDialog {
 			}
 		}
 	}
+	
+	private void registrarVacuna() {
+	    String enfermedad = txtenfermedad.getText();
+	    String codigo = txtcodigo.getText();
+	    String laboratorio = txtlaboratorio.getText();
+	    String tipo = cmbtipo.getSelectedItem().toString();
+	    String descripcion = textdescripcion.getText();
+
+	    
+	    Vacuna vacuna = new Vacuna(codigo, laboratorio, descripcion, enfermedad, tipo);
+	    Clinica.getInstance().AgregarVacuna(vacuna);
+
+	    JOptionPane.showMessageDialog(null, "Vacuna registrada correctamente", "Registro de Vacuna", JOptionPane.INFORMATION_MESSAGE);
+	    
+	    clean();
+	}
+	private void clean()
+	{
+		txtenfermedad.setText("");
+	    txtcodigo.setText("");
+	    txtlaboratorio.setText("");
+	    cmbtipo.setSelectedIndex(0);
+	    textdescripcion.setText("");
+	}
+
 }

@@ -123,6 +123,17 @@ public class Principal {
 			}
 		});
 		menuempleados.add(mntmNewMenuItem_2);
+		
+		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Listar Vacunas");
+		mntmNewMenuItem_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarVacunas listarvacunas = new ListarVacunas();
+				listarvacunas.setModal(true);
+				listarvacunas.setLocationRelativeTo(null);
+				listarvacunas.setVisible(true);
+			}
+		});
+		menuempleados.add(mntmNewMenuItem_3);
 	}
 
 }
