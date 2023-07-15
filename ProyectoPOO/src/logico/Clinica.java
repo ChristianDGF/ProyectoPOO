@@ -333,8 +333,22 @@ public class Clinica {
 
 	    return enfermedadesFiltradas;
 	}
+	
+	public ArrayList<Medico> obtenerMedicosPorEspecialidad(String especialidad) {
+        ArrayList<Medico> medicosPorEspecialidad = new ArrayList<>();
 
+        for (Medico medico : getMisMedicos()) {
+            if (medico.getEspecialidad().equalsIgnoreCase(especialidad)) {
+                medicosPorEspecialidad.add(medico);
+            }
+            if(especialidad.equalsIgnoreCase("<Todas>"))
+            {
+            	medicosPorEspecialidad = getMisMedicos();
+            }
+        }
 
+        return medicosPorEspecialidad;
+    }
 	
 	public void AgregarVacuna(Vacuna vacuna)
 	{

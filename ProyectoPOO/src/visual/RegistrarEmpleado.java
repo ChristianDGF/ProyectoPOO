@@ -252,7 +252,7 @@ public class RegistrarEmpleado extends JDialog {
 	    String direccion = txtdireccion.getText();
 	    String departamento = cmbdepartamento.getSelectedItem().toString();
 	    
-	    if (cargo.equals("Doctor")) 
+	    if (cargo.equals("Medico")) 
 	    {
 	        String especialidad = cmbespecialidad.getSelectedItem().toString();
 	        String exequatur = txtexequatur.getText();

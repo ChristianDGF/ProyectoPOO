@@ -112,6 +112,17 @@ public class Principal {
 			}
 		});
 		menuempleados.add(mntmNewMenuItem_1);
+		
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Listar Medicos");
+		mntmNewMenuItem_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarMedicos listarmedicos = new ListarMedicos();
+				listarmedicos.setModal(true);
+				listarmedicos.setLocationRelativeTo(null);
+				listarmedicos.setVisible(true);
+			}
+		});
+		menuempleados.add(mntmNewMenuItem_2);
 	}
 
 }

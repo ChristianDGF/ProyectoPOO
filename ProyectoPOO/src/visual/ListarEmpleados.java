@@ -49,8 +49,7 @@ public class ListarEmpleados extends JDialog {
 		cmbcargo = new JComboBox();
 		cmbcargo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 String cargoSeleccionado = cmbcargo.getSelectedItem().toString();
-			        cargarEmpleadosPorCargo(cargoSeleccionado);
+			        cargarEmpleadosPorCargo();
 			}
 		});
 		cmbcargo.setModel(new DefaultComboBoxModel(new String[] {"<Todos>", "Medico", "Secretaria", "Vedel"}));
@@ -79,14 +78,12 @@ public class ListarEmpleados extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-		if(cmbcargo.getSelectedItem().toString().equalsIgnoreCase("<Todos>"))
-		{
-		cargarEmpleadosPorCargo("<Todos>");
-		}
+		cargarEmpleadosPorCargo();
 	}
 
-	private void cargarEmpleadosPorCargo(String cargo) {
-	    ArrayList<Empleado> empleados = Clinica.getInstance().getEmpleadosPorCargo(cargo);
+	private void cargarEmpleadosPorCargo() {
+		String cargoSeleccionado = cmbcargo.getSelectedItem().toString();
+	    ArrayList<Empleado> empleados = Clinica.getInstance().getEmpleadosPorCargo(cargoSeleccionado);
 
 	    DefaultTableModel model = new DefaultTableModel();
 	    model.addColumn("Cedula");
