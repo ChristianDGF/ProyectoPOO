@@ -101,6 +101,17 @@ public class Principal {
 			}
 		});
 		menuempleados.add(mntmNewMenuItem);
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Listar Enfermedades");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarEnfermedades listarenfermedades = new ListarEnfermedades();
+				listarenfermedades.setModal(true);
+				listarenfermedades.setLocationRelativeTo(null);
+				listarenfermedades.setVisible(true);
+			}
+		});
+		menuempleados.add(mntmNewMenuItem_1);
 	}
 
 }

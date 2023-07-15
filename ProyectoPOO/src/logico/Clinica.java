@@ -309,12 +309,31 @@ public class Clinica {
 	        }
 	        if(cargo.equalsIgnoreCase("<Todos>"))
 	        {
-	        	empleadosPorCargo = misEmpleados;
+	        	empleadosPorCargo = getMisEmpleados();
 	        }
 	    }
 
 	    return empleadosPorCargo;
 	}
+	
+	public ArrayList<Enfermedad> obtenerEnfermedadesPorEstado(String estado) {
+	    ArrayList<Enfermedad> enfermedadesFiltradas = new ArrayList<>();
+
+	    ArrayList<Enfermedad> todasLasEnfermedades = getMisEnfermedades();
+
+	    for (Enfermedad enfermedad : todasLasEnfermedades) {
+	        if (enfermedad.getEstado().equalsIgnoreCase(estado)) {
+	            enfermedadesFiltradas.add(enfermedad);
+	        }
+	        if(estado.equalsIgnoreCase("<Todos>"))
+	        {
+	        	enfermedadesFiltradas = getMisEnfermedades();
+	        }
+	    }
+
+	    return enfermedadesFiltradas;
+	}
+
 
 	
 	public void AgregarVacuna(Vacuna vacuna)

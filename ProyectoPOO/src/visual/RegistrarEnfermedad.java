@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -16,6 +18,10 @@ import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.EtchedBorder;
+
+import logico.Clinica;
+import logico.Enfermedad;
+
 import javax.swing.DefaultComboBoxModel;
 
 public class RegistrarEnfermedad extends JDialog {
@@ -24,23 +30,9 @@ public class RegistrarEnfermedad extends JDialog {
 	private JTextField txtnombre;
 	private JTextField txttipo;
 	private JTextField txtcodigo;
+	private JTextPane txtdescripcion;
+	private JComboBox cmbestado;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			RegistrarEnfermedad dialog = new RegistrarEnfermedad();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Create the dialog.
-	 */
 	public RegistrarEnfermedad() {
 		setTitle("Registrar Enfermedad");
 		setBounds(100, 100, 576, 288);
@@ -90,7 +82,7 @@ public class RegistrarEnfermedad extends JDialog {
 				panel.add(txtcodigo);
 			}
 			{
-				JComboBox cmbestado = new JComboBox();
+				cmbestado = new JComboBox();
 				cmbestado.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Vigilancia"}));
 				cmbestado.setBounds(355, 50, 174, 22);
 				panel.add(cmbestado);
@@ -108,7 +100,7 @@ public class RegistrarEnfermedad extends JDialog {
 				panel.add(label);
 			}
 			{
-				JTextPane txtdescripcion = new JTextPane();
+				txtdescripcion = new JTextPane();
 				txtdescripcion.setBounds(99, 91, 430, 91);
 				panel.add(txtdescripcion);
 			}
@@ -120,6 +112,11 @@ public class RegistrarEnfermedad extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnregistrar = new JButton("Registrar");
+				btnregistrar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						  registrarEnfermedad();
+					}
+				});
 				btnregistrar.setActionCommand("OK");
 				buttonPane.add(btnregistrar);
 				getRootPane().setDefaultButton(btnregistrar);
@@ -135,6 +132,31 @@ public class RegistrarEnfermedad extends JDialog {
 				buttonPane.add(btncancelar);
 			}
 		}
+	}
+
+	
+	private void registrarEnfermedad() {
+	    String codigo = txtcodigo.getText();
+	    String nombre = txtnombre.getText();
+	    String descripcion = txtdescripcion.getText();
+	    String tipo = txttipo.getText();
+	    String estado = cmbestado.getSelectedItem().toString();
+
+	    Enfermedad enfermedad = new Enfermedad(codigo, nombre, descripcion, tipo, estado);
+	    
+	    Clinica.getInstance().AgregarEnfermedad(enfermedad);
+
+	    JOptionPane.showMessageDialog(null, "Enfermedad registrada correctamente", "Registro",
+	            JOptionPane.INFORMATION_MESSAGE);
+	    clean();
+	}
+
+	private void clean() {
+	    txtcodigo.setText("");
+	    txtnombre.setText("");
+	    txtdescripcion.setText("");
+	    txttipo.setText("");
+	    cmbestado.setSelectedIndex(0);
 	}
 
 }

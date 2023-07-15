@@ -49,6 +49,7 @@ public class RegistrarEmpleado extends JDialog {
 	private JComboBox cmbespecialidad;
 	private JFormattedTextField txtexequatur;
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("DD/MM/YYYY");
+	private JComboBox cmbdepartamento;
 
 
 
@@ -170,10 +171,10 @@ public class RegistrarEmpleado extends JDialog {
 		lblNewLabel.setBounds(26, 221, 95, 14);
 		panel.add(lblNewLabel);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Administracion", "Pediatria", "Cirugia", "Laboratorio"}));
-		comboBox.setBounds(118, 218, 185, 20);
-		panel.add(comboBox);
+		cmbdepartamento = new JComboBox();
+		cmbdepartamento.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Administracion", "Pediatria", "Cirugia", "Laboratorio"}));
+		cmbdepartamento.setBounds(118, 218, 185, 20);
+		panel.add(cmbdepartamento);
 		
 		DoctorPanel = new JPanel();
 		DoctorPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -249,7 +250,7 @@ public class RegistrarEmpleado extends JDialog {
 	    String correoElectronico = txtcorreo.getText();
 	    String sexo = cmbsexo.getSelectedItem().toString();
 	    String direccion = txtdireccion.getText();
-	    String departamento = "General";
+	    String departamento = cmbdepartamento.getSelectedItem().toString();
 	    
 	    if (cargo.equals("Doctor")) 
 	    {
@@ -274,7 +275,7 @@ public class RegistrarEmpleado extends JDialog {
 	}
 	private void clean() {
 	    txtcedula.setText("");
-	    txtfechanacimiento.setValue(null);
+	    txtfechanacimiento.setText("");;
 	    txtnombre.setText("");
 	    txtapellido.setText("");
 	    txttelefono.setText("");
@@ -282,6 +283,7 @@ public class RegistrarEmpleado extends JDialog {
 	    txtcorreo.setText("");
 	    cmbsexo.setSelectedIndex(0);
 	    txtdireccion.setText("");
+	    cmbdepartamento.setSelectedIndex(0);
 	    cmbespecialidad.setSelectedIndex(0);
 	    txtexequatur.setText("");
 	    txtconsultorio.setText("");

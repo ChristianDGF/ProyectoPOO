@@ -12,7 +12,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import logico.Clinica;
-import logico.Empleado;
+import logico.Enfermedad;
 
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
@@ -22,43 +22,41 @@ import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ListarEmpleados extends JDialog {
+public class ListarEnfermedades extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+	private JComboBox comboBox;
 	private JTable table;
-	private JComboBox cmbcargo;
-	private JScrollPane scrollPane;
 
-	public ListarEmpleados() {
-		setBounds(100, 100, 756, 542);
+	public ListarEnfermedades() {
+		setBounds(100, 100, 765, 584);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Listado de Empleados:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(12, 13, 714, 434);
+		panel.setBorder(new TitledBorder(null, "Listado de Enfermedades", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(12, 13, 723, 476);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblcargo = new JLabel("Cargo:");
-		lblcargo.setBounds(12, 25, 56, 16);
-		panel.add(lblcargo);
+		JLabel lblNewLabel = new JLabel("Estado:");
+		lblNewLabel.setBounds(12, 26, 56, 16);
+		panel.add(lblNewLabel);
 		
-		cmbcargo = new JComboBox();
-		cmbcargo.addActionListener(new ActionListener() {
+		comboBox = new JComboBox();
+		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 String cargoSeleccionado = cmbcargo.getSelectedItem().toString();
-			        cargarEmpleadosPorCargo(cargoSeleccionado);
+				cargarEnfermedades();
 			}
 		});
-		cmbcargo.setModel(new DefaultComboBoxModel(new String[] {"<Todos>", "Medico", "Secretaria", "Vedel"}));
-		cmbcargo.setBounds(65, 22, 171, 22);
-		panel.add(cmbcargo);
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"<Todos>", "Vigilancia"}));
+		comboBox.setBounds(80, 23, 132, 22);
+		panel.add(comboBox);
 		
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(22, 54, 680, 367);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(12, 54, 699, 409);
 		panel.add(scrollPane);
 		
 		table = new JTable();
@@ -74,36 +72,34 @@ public class ListarEmpleados extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancelar");
+				JButton cancelButton = new JButton("Cancel");
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
 		}
-		if(cmbcargo.getSelectedItem().toString().equalsIgnoreCase("<Todos>"))
-		{
-		cargarEmpleadosPorCargo("<Todos>");
-		}
+		cargarEnfermedades();
 	}
+	private void cargarEnfermedades() {
+	    String estadoSeleccionado = comboBox.getSelectedItem().toString();
 
-	private void cargarEmpleadosPorCargo(String cargo) {
-	    ArrayList<Empleado> empleados = Clinica.getInstance().getEmpleadosPorCargo(cargo);
+	    ArrayList<Enfermedad> enfermedades = Clinica.getInstance().obtenerEnfermedadesPorEstado(estadoSeleccionado);
 
 	    DefaultTableModel model = new DefaultTableModel();
-	    model.addColumn("Cedula");
+	    model.addColumn("Código");
 	    model.addColumn("Nombre");
-	    model.addColumn("Apellido");
-	    model.addColumn("Cargo");
+	    model.addColumn("Tipo");
+	    model.addColumn("Estado");
 
-	    for (Empleado empleado : empleados) {
-	        model.addRow(new Object[] {
-	            empleado.getCedula(),
-	            empleado.getNombre(),
-	            empleado.getApellido(),
-	            empleado.getCargo()
-	        });
+	    for (Enfermedad enfermedad : enfermedades) {
+	        Object[] row = new Object[5];
+	        row[0] = enfermedad.getCodigo();
+	        row[1] = enfermedad.getNombre();
+	        row[2] = enfermedad.getTipo();
+	        row[3] = enfermedad.getEstado();
+	        model.addRow(row);
 	    }
+
 	    table.setModel(model);
 	}
-
 
 }
