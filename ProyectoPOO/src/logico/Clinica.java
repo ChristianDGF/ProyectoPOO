@@ -429,4 +429,24 @@ public class Clinica {
 	{
 		misMedicos.remove(medico);
 	}
+
+	public void ActualizarPaciente(Paciente miPaciente) {
+		int index = BuscarIndexByCodePaciente(miPaciente.getCedula());
+		misPacientes.set(index, miPaciente);
+		
+	}
+
+	private int BuscarIndexByCodePaciente(String cedula) {
+		int aux = -1;
+		boolean encontrado = false;
+		int ind = 0;
+		while (ind < misPacientes.size() && !encontrado) {
+			if (misPacientes.get(ind).getCedula().equalsIgnoreCase(cedula)) {
+				encontrado = true;
+				aux = ind;
+			}
+			ind++;
+		}
+		return aux;
+	}
 }
