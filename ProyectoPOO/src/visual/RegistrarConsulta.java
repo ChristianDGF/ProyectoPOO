@@ -73,6 +73,7 @@ public class RegistrarConsulta extends JDialog {
 		panel.add(lblNewLabel);
 		
 		txtNombre = new JTextField();
+		txtNombre.setEditable(false);
 		txtNombre.setBounds(66, 29, 406, 20);
 		panel.add(txtNombre);
 		txtNombre.setColumns(10);
@@ -82,6 +83,7 @@ public class RegistrarConsulta extends JDialog {
 		panel.add(lblNewLabel_1);
 		
 		txtApellido = new JTextField();
+		txtApellido.setEditable(false);
 		txtApellido.setBounds(66, 57, 406, 20);
 		panel.add(txtApellido);
 		txtApellido.setColumns(10);
@@ -91,6 +93,7 @@ public class RegistrarConsulta extends JDialog {
 		panel.add(lblNewLabel_2);
 		
 		txtCedula = new JTextField();
+		txtCedula.setEditable(false);
 		txtCedula.setBounds(66, 98, 162, 20);
 		panel.add(txtCedula);
 		txtCedula.setColumns(10);
@@ -100,6 +103,7 @@ public class RegistrarConsulta extends JDialog {
 		panel.add(lblNewLabel_3);
 		
 		txtTelefono = new JTextField();
+		txtTelefono.setEditable(false);
 		txtTelefono.setBounds(310, 98, 162, 20);
 		panel.add(txtTelefono);
 		txtTelefono.setColumns(10);
@@ -109,6 +113,7 @@ public class RegistrarConsulta extends JDialog {
 		panel.add(lblNewLabel_4);
 		
 		txtSexo = new JTextField();
+		txtSexo.setEditable(false);
 		txtSexo.setBounds(66, 129, 162, 20);
 		panel.add(txtSexo);
 		txtSexo.setColumns(10);
@@ -118,25 +123,28 @@ public class RegistrarConsulta extends JDialog {
 		panel.add(lblNewLabel_5);
 		
 		txtTipoDeSangre = new JTextField();
+		txtTipoDeSangre.setEditable(false);
 		txtTipoDeSangre.setBounds(341, 129, 131, 20);
 		panel.add(txtTipoDeSangre);
 		txtTipoDeSangre.setColumns(10);
 		
-		JLabel lblNewLabel_6 = new JLabel("Peso:");
-		lblNewLabel_6.setBounds(10, 164, 46, 14);
+		JLabel lblNewLabel_6 = new JLabel("(lb) Peso:");
+		lblNewLabel_6.setBounds(10, 164, 54, 14);
 		panel.add(lblNewLabel_6);
 		
 		txtPeso = new JTextField();
-		txtPeso.setBounds(66, 160, 162, 20);
+		txtPeso.setEditable(false);
+		txtPeso.setBounds(76, 160, 152, 20);
 		panel.add(txtPeso);
 		txtPeso.setColumns(10);
 		
-		JLabel lblNewLabel_7 = new JLabel("Altura:");
-		lblNewLabel_7.setBounds(246, 164, 46, 14);
+		JLabel lblNewLabel_7 = new JLabel("(Pie) Altura:");
+		lblNewLabel_7.setBounds(246, 164, 83, 14);
 		panel.add(lblNewLabel_7);
 		
 		txtAltura = new JTextField();
-		txtAltura.setBounds(310, 161, 162, 20);
+		txtAltura.setEditable(false);
+		txtAltura.setBounds(320, 161, 152, 20);
 		panel.add(txtAltura);
 		txtAltura.setColumns(10);
 		
@@ -145,6 +153,7 @@ public class RegistrarConsulta extends JDialog {
 		panel.add(lblNewLabel_8);
 		
 		textField = new JTextField();
+		textField.setEditable(false);
 		textField.setBounds(66, 191, 162, 20);
 		panel.add(textField);
 		textField.setColumns(10);
@@ -249,6 +258,7 @@ public class RegistrarConsulta extends JDialog {
 		panel_3.add(lblNewLabel_12);
 		
 		txtCodigoCita = new JTextField();
+		txtCodigoCita.setEditable(false);
 		txtCodigoCita.setBounds(108, 40, 161, 20);
 		panel_3.add(txtCodigoCita);
 		txtCodigoCita.setColumns(10);
@@ -259,6 +269,7 @@ public class RegistrarConsulta extends JDialog {
 		panel_3.add(lblNewLabel_13);
 		
 		txtFechaCita = new JTextField();
+		txtFechaCita.setEditable(false);
 		txtFechaCita.setBounds(369, 40, 161, 20);
 		panel_3.add(txtFechaCita);
 		txtFechaCita.setColumns(10);

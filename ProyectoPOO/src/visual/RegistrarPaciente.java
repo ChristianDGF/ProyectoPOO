@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,6 +19,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
 
 import logico.Clinica;
 import logico.HistorialMedico;
@@ -45,6 +47,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import javax.swing.JFormattedTextField;
 
 public class RegistrarPaciente extends JDialog {
 
@@ -52,7 +55,6 @@ public class RegistrarPaciente extends JDialog {
 	private JTextField txtNombre;
 	private JTextField txtApellido;
 	private JTextField txtCedula;
-	private JTextField txtTelefono;
 	private JTextField txtPeso;
 	private JTextField txtAltura;
 	private JTextField txtEdad;
@@ -71,6 +73,7 @@ public class RegistrarPaciente extends JDialog {
 	private JButton btnBorrar;
 	private JButton btnAgregarAlergia;
 	private String alergiaString;
+	private JFormattedTextField txtTelefono;
 
 	/**
 	 * Launch the application.
@@ -113,6 +116,16 @@ public class RegistrarPaciente extends JDialog {
 		panel.add(lblNewLabel);
 		
 		txtNombre = new JTextField();
+		txtNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+			    if(!Character.isAlphabetic(c) && c != ' ')
+				{
+					e.consume();
+				}
+			}
+		});
 		txtNombre.setBounds(76, 24, 417, 20);
 		panel.add(txtNombre);
 		txtNombre.setColumns(10);
@@ -122,6 +135,16 @@ public class RegistrarPaciente extends JDialog {
 		panel.add(lblNewLabel_1);
 		
 		txtApellido = new JTextField();
+		txtApellido.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+			    if(!Character.isAlphabetic(c) && c != ' ')
+				{
+					e.consume();
+				}
+			}
+		});
 		txtApellido.setBounds(76, 55, 417, 20);
 		panel.add(txtApellido);
 		txtApellido.setColumns(10);
@@ -131,7 +154,7 @@ public class RegistrarPaciente extends JDialog {
 		panel.add(lblNewLabel_2);
 		
 		txtCedula = new JTextField();
-		txtCedula.setEnabled(false);
+		txtCedula.setEditable(false);
 		txtCedula.setBounds(77, 92, 171, 20);
 		panel.add(txtCedula);
 		txtCedula.setColumns(10);
@@ -139,11 +162,6 @@ public class RegistrarPaciente extends JDialog {
 		JLabel lblNewLabel_3 = new JLabel("Telefono:");
 		lblNewLabel_3.setBounds(258, 95, 56, 14);
 		panel.add(lblNewLabel_3);
-		
-		txtTelefono = new JTextField();
-		txtTelefono.setBounds(324, 92, 171, 20);
-		panel.add(txtTelefono);
-		txtTelefono.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("Sexo:");
 		lblNewLabel_4.setBounds(10, 126, 46, 14);
@@ -163,6 +181,26 @@ public class RegistrarPaciente extends JDialog {
 		panel.add(lblNewLabel_6);
 		
 		txtPeso = new JTextField();
+		txtPeso.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+			    if(!Character.isDigit(c))
+				{
+					if(txtPeso.getText().contains("."))
+					{
+						e.consume();	
+					}else if(c != '.')
+					{
+						e.consume();
+					}
+				}
+			    if(txtPeso.getText().length() >= 10)
+			    {
+			    	e.consume();
+			    } 
+			}
+		});
 		txtPeso.setBounds(76, 154, 172, 20);
 		panel.add(txtPeso);
 		txtPeso.setColumns(10);
@@ -172,6 +210,26 @@ public class RegistrarPaciente extends JDialog {
 		panel.add(lblNewLabel_7);
 		
 		txtAltura = new JTextField();
+		txtAltura.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+			    if(!Character.isDigit(c))
+				{
+					if(txtAltura.getText().contains("."))
+					{
+						e.consume();	
+					}else if(c != '.')
+					{
+						e.consume();
+					}
+				}
+			    if(txtAltura.getText().length() >= 10)
+			    {
+			    	e.consume();
+			    } 
+			}
+		});
 		txtAltura.setBounds(331, 154, 162, 20);
 		panel.add(txtAltura);
 		txtAltura.setColumns(10);
@@ -188,6 +246,8 @@ public class RegistrarPaciente extends JDialog {
 				txtEdad.setText(String.valueOf(Period.between(nac, current).getYears()));
 			}
 		});
+		JTextFieldDateEditor editor = (JTextFieldDateEditor) dateChooser.getDateEditor();
+		editor.setEditable(false);
 		dateChooser.setDateFormatString("yyyy-MM-dd");
 		dateChooser.setBounds(152, 185, 162, 20);
 		panel.add(dateChooser);
@@ -197,7 +257,7 @@ public class RegistrarPaciente extends JDialog {
 		panel.add(lblNewLabel_8);
 		
 		txtEdad = new JTextField();
-		txtEdad.setEnabled(false);
+		txtEdad.setEditable(false);
 		txtEdad.setBounds(368, 185, 125, 20);
 		panel.add(txtEdad);
 		txtEdad.setColumns(10);
@@ -221,7 +281,7 @@ public class RegistrarPaciente extends JDialog {
 		panel.add(lblNewLabel_11);
 		
 		txtEstado = new JTextField();
-		txtEstado.setEnabled(false);
+		txtEstado.setEditable(false);
 		txtEstado.setBounds(334, 216, 159, 20);
 		panel.add(txtEstado);
 		txtEstado.setColumns(10);
@@ -233,6 +293,10 @@ public class RegistrarPaciente extends JDialog {
 		txtDireccion = new JTextArea();
 		txtDireccion.setBounds(77, 253, 416, 100);
 		panel.add(txtDireccion);
+		
+		txtTelefono = new JFormattedTextField(createFormatter("###-###-####"));
+		txtTelefono.setBounds(331, 92, 162, 20);
+		panel.add(txtTelefono);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Alergias:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -379,5 +443,16 @@ public class RegistrarPaciente extends JDialog {
 			row[0] = alergia;
 			AlergiaModel.addRow(row);
 		}
+	}
+	
+	protected MaskFormatter createFormatter(String s) {
+	    MaskFormatter formatter = null;
+	    try {
+	        formatter = new MaskFormatter(s);
+	    } catch (java.text.ParseException exc) {
+	        System.err.println("formatter is bad: " + exc.getMessage());
+	        System.exit(-1);
+	    }
+	    return formatter;
 	}
 }

@@ -16,6 +16,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.SpinnerDateModel;
 import java.util.Date;
 import java.util.Calendar;
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
 
 public class RegistrarCita extends JDialog {
 
@@ -136,10 +138,12 @@ public class RegistrarCita extends JDialog {
 			lblFecha.setBounds(302, 29, 56, 16);
 			panelcita.add(lblFecha);
 			
-			JSpinner spinner = new JSpinner();
-			spinner.setModel(new SpinnerDateModel(new Date(1689231600000L), null, null, Calendar.DAY_OF_YEAR));
-			spinner.setBounds(370, 26, 178, 22);
-			panelcita.add(spinner);
+			JDateChooser dateChooser = new JDateChooser();
+			dateChooser.setDateFormatString("yyyy-MM-dd");
+			JTextFieldDateEditor editor = (JTextFieldDateEditor) dateChooser.getDateEditor();
+			editor.setEditable(false);
+			dateChooser.setBounds(370, 25, 178, 20);
+			panelcita.add(dateChooser);
 		}
 		{
 			JPanel buttonPane = new JPanel();

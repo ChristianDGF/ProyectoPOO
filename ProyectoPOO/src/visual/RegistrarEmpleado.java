@@ -29,8 +29,11 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.Color;
 import java.awt.event.ItemListener;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.Date;
 import java.awt.event.ItemEvent;
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
 
 public class RegistrarEmpleado extends JDialog {
 
@@ -42,7 +45,6 @@ public class RegistrarEmpleado extends JDialog {
 	private JTextField txtconsultorio;
 	private JPanel DoctorPanel;
 	private JFormattedTextField txtcedula;
-	private JFormattedTextField txtfechanacimiento;
 	private JFormattedTextField txttelefono;
 	private JFormattedTextField txtcorreo;
 	private JTextArea txtdireccion;
@@ -50,6 +52,7 @@ public class RegistrarEmpleado extends JDialog {
 	private JFormattedTextField txtexequatur;
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("DD/MM/YYYY");
 	private JComboBox cmbdepartamento;
+	private JDateChooser dateChooser;
 
 
 
@@ -82,10 +85,6 @@ public class RegistrarEmpleado extends JDialog {
 		lblfechanacim.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblfechanacim.setBounds(333, 34, 110, 14);
 		panel.add(lblfechanacim);
-		
-		txtfechanacimiento = new JFormattedTextField();
-		txtfechanacimiento.setBounds(463, 31, 185, 20);
-		panel.add(txtfechanacimiento);
 		
 		JLabel lblnombre = new JLabel("Nombre:");
 		lblnombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -176,6 +175,13 @@ public class RegistrarEmpleado extends JDialog {
 		cmbdepartamento.setBounds(118, 218, 185, 20);
 		panel.add(cmbdepartamento);
 		
+		dateChooser = new JDateChooser();
+		dateChooser.setDateFormatString("yyyy-MM-dd");
+		JTextFieldDateEditor editor = (JTextFieldDateEditor) dateChooser.getDateEditor();
+		editor.setEditable(false);
+		dateChooser.setBounds(463, 31, 185, 20);
+		panel.add(dateChooser);
+		
 		DoctorPanel = new JPanel();
 		DoctorPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		DoctorPanel.setBounds(10, 389, 673, 119);
@@ -242,7 +248,7 @@ public class RegistrarEmpleado extends JDialog {
 	private void registrarEmpleado()
 	{
 	    String cedula = txtcedula.getText();
-	    String fechanacimiento = txtfechanacimiento.getText();
+	    String fechanacimiento = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
 	    String nombre = txtnombre.getText();
 	    String apellido = txtapellido.getText();
 	    String telefono = txttelefono.getText();
@@ -275,7 +281,7 @@ public class RegistrarEmpleado extends JDialog {
 	}
 	private void clean() {
 	    txtcedula.setText("");
-	    txtfechanacimiento.setText("");;
+	    dateChooser.setDate(null);
 	    txtnombre.setText("");
 	    txtapellido.setText("");
 	    txttelefono.setText("");
