@@ -436,7 +436,7 @@ public class Clinica {
 		
 	}
 
-	private int BuscarIndexByCodePaciente(String cedula) {
+	public int BuscarIndexByCodePaciente(String cedula) {
 		int aux = -1;
 		boolean encontrado = false;
 		int ind = 0;
@@ -448,5 +448,38 @@ public class Clinica {
 			ind++;
 		}
 		return aux;
+	}
+	
+	public Paciente BuscarPacienteByCedula(String cedula)
+	{
+		Paciente temp = null;
+		boolean encontrado = false;
+		int i = 0;
+
+		while (!encontrado && i < misPacientes.size()) {
+			if (misPacientes.get(i).getCedula().equalsIgnoreCase(cedula)) {
+				temp = misPacientes.get(i);
+				encontrado = true;
+			}
+			i++;
+		}
+
+		return temp;
+	}
+
+	public Medico BuscarMedicoByExequatur(String Exequatur) {
+		Medico temp = null;
+		boolean encontrado = false;
+		int i = 0;
+
+		while (!encontrado && i < misMedicos.size()) {
+			if (misMedicos.get(i).getExequatur().equalsIgnoreCase(Exequatur)) {
+				temp = misMedicos.get(i);
+				encontrado = true;
+			}
+			i++;
+		}
+
+		return temp;
 	}
 }
