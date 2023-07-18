@@ -526,4 +526,20 @@ public class Clinica implements Serializable{
 		}
 		return login;
 	}
+
+	public Empleado getEmpleadoByCode(String string) {
+		
+		Empleado aux = null;
+		boolean find = false;
+		int i = 0;
+		while( i < misEmpleados.size() && !find){
+			if(misEmpleados.get(i).getCodigo().equalsIgnoreCase(string))
+			{
+				find = true;
+				aux = misEmpleados.get(i);
+			}
+			i++;
+		}
+		return aux;
+	}
 }

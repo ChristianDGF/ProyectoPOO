@@ -11,7 +11,7 @@ public class Medico extends Empleado {
 	private ArrayList<Consulta> misconsultas;
 	
 	public Medico(String nombre, String apellido, String direccion, String fechaNacimiento, String genero,
-			String cedula, String telefono,String correoelectronico, String cargo, String departamento,String especialidad,String exequatur,
+			String cedula, String telefono,String correoelectronico,String cargo, String departamento,String especialidad,String exequatur,
 			String numeroconsultorio) {
 		super(nombre, apellido, direccion, fechaNacimiento, genero, cedula, telefono,correoelectronico, cargo, departamento);
 		this.especialidad = especialidad;

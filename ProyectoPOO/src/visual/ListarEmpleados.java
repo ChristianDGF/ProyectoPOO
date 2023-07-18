@@ -86,6 +86,7 @@ public class ListarEmpleados extends JDialog {
 	    ArrayList<Empleado> empleados = Clinica.getInstance().getEmpleadosPorCargo(cargoSeleccionado);
 
 	    DefaultTableModel model = new DefaultTableModel();
+	    model.addColumn("Codigo");
 	    model.addColumn("Cedula");
 	    model.addColumn("Nombre");
 	    model.addColumn("Apellido");
@@ -93,6 +94,7 @@ public class ListarEmpleados extends JDialog {
 
 	    for (Empleado empleado : empleados) {
 	        model.addRow(new Object[] {
+	        	empleado.getCodigo(),
 	            empleado.getCedula(),
 	            empleado.getNombre(),
 	            empleado.getApellido(),

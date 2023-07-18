@@ -7,7 +7,7 @@ public class Empleado extends Persona {
 	protected String departamento; 
 	
 	public Empleado(String nombre, String apellido, String direccion, String fechaNacimiento, String genero,
-			String cedula, String telefono,String correoelectronico,String cargo,String departamento)
+			String cedula, String telefono,String correoelectronico,String codigo,String departamento)
 	{
 		super(nombre, apellido, direccion, fechaNacimiento, genero, cedula, telefono,correoelectronico);
 		this.cargo = cargo;

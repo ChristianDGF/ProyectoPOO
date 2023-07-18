@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Persona implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+	private static int proximoID = 1;
 	protected String nombre;
 	protected String apellido;
 	protected String direccion;
@@ -13,6 +14,7 @@ public class Persona implements Serializable {
 	protected String cedula; 
 	protected String telefono;
 	protected String correoelectronico;
+	protected String codigo;
     
 	public Persona(String nombre,String apellido,String direccion, String fechaNacimiento, String genero, String cedula,
 			String telefono,String correoelectronico) 
@@ -26,6 +28,9 @@ public class Persona implements Serializable {
 		this.cedula = cedula;
 		this.telefono = telefono;
 		this.correoelectronico = correoelectronico;
+		this.codigo = "P" + proximoID;
+		proximoID++;
+		
 	}
 
 	public String getNombre() {
@@ -90,5 +95,13 @@ public class Persona implements Serializable {
 
 	public void setCorreoelectronico(String correoelectronico) {
 		this.correoelectronico = correoelectronico;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 }

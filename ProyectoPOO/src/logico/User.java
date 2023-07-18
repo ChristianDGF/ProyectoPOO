@@ -10,11 +10,12 @@ public class User implements Serializable {
 	private String password;
 	private Empleado empleado;
 	
-	public User(String tipo,String usuario, String password) {
+	public User(String tipo,String usuario, String password,Empleado empleado) {
 		super();
 		this.tipo = tipo;
 		this.usuario = usuario;
 		this.password = password;
+		this.empleado = empleado;
 	}
 	
 	public String getUsuario() {

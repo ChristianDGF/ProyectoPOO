@@ -99,7 +99,7 @@ public class RegistrarPaciente extends JDialog {
 		HistorialMedico historial = new HistorialMedico("41242", alergias, null, null);
 		miPaciente = new Paciente("PEPE", "ALCANTARA", "en su casa", "2004-08-13", "Femenino", "1309423231", "809-901-0977", "MMG@gmail.com", "Enfermo", historial, 13, 10, "O-", 13);
 		setTitle("Actualizar Paciente");
-		setBounds(100, 100, 1071, 465);
+		setBounds(100, 100, 1071, 480);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
