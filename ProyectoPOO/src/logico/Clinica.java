@@ -14,7 +14,9 @@ public class Clinica implements Serializable{
 	private ArrayList<Consulta> misConsultas;
 	private ArrayList<Cita> misCitas;
 	private ArrayList<Vacuna> misVacunas;
+	private ArrayList<User>misUsuarios;
 	public static Clinica clinica ;
+	private static User loginUser;
 	
 	public Clinica() {
 		super();
@@ -26,6 +28,7 @@ public class Clinica implements Serializable{
 		this.misConsultas = new ArrayList<Consulta>();
 		this.misCitas = new ArrayList<Cita>();
 		this.misVacunas = new ArrayList<Vacuna>();
+		this.misUsuarios = new ArrayList<User>();
 	}
 	
 	public static Clinica getInstance()
@@ -107,6 +110,22 @@ public class Clinica implements Serializable{
 		Clinica.clinica = clinica;
 	}
 
+	public ArrayList<User> getMisUsuarios() {
+		return misUsuarios;
+	}
+
+	public void setMisUsuarios(ArrayList<User> misUsuarios) {
+		this.misUsuarios = misUsuarios;
+	}
+	
+	public static User getLoginUser() {
+		return loginUser;
+	}
+
+	public static void setLoginUser(User loginUser) {
+		Clinica.loginUser = loginUser;
+	}
+	
 	public Paciente getPacienteByCedula(String PacienteCedula)
 	{
 		Paciente temp = null;
@@ -321,7 +340,7 @@ public class Clinica implements Serializable{
 
 	    return empleadosPorCargo;
 	}
-	
+
 	public ArrayList<Enfermedad> obtenerEnfermedadesPorEstado(String estado) {
 	    ArrayList<Enfermedad> enfermedadesFiltradas = new ArrayList<>();
 
@@ -435,6 +454,15 @@ public class Clinica implements Serializable{
 	{
 		misMedicos.remove(medico);
 	}
+	
+	public void AgregarUser(User user)
+	{
+		misUsuarios.add(user);
+	}
+	public void EliminarUser(User user)
+	{
+		misUsuarios.remove(user);
+	}
 
 	public void ActualizarPaciente(Paciente miPaciente) {
 		int index = BuscarIndexByCodePaciente(miPaciente.getCedula());
@@ -487,5 +515,15 @@ public class Clinica implements Serializable{
 		}
 
 		return temp;
+	}
+	public boolean confirmLogin(String usuario, String password) {
+		boolean login = false;
+		for (User user : misUsuarios) {
+			if(user.getUsuario().equals(usuario) && user.getPassword().equals(password)){
+				loginUser = user;
+				login = true;
+			}
+		}
+		return login;
 	}
 }
