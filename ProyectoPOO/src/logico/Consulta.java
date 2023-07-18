@@ -1,6 +1,10 @@
 package logico;
 
-public class Consulta {
+import java.io.Serializable;
+
+public class Consulta implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	private String codigo;
 	private Cita cita;
 	private String sintomas;

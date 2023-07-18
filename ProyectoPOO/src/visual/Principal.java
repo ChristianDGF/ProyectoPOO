@@ -6,11 +6,21 @@ import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
+import logico.Clinica;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class Principal {
 
@@ -22,6 +32,39 @@ public class Principal {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				FileInputStream clinica;
+				FileOutputStream clinica2;
+				ObjectInputStream clinicaRead;
+				ObjectOutputStream clinicaWrite;
+				try {
+					clinica = new FileInputStream("clinica.dat");
+					clinicaRead = new ObjectInputStream(clinica);
+					Clinica temp = (Clinica)clinicaRead.readObject();
+					Clinica.setClinica(temp);
+					clinica.close();
+					clinicaRead.close();		
+				}
+				catch(FileNotFoundException e)
+				{
+					try {
+					clinica2 = new FileOutputStream("clinica.dat");
+					clinicaWrite = new ObjectOutputStream(clinica2);
+					}
+					catch(FileNotFoundException e1)
+					{
+						
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				try {
 					Principal window = new Principal();
 					window.frmClinicaCw.setVisible(true);
@@ -32,18 +75,31 @@ public class Principal {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public Principal() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frmClinicaCw = new JFrame();
+		frmClinicaCw.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				FileOutputStream clinica2;
+				ObjectOutputStream clinicaWrite;
+				try {
+					clinica2 = new FileOutputStream("clinica.dat");
+					clinicaWrite = new ObjectOutputStream(clinica2);
+					clinicaWrite.writeObject(Clinica.getInstance());
+				}
+				catch(FileNotFoundException e1) {
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		frmClinicaCw.setTitle("Clinica CW");
 		frmClinicaCw.setBounds(100, 100, 767, 557);
 		frmClinicaCw.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

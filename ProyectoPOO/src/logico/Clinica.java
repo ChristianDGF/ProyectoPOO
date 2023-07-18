@@ -1,9 +1,11 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Clinica {
+public class Clinica implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Persona> misPersonas;
 	private ArrayList<Empleado> misEmpleados;
 	private ArrayList<Medico> misMedicos;
@@ -12,7 +14,7 @@ public class Clinica {
 	private ArrayList<Consulta> misConsultas;
 	private ArrayList<Cita> misCitas;
 	private ArrayList<Vacuna> misVacunas;
-	public static Clinica clinica = null;
+	public static Clinica clinica ;
 	
 	public Clinica() {
 		super();
@@ -101,6 +103,10 @@ public class Clinica {
 	}
 	
 	
+	public static void setClinica(Clinica clinica) {
+		Clinica.clinica = clinica;
+	}
+
 	public Paciente getPacienteByCedula(String PacienteCedula)
 	{
 		Paciente temp = null;

@@ -2,6 +2,7 @@ package logico;
 
 public class Paciente extends Persona {
 
+	private static final long serialVersionUID = 1L;
 	private String estado;
 	private HistorialMedico miHistorial;
 	private float peso;

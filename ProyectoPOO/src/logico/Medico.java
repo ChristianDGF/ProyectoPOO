@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Medico extends Empleado {
 
+	private static final long serialVersionUID = 1L;
 	private String especialidad;
 	private String exequatur;
 	private String numeroconsultorio;
