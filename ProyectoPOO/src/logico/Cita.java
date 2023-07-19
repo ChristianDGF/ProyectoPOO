@@ -1,24 +1,23 @@
 package logico;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Cita implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private String codigo;
-	private Date fecha;
+	private LocalDate fecha;
 	private Paciente paciente;
 	private Medico medico;
-	private String motivoConsulta;
 	
-	public Cita(String codigo, Date fecha, Paciente paciente, Medico medico, String motivoConsulta) {
+	public Cita(String codigo, LocalDate fecha, Paciente paciente, Medico medico) {
 		super();
 		this.codigo = codigo;
 		this.fecha = fecha;
 		this.paciente = paciente;
 		this.medico = medico;
-		this.motivoConsulta = motivoConsulta;
 	}
 
 	public String getCodigo() {
@@ -29,11 +28,11 @@ public class Cita implements Serializable{
 		this.codigo = codigo;
 	}
 
-	public Date getFecha() {
+	public LocalDate getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
 
@@ -53,12 +52,5 @@ public class Cita implements Serializable{
 		this.medico = medico;
 	}
 
-	public String getMotivoConsulta() {
-		return motivoConsulta;
-	}
-
-	public void setMotivoConsulta(String motivoConsulta) {
-		this.motivoConsulta = motivoConsulta;
-	}
 
 }

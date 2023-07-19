@@ -1,5 +1,7 @@
 package logico;
 
+import java.util.ArrayList;
+
 public class Paciente extends Persona {
 
 	private static final long serialVersionUID = 1L;
@@ -11,11 +13,10 @@ public class Paciente extends Persona {
 	private int edad;
 	
 	public Paciente(String nombre,String apellido,String direccion, String fechaNacimiento, String genero, String cedula,
-			String telefono,String correoelectronico,String estado,
-			HistorialMedico historial,float peso,float altura,String tipoSangre,int edad) {
+			String telefono,String correoelectronico,String estado,float peso,float altura,String tipoSangre,int edad) {
 		super(nombre, apellido, direccion, fechaNacimiento, genero, cedula, telefono,correoelectronico);
 		this.estado = estado;
-		this.miHistorial = historial;
+		this.miHistorial = new HistorialMedico("MIHISTORIAL", new ArrayList<String>(), new ArrayList<Enfermedad>(), new ArrayList<Vacuna>());
 		this.peso = peso;
 		this.altura = altura;
 		this.tipoSangre = tipoSangre;

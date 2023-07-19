@@ -17,6 +17,7 @@ public class Clinica implements Serializable{
 	private ArrayList<User>misUsuarios;
 	public static Clinica clinica ;
 	private static User loginUser;
+	public static int codigoCita = 1;
 	
 	public Clinica() {
 		super();

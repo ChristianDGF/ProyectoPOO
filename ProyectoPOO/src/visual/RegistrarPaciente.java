@@ -92,14 +92,9 @@ public class RegistrarPaciente extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegistrarPaciente(Paciente paciente) {
-		ArrayList<String> alergias = new ArrayList<String>();
-		alergias.add("COCO");
-		alergias.add("asdklasjdokasd");
-		alergias.add("afasfasfasf");
-		HistorialMedico historial = new HistorialMedico("41242", alergias, null, null);
-		miPaciente = new Paciente("PEPE", "ALCANTARA", "en su casa", "2004-08-13", "Femenino", "1309423231", "809-901-0977", "MMG@gmail.com", "Enfermo", historial, 13, 10, "O-", 13);
+		miPaciente = paciente;
 		setTitle("Actualizar Paciente");
-		setBounds(100, 100, 1071, 480);
+		setBounds(100, 100, 1071, 465);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -435,14 +430,15 @@ public class RegistrarPaciente extends JDialog {
 	
 	public void loadAlergias()
 	{
-		AlergiaModel.setRowCount(0);
-		row = new Object[tableAlergias.getColumnCount()];
-		
-		for(String alergia: miPaciente.getMiHistorial().getMisAlergias())
-		{
-			row[0] = alergia;
-			AlergiaModel.addRow(row);
-		}
+			AlergiaModel.setRowCount(0);
+			row = new Object[tableAlergias.getColumnCount()];
+			
+			for(String alergia: miPaciente.getMiHistorial().getMisAlergias())
+			{
+				row[0] = alergia;
+				AlergiaModel.addRow(row);
+			}
+
 	}
 	
 	protected MaskFormatter createFormatter(String s) {

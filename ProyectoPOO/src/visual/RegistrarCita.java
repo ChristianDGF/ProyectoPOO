@@ -21,6 +21,7 @@ import java.util.Calendar;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JTextFieldDateEditor;
 
+import logico.Cita;
 import logico.Clinica;
 import logico.Medico;
 import logico.Paciente;
@@ -28,8 +29,13 @@ import logico.Paciente;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.Format;
+import java.time.ZoneId;
 import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
+import java.awt.Font;
+import javax.swing.SpinnerNumberModel;
 
 public class RegistrarCita extends JDialog {
 
@@ -48,6 +54,7 @@ public class RegistrarCita extends JDialog {
 	private JFormattedTextField txtTelefono;
 	private JComboBox comboBoxGenero;
 	private JFormattedTextField txtCedula;
+	private JDateChooser dateChooser;
 
 	/**
 	 * Launch the application.
@@ -67,7 +74,7 @@ public class RegistrarCita extends JDialog {
 	 */
 	public RegistrarCita() {
 		setTitle("Registrar CIta");
-		setBounds(100, 100, 618, 552);
+		setBounds(100, 100, 618, 626);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -79,7 +86,7 @@ public class RegistrarCita extends JDialog {
 			
 			JPanel panelcita = new JPanel();
 			panelcita.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Informacion Cita:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			panelcita.setBounds(12, 378, 572, 76);
+			panelcita.setBounds(12, 378, 572, 128);
 			panel.add(panelcita);
 			panelcita.setLayout(null);
 			
@@ -91,18 +98,21 @@ public class RegistrarCita extends JDialog {
 			txtCodigoCita.setEditable(false);
 			txtCodigoCita.setColumns(10);
 			txtCodigoCita.setBounds(80, 26, 178, 22);
+			txtCodigoCita.setText("CITA-N"+Clinica.getInstance().codigoCita);
 			panelcita.add(txtCodigoCita);
 			
 			JLabel lblFecha = new JLabel("Fecha:");
 			lblFecha.setBounds(302, 29, 56, 16);
 			panelcita.add(lblFecha);
 			
-			JDateChooser dateChooser = new JDateChooser();
+			dateChooser = new JDateChooser();
 			dateChooser.setDateFormatString("yyyy-MM-dd");
 			JTextFieldDateEditor editor = (JTextFieldDateEditor) dateChooser.getDateEditor();
 			editor.setEditable(false);
 			dateChooser.setBounds(351, 29, 178, 20);
 			panelcita.add(dateChooser);
+			
+			Format shortTime = DateFormat.getTimeInstance(DateFormat.SHORT);
 			
 			JPanel panel_1 = new JPanel();
 			panel_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Paciente", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -274,6 +284,25 @@ public class RegistrarCita extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnregistrar = new JButton("Registrar");
+				btnregistrar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(checkFields()) {
+							if(miPaciente != null)
+							{
+								Cita cita = new Cita(txtCodigoCita.getText(), dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), miPaciente, miMedico);
+								Clinica.getInstance().AgregarCita(cita);
+							}else {
+								Paciente newPaciente = new Paciente(txtNombre.getText(), txtApellido.getText(), "", "", "", txtCedula.getText(), txtTelefono.getText(), "", "", 0, 0, "", 0);
+								Cita cita = new Cita(txtCodigoCita.getText(), dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), newPaciente, miMedico);
+								Clinica.getInstance().AgregarPaciente(newPaciente);
+								Clinica.getInstance().AgregarCita(cita);
+							}
+
+						}else {
+							JOptionPane.showMessageDialog(null, "Debe llenar todos los campos!");
+						}
+					}
+				});
 				btnregistrar.setActionCommand("OK");
 				buttonPane.add(btnregistrar);
 				getRootPane().setDefaultButton(btnregistrar);
@@ -295,6 +324,22 @@ public class RegistrarCita extends JDialog {
 	        System.exit(-1);
 	    }
 	    return formatter;
+	}
+	
+	public boolean checkFields()
+	{
+		if(miPaciente != null && miMedico != null && dateChooser.getDate() != null)
+		{
+			return true;
+		}else if(miPaciente == null && miMedico != null && dateChooser.getDate() != null &&
+				!txtNombre.getText().equals("") && !txtTelefono.getText().equals("") 
+				&& !txtApellido.getText().equals("") && comboBoxGenero.getSelectedIndex() != 0) 
+		{
+			return true;
+		}
+		
+		return false;
+		
 	}
 	
 	public void enableInputs()
