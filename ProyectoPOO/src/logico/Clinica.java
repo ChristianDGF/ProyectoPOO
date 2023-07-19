@@ -540,5 +540,48 @@ public class Clinica implements Serializable{
 	    }
 	    return aux;
 	}
+	public int pacientesPorEnfermedad(String codigoEnfermedad) {
+	    int pacientes = 0;
+	    for (Paciente paciente : misPacientes) {
+	        for (Enfermedad enfermedad : paciente.getMiHistorial().getMisPadecimientos()) {
+	            if (enfermedad.getCodigo().equalsIgnoreCase(codigoEnfermedad)) {
+	            	pacientes++;
+	                break; 
+	            }
+	        }
+	    }
+	    return pacientes;
+	}
+
+	public float calcularPorcentajePacientesVacunados(String codigoVacuna) {
+	    int totalPacientes = misPacientes.size();
+	    int pacientesVacunados = 0;
+
+	    for (Paciente paciente : misPacientes) {
+	        for (Vacuna vacuna : paciente.getMiHistorial().getMisVancunas()) {
+	            if (vacuna.getCodigo().equalsIgnoreCase(codigoVacuna)) {
+	                pacientesVacunados++;
+	                break; 
+	            }
+	        }
+	    }
+	    if (totalPacientes > 0) {
+	        float porcentaje = (pacientesVacunados * 100.0f) / totalPacientes;
+	        return porcentaje;
+	    } else {
+	        return 0.0f; 
+	    }
+	}
+	
+	public int obtenerNumeroPacientesPorSexo(String sexo) {
+	    int contador = 0;
+	    for (Paciente paciente : misPacientes) {
+	        if (paciente.getGenero().equalsIgnoreCase(sexo)) {
+	            contador++;
+	        }
+	    }
+	    return contador;
+	}
+
 
 }
