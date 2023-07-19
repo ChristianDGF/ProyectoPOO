@@ -281,22 +281,25 @@ public class RegistrarEmpleado extends JDialog {
         }
 	}
 	public void cargarEmpleado() {
-	    txtcedula.setText(empleado.getCedula());
-	    // Establecer fecha
-	    txtnombre.setText(empleado.getNombre());
-	    txtapellido.setText(empleado.getApellido());
-	    txttelefono.setText(empleado.getTelefono());
-	    cmbcargo.setSelectedItem(empleado.getCargo());
-	    txtcorreo.setText(empleado.getCorreoelectronico());
-	    cmbsexo.setSelectedItem(empleado.getGenero());
-	    txtdireccion.setText(empleado.getDireccion());
-	    cmbdepartamento.setSelectedItem(empleado.getDepartamento());
+		if(empleado != null)
+		{
+		    txtcedula.setText(empleado.getCedula());
+		    // Establecer fecha
+		    txtnombre.setText(empleado.getNombre());
+		    txtapellido.setText(empleado.getApellido());
+		    txttelefono.setText(empleado.getTelefono());
+		    cmbcargo.setSelectedItem(empleado.getCargo());
+		    txtcorreo.setText(empleado.getCorreoelectronico());
+		    cmbsexo.setSelectedItem(empleado.getGenero());
+		    txtdireccion.setText(empleado.getDireccion());
+		    cmbdepartamento.setSelectedItem(empleado.getDepartamento());
 
-	    if (empleado instanceof Medico) {
-	        cmbespecialidad.setSelectedItem(((Medico) empleado).getEspecialidad());
-	        txtexequatur.setText(((Medico) empleado).getExequatur());
-	        txtconsultorio.setText(((Medico) empleado).getNumeroconsultorio());
-	    }
+		    if (empleado instanceof Medico) {
+		        cmbespecialidad.setSelectedItem(((Medico) empleado).getEspecialidad());
+		        txtexequatur.setText(((Medico) empleado).getExequatur());
+		        txtconsultorio.setText(((Medico) empleado).getNumeroconsultorio());
+		    }
+		}
 	}
 
 	private void registrarEmpleado()
