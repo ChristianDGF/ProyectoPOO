@@ -114,7 +114,10 @@ public class RegistrarEnfermedad extends JDialog {
 				JButton btnregistrar = new JButton("Registrar");
 				btnregistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						if(checkfield())
+						{
 						  registrarEnfermedad();
+						}
 					}
 				});
 				btnregistrar.setActionCommand("OK");
@@ -158,5 +161,15 @@ public class RegistrarEnfermedad extends JDialog {
 	    txttipo.setText("");
 	    cmbestado.setSelectedIndex(0);
 	}
+	private boolean checkfield() {
+	    if (txtnombre.getText().isEmpty() || txttipo.getText().isEmpty() || txtcodigo.getText().isEmpty()
+	            || cmbestado.getSelectedIndex() == 0 || txtdescripcion.getText().isEmpty()) {
+	        JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios", "Error",
+	                JOptionPane.INFORMATION_MESSAGE);
+	        return false;
+	    }
+	    return true;
+	}
+
 
 }

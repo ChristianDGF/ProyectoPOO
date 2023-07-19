@@ -136,6 +136,17 @@ public class Principal extends JFrame{
 			}
 		});
 		menuempleados.add(mntmNewMenuItem_3);
+		
+		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Registrar Usuarios");
+		mntmNewMenuItem_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrarUsuario regusuario = new RegistrarUsuario();
+				regusuario.setModal(true);
+				regusuario.setLocationRelativeTo(null);
+				regusuario.setVisible(true);
+			}
+		});
+		menuempleados.add(mntmNewMenuItem_7);
 	}
 
 }

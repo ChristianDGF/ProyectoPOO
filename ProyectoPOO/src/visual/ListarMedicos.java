@@ -72,6 +72,11 @@ public class ListarMedicos extends JDialog {
         getRootPane().setDefaultButton(okButton);
 
         JButton cancelButton = new JButton("Cancel");
+        cancelButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		dispose();
+        	}
+        });
         cancelButton.setActionCommand("Cancel");
         buttonPane.add(cancelButton);
 

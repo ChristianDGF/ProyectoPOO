@@ -528,18 +528,18 @@ public class Clinica implements Serializable{
 	}
 
 	public Empleado getEmpleadoByCode(String string) {
-		
-		Empleado aux = null;
-		boolean find = false;
-		int i = 0;
-		while( i < misEmpleados.size() && !find){
-			if(misEmpleados.get(i).getCodigo().equalsIgnoreCase(string))
-			{
-				find = true;
-				aux = misEmpleados.get(i);
-			}
-			i++;
-		}
-		return aux;
+	    Empleado aux = null;
+	    boolean find = false;
+	    int i = 0;
+	    while (i < misEmpleados.size() && !find) {
+	        Empleado empleado = misEmpleados.get(i);
+	        if (empleado != null && empleado.getCodigo() != null && empleado.getCodigo().equalsIgnoreCase(string)) {
+	            find = true;
+	            aux = empleado;
+	        }
+	        i++;
+	    }
+	    return aux;
 	}
+
 }

@@ -6,10 +6,7 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
 import javax.swing.border.SoftBevelBorder;
 
 import logico.Clinica;
@@ -106,10 +103,13 @@ public class RegistrarVacuna extends JDialog {
 			{
 				JButton okButton = new JButton("Registrar");
 				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						registrarVacuna();
-					}
+				    public void actionPerformed(ActionEvent e) {
+				        if (checkfield()) {
+				            registrarVacuna();
+				        } 
+				    }
 				});
+
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -150,5 +150,20 @@ public class RegistrarVacuna extends JDialog {
 	    cmbtipo.setSelectedIndex(0);
 	    textdescripcion.setText("");
 	}
+	
+	private boolean checkfield() {
+	    if (txtenfermedad.getText().isEmpty() ||
+	        txtcodigo.getText().isEmpty() ||
+	        txtlaboratorio.getText().isEmpty() ||
+	        cmbtipo.getSelectedIndex() == 0 ||
+	        textdescripcion.getText().isEmpty()) {
+	        
+	        JOptionPane.showMessageDialog(null, "Todos los campos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
+	        return false;
+	    }
+	    
+	    return true;
+	}
+
 
 }

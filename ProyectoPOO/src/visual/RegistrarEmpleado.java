@@ -30,7 +30,6 @@ import java.awt.Color;
 import java.awt.event.ItemListener;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
-import java.util.Date;
 import java.awt.event.ItemEvent;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JTextFieldDateEditor;
@@ -227,7 +226,10 @@ public class RegistrarEmpleado extends JDialog {
 				JButton okButton = new JButton("Registrar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						if(checkfield())
+						{
 						registrarEmpleado();
+						}
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -294,4 +296,26 @@ public class RegistrarEmpleado extends JDialog {
 	    txtexequatur.setText("");
 	    txtconsultorio.setText("");
 	}
+	private boolean checkfield() {
+	    if (txtcedula.getText().isEmpty() || dateChooser.getDate() == null || txtnombre.getText().isEmpty()
+	            || txtapellido.getText().isEmpty() || txttelefono.getText().isEmpty() || cmbcargo.getSelectedIndex() == 0
+	            || txtcorreo.getText().isEmpty() || cmbsexo.getSelectedIndex() == 0 || txtdireccion.getText().isEmpty()
+	            || cmbdepartamento.getSelectedIndex() == 0) {
+	        JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios", "Error",
+	                JOptionPane.INFORMATION_MESSAGE);
+	        return false;
+	    }
+
+	    if (cmbcargo.getSelectedItem().toString().equals("Medico")) {
+	        if (cmbespecialidad.getSelectedIndex() == 0 || txtexequatur.getText().isEmpty()
+	                || txtconsultorio.getText().isEmpty()) {
+	            JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios", "Error",
+	                    JOptionPane.INFORMATION_MESSAGE);
+	            return false;
+	        }
+	    }
+
+	    return true;
+	}
+
 }
