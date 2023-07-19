@@ -15,12 +15,15 @@ import logico.Clinica;
 import logico.Empleado;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ListarEmpleados extends JDialog {
 
@@ -28,6 +31,9 @@ public class ListarEmpleados extends JDialog {
 	private JTable table;
 	private JComboBox cmbcargo;
 	private JScrollPane scrollPane;
+	private Empleado miempleado = null;
+	private JButton btnmodificar;
+	private JButton btneliminar;
 
 	public ListarEmpleados() {
 		setBounds(100, 100, 756, 542);
@@ -61,16 +67,59 @@ public class ListarEmpleados extends JDialog {
 		panel.add(scrollPane);
 		
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int index = table.getSelectedRow();
+				if (index >= 0) {
+					btnmodificar.setEnabled(true);
+					btneliminar.setEnabled(true);
+					miempleado = Clinica.getInstance().getEmpleadoByCode(table.getValueAt(index, 0).toString());
+				}
+				
+			}
+		});
 		scrollPane.setViewportView(table);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				btnmodificar = new JButton("Modificar");
+				btnmodificar.setEnabled(false);
+				btnmodificar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						RegistrarEmpleado modificar = new RegistrarEmpleado(miempleado);
+						modificar.setModal(true);
+						modificar.setVisible(true);
+						cargarEmpleadosPorCargo();
+					}
+				});
+				
+				btneliminar = new JButton("Eliminar");
+				btneliminar.setEnabled(false);
+				btneliminar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (miempleado != null) {
+							int option = JOptionPane
+									.showConfirmDialog(null,
+											"Estas seguro(a) que desea eliminar el Queso con el Codigo: "
+													+ miempleado.getCodigo(),
+													"Confirmacion", JOptionPane.OK_CANCEL_OPTION);
+							if (option == JOptionPane.OK_OPTION) {
+								Clinica.getInstance().EliminarEmpleado(miempleado);
+								btneliminar.setEnabled(false);
+								btnmodificar.setEnabled(false);
+								cargarEmpleadosPorCargo();
+							}
+						}
+					}
+				});
+				buttonPane.add(btneliminar);
+				btnmodificar.setActionCommand("OK");
+				buttonPane.add(btnmodificar);
+				getRootPane().setDefaultButton(btnmodificar);
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");

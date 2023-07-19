@@ -63,7 +63,7 @@ public class Principal extends JFrame{
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Registrar Empleados");
 		mntmNewMenuItem_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrarEmpleado regempleado = new RegistrarEmpleado();
+				RegistrarEmpleado regempleado = new RegistrarEmpleado(null);
 				regempleado.setModal(true);
 				regempleado.setLocationRelativeTo(null);
 				regempleado.setVisible(true);
