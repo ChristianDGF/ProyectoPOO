@@ -34,6 +34,7 @@ public class ListarEmpleados extends JDialog {
 	private Empleado miempleado = null;
 	private JButton btnmodificar;
 	private JButton btneliminar;
+	
 
 	public ListarEmpleados() {
 		setBounds(100, 100, 756, 542);
@@ -137,7 +138,7 @@ public class ListarEmpleados extends JDialog {
 
 	private void cargarEmpleadosPorCargo() {
 		String cargoSeleccionado = cmbcargo.getSelectedItem().toString();
-	    ArrayList<Empleado> empleados = Clinica.getInstance().getEmpleadosPorCargo(cargoSeleccionado);
+		ArrayList<Empleado>listaporcargo =  Clinica.getInstance().getEmpleadosPorCargo(cargoSeleccionado);
 
 	    DefaultTableModel model = new DefaultTableModel();
 	    model.addColumn("Codigo");
@@ -146,7 +147,7 @@ public class ListarEmpleados extends JDialog {
 	    model.addColumn("Apellido");
 	    model.addColumn("Cargo");
 
-	    for (Empleado empleado : empleados) {
+	    for (Empleado empleado : listaporcargo) {
 	        model.addRow(new Object[] {
 	        	empleado.getCodigo(),
 	            empleado.getCedula(),

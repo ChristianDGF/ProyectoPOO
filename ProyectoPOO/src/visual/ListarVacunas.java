@@ -14,6 +14,7 @@ import logico.Clinica;
 import logico.Vacuna;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JScrollPane;
@@ -21,12 +22,17 @@ import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ListarVacunas extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JComboBox cmbtipo;
 	private JTable table;
+	private JButton btnmodificar;
+	private JButton btneliminar;
+	private Vacuna mivacuna = null;
 
 	
 	public ListarVacunas() {
@@ -63,6 +69,17 @@ public class ListarVacunas extends JDialog {
 				panel.add(scrollPane);
 				{
 					table = new JTable();
+					table.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							int index = table.getSelectedRow();
+							if (index >= 0) {
+								btnmodificar.setEnabled(true);
+								btneliminar.setEnabled(true);
+								mivacuna = Clinica.getInstance().getVacunaByCode(table.getValueAt(index, 0).toString());
+							}
+						}
+					});
 					scrollPane.setViewportView(table);
 				}
 			}
@@ -72,10 +89,42 @@ public class ListarVacunas extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				btneliminar = new JButton("Eliminar");
+				btneliminar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(mivacuna != null)
+						{
+							int option = JOptionPane
+									.showConfirmDialog(null,
+											"Estas seguro(a) que desea eliminar la Enfermedad con el Codigo: "
+													+ mivacuna.getCodigo(),
+													"Confirmacion", JOptionPane.OK_CANCEL_OPTION);
+							if (option == JOptionPane.OK_OPTION) {
+								Clinica.getInstance().EliminarVacuna(mivacuna);
+								btneliminar.setEnabled(false);
+								btnmodificar.setEnabled(false);
+								listarVacunasPorTipo();
+						}
+					}
+					}
+				});
+				btneliminar.setEnabled(false);
+				buttonPane.add(btneliminar);
+			}
+			{
+				btnmodificar = new JButton("Modificar");
+				btnmodificar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						RegistrarVacuna modificar = new RegistrarVacuna(mivacuna);
+						modificar.setModal(true);
+						modificar.setVisible(true);
+						listarVacunasPorTipo();
+					}
+				});
+				btnmodificar.setEnabled(false);
+				btnmodificar.setActionCommand("OK");
+				buttonPane.add(btnmodificar);
+				getRootPane().setDefaultButton(btnmodificar);
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");

@@ -74,7 +74,7 @@ public class Principal extends JFrame{
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Registrar Vacunas");
 		mntmNewMenuItem_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrarVacuna regvacuna = new RegistrarVacuna();
+				RegistrarVacuna regvacuna = new RegistrarVacuna(null);
 				regvacuna.setModal(true);
 				regvacuna.setLocationRelativeTo(null);
 				regvacuna.setVisible(true);
@@ -85,7 +85,7 @@ public class Principal extends JFrame{
 		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Registrar Enfermedades");
 		mntmNewMenuItem_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrarEnfermedad regenfermedad = new RegistrarEnfermedad();
+				RegistrarEnfermedad regenfermedad = new RegistrarEnfermedad(null);
 				regenfermedad.setModal(true);
 				regenfermedad.setLocationRelativeTo(null);
 				regenfermedad.setVisible(true);

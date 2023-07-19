@@ -327,18 +327,17 @@ public class Clinica implements Serializable{
 	}
 	
 	public ArrayList<Empleado> getEmpleadosPorCargo(String cargo) {
-	    ArrayList<Empleado> empleadosPorCargo = new ArrayList<>();
+	    	ArrayList<Empleado> empleadosPorCargo = new ArrayList<Empleado>();
 
-	    if (cargo.equalsIgnoreCase("<Todos>")) {
-	        return getMisEmpleados();
-	    }
-
+	    	if(cargo.equalsIgnoreCase("<Todos>"))
+	        {
+	        	return getMisEmpleados();
+	        }
 	    for (Empleado empleado : misEmpleados) {
 	        if (empleado.getCargo().equalsIgnoreCase(cargo)) {
 	            empleadosPorCargo.add(empleado);
 	        }
 	    }
-
 	    return empleadosPorCargo;
 	}
 
@@ -372,7 +371,6 @@ public class Clinica implements Serializable{
             	medicosPorEspecialidad = getMisMedicos();
             }
         }
-
         return medicosPorEspecialidad;
     }
 	

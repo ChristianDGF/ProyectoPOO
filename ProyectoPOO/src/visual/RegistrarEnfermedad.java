@@ -32,9 +32,17 @@ public class RegistrarEnfermedad extends JDialog {
 	private JTextField txtcodigo;
 	private JTextPane txtdescripcion;
 	private JComboBox cmbestado;
+	private Enfermedad enfermedad;
 
-	public RegistrarEnfermedad() {
+	public RegistrarEnfermedad(Enfermedad mienfermedad) {
+		enfermedad = mienfermedad;
+		if(enfermedad==null) {
 		setTitle("Registrar Enfermedad");
+		}
+		else {
+		setTitle("Modificar Enfermedad");
+		}
+		
 		setBounds(100, 100, 576, 288);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -112,11 +120,22 @@ public class RegistrarEnfermedad extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnregistrar = new JButton("Registrar");
+				if(enfermedad != null)
+				{
+					btnregistrar.setText("Modificar");
+				}
 				btnregistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(checkfield())
+						if(checkfield() && enfermedad == null)
 						{
 						  registrarEnfermedad();
+						}
+						else
+						{
+							modificarEnfermedad();
+							JOptionPane.showMessageDialog(null, "Operación satisfactoria", "Registro",
+									JOptionPane.INFORMATION_MESSAGE);
+							dispose();
 						}
 					}
 				});
@@ -135,9 +154,27 @@ public class RegistrarEnfermedad extends JDialog {
 				buttonPane.add(btncancelar);
 			}
 		}
+		cargarEnfermedad();
+	}
+	protected void modificarEnfermedad() {
+		enfermedad.setCodigo(txtcodigo.getText());
+		enfermedad.setNombre(txtnombre.getText());
+		enfermedad.setDescripcion(txtdescripcion.getText());
+		enfermedad.setTipo(txttipo.getText());
+		enfermedad.setEstado(cmbestado.getSelectedItem().toString());
 	}
 
-	
+	private void cargarEnfermedad()
+	{
+		if(enfermedad != null)
+		{
+			txtcodigo.setText(enfermedad.getCodigo());
+			txtnombre.setText(enfermedad.getNombre());
+			txtdescripcion.setText(enfermedad.getDescripcion());
+			txttipo.setText(enfermedad.getTipo());
+			cmbestado.setSelectedItem(enfermedad.getEstado());
+		}
+	}
 	private void registrarEnfermedad() {
 	    String codigo = txtcodigo.getText();
 	    String nombre = txtnombre.getText();

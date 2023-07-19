@@ -32,9 +32,18 @@ public class RegistrarVacuna extends JDialog {
 	private JTextField txtlaboratorio;
 	private JComboBox cmbtipo;
 	private JTextPane textdescripcion;
+	private Vacuna vacuna;
+	private JButton okButton;
 
-	public RegistrarVacuna() {
-		setTitle("Registrar Vacuna");
+	public RegistrarVacuna(Vacuna mivacuna) {
+		vacuna = mivacuna;
+		if(vacuna==null)
+		{
+			setTitle("Registrar Vacuna");	
+		}else {
+			setTitle("Modificar Vacuna");	
+		}
+		
 		setBounds(100, 100, 580, 308);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
@@ -101,12 +110,22 @@ public class RegistrarVacuna extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("Registrar");
+				okButton = new JButton("Registrar");
+				if(vacuna != null)
+				{
+					okButton.setText("Modificar");
+				}
 				okButton.addActionListener(new ActionListener() {
 				    public void actionPerformed(ActionEvent e) {
-				        if (checkfield()) {
+				        if (checkfield() && vacuna == null) {
 				            registrarVacuna();
 				        } 
+				        else {
+				        	modificarVacuna();
+				        	JOptionPane.showMessageDialog(null, "Operación satisfactoria", "Registro",
+									JOptionPane.INFORMATION_MESSAGE);
+							dispose();
+				        }
 				    }
 				});
 
@@ -125,8 +144,29 @@ public class RegistrarVacuna extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		cargarVacuna();
 	}
 	
+	protected void modificarVacuna() {
+		vacuna.setEnfermedad(txtenfermedad.getText());
+		vacuna.setCodigo(txtcodigo.getText());
+		vacuna.setLaboratorio(txtlaboratorio.getText());
+		vacuna.setTipo(cmbtipo.getSelectedItem().toString());
+		vacuna.setDescripcion(textdescripcion.getText());
+	}
+	
+	private void cargarVacuna()
+	{
+		if(vacuna != null)
+		{
+			txtenfermedad.setText(vacuna.getEnfermedad());
+			txtcodigo.setText(vacuna.getCodigo());
+			txtlaboratorio.setText(vacuna.getLaboratorio());
+			cmbtipo.setSelectedItem(vacuna.getTipo());
+			textdescripcion.setText(vacuna.getDescripcion());
+		}
+	}
+
 	private void registrarVacuna() {
 	    String enfermedad = txtenfermedad.getText();
 	    String codigo = txtcodigo.getText();
