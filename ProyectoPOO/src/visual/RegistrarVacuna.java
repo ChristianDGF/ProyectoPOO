@@ -40,9 +40,13 @@ public class RegistrarVacuna extends JDialog {
 		if(vacuna==null)
 		{
 			setTitle("Registrar Vacuna");	
-		}else {
+		}if(Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
 			setTitle("Modificar Vacuna");	
 		}
+		else {
+			setTitle("Visualizar Vacuna");
+		}
+		
 		
 		setBounds(100, 100, 580, 308);
 		getContentPane().setLayout(new BorderLayout());
@@ -111,7 +115,11 @@ public class RegistrarVacuna extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				okButton = new JButton("Registrar");
-				if(vacuna != null)
+				if(!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador"))
+				{
+					okButton.setEnabled(false);
+				}
+				if(vacuna!= null)
 				{
 					okButton.setText("Modificar");
 				}
@@ -145,8 +153,20 @@ public class RegistrarVacuna extends JDialog {
 			}
 		}
 		cargarVacuna();
+		if(!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador"))
+		{
+			lockfields();
+		}
 	}
 	
+	private void lockfields() {
+		txtenfermedad.setEditable(false);
+		txtcodigo.setEditable(false);
+		txtlaboratorio.setEditable(false);
+		textdescripcion.setEditable(false);
+		cmbtipo.setEnabled(false);
+	}
+
 	protected void modificarVacuna() {
 		vacuna.setEnfermedad(txtenfermedad.getText());
 		vacuna.setCodigo(txtcodigo.getText());

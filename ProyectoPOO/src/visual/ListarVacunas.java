@@ -73,9 +73,12 @@ public class ListarVacunas extends JDialog {
 						@Override
 						public void mouseClicked(MouseEvent e) {
 							int index = table.getSelectedRow();
-							if (index >= 0) {
+							if (index >= 0 && !Clinica.getLoginUser().getTipo().equalsIgnoreCase("basico") ) {
 								btnmodificar.setEnabled(true);
+								if(Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador") )
+								{
 								btneliminar.setEnabled(true);
+								}
 								mivacuna = Clinica.getInstance().getVacunaByCode(table.getValueAt(index, 0).toString());
 							}
 						}
@@ -96,7 +99,7 @@ public class ListarVacunas extends JDialog {
 						{
 							int option = JOptionPane
 									.showConfirmDialog(null,
-											"Estas seguro(a) que desea eliminar la Enfermedad con el Codigo: "
+											"Estas seguro(a) que desea eliminar la vacuna con el Codigo: "
 													+ mivacuna.getCodigo(),
 													"Confirmacion", JOptionPane.OK_CANCEL_OPTION);
 							if (option == JOptionPane.OK_OPTION) {
@@ -113,6 +116,10 @@ public class ListarVacunas extends JDialog {
 			}
 			{
 				btnmodificar = new JButton("Modificar");
+				if(Clinica.getLoginUser().getTipo().equalsIgnoreCase("Privilegiado"))
+				{
+					btnmodificar.setText("Visualizar");
+				}
 				btnmodificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						RegistrarVacuna modificar = new RegistrarVacuna(mivacuna);

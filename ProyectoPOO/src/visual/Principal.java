@@ -53,12 +53,114 @@ public class Principal extends JFrame{
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
+		JMenu mnNewMenu = new JMenu("Pacientes");
+		if(!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador") && !Clinica.getLoginUser().getTipo().equalsIgnoreCase("Privilegiado"))
+		{
+			mnNewMenu.setEnabled(false);
+		}
+		
+		JMenu mnNewMenu_2 = new JMenu("Citas");
+		menuBar.add(mnNewMenu_2);
+		
+		JMenuItem mntmNewMenuItem_12 = new JMenuItem("Registrar Citas");
+		mnNewMenu_2.add(mntmNewMenuItem_12);
+		
+		JMenuItem mntmNewMenuItem_13 = new JMenuItem("Listado de Citas");
+		mnNewMenu_2.add(mntmNewMenuItem_13);
+		menuBar.add(mnNewMenu);
+		
+		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Registrar Pacientes");
+		mnNewMenu.add(mntmNewMenuItem_8);
+		
+		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Listado de Pacientes");
+		mnNewMenu.add(mntmNewMenuItem_9);
+		
+		JMenu mnNewMenu_1 = new JMenu("Consultas");
+		if(!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador") && !Clinica.getLoginUser().getTipo().equalsIgnoreCase("Privilegiado"))
+		{
+			mnNewMenu_1.setEnabled(false);
+		}
+		menuBar.add(mnNewMenu_1);
+		
+		JMenuItem mntmNewMenuItem_10 = new JMenuItem("Registrar Consultas");
+		mnNewMenu_1.add(mntmNewMenuItem_10);
+		
+		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Listado de Consultas");
+		mnNewMenu_1.add(mntmNewMenuItem_11);
+		
+		JMenu mnNewMenu_3 = new JMenu("Enfermedades");
+		if(!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador") && !Clinica.getLoginUser().getTipo().equalsIgnoreCase("Privilegiado"))
+		{
+			mnNewMenu_3.setEnabled(false);
+		}
+
+		menuBar.add(mnNewMenu_3);
+		
+		JMenuItem mntmNewMenuItem_14 = new JMenuItem("Registrar Enfermedad");
+		mntmNewMenuItem_14.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrarEnfermedad regenfermedad = new RegistrarEnfermedad(null);
+				regenfermedad.setModal(true);
+				regenfermedad.setLocationRelativeTo(null);
+				regenfermedad.setVisible(true);
+			}
+		});
+		if(!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador"))
+		{
+			mntmNewMenuItem_14.setEnabled(false);
+		}
+		mnNewMenu_3.add(mntmNewMenuItem_14);
+		
+		JMenuItem mntmNewMenuItem_15 = new JMenuItem("Listado de Enfermedades");
+		mntmNewMenuItem_15.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarEnfermedades listarenfermedades = new ListarEnfermedades();
+				listarenfermedades.setModal(true);
+				listarenfermedades.setLocationRelativeTo(null);
+				listarenfermedades.setVisible(true);
+			}
+		});
+		mnNewMenu_3.add(mntmNewMenuItem_15);
+		
+		JMenu mnNewMenu_4 = new JMenu("Vacunas");
+		if(!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador") && !Clinica.getLoginUser().getTipo().equalsIgnoreCase("Privilegiado"))
+		{
+			mnNewMenu_4.setEnabled(false);
+		}
+		menuBar.add(mnNewMenu_4);
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Registrar Vacunas");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrarVacuna regvacuna = new RegistrarVacuna(null);
+				regvacuna.setModal(true);
+				regvacuna.setLocationRelativeTo(null);
+				regvacuna.setVisible(true);
+			}
+		});
+		if(!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador"))
+		{
+			mntmNewMenuItem_1.setEnabled(false);
+		}
+		mnNewMenu_4.add(mntmNewMenuItem_1);
+		
+		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Listado de Vacunas");
+		mntmNewMenuItem_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarVacunas listarvacunas = new ListarVacunas();
+				listarvacunas.setModal(true);
+				listarvacunas.setLocationRelativeTo(null);
+				listarvacunas.setVisible(true);
+			}
+		});
+		mnNewMenu_4.add(mntmNewMenuItem_6);
+		
 		JMenu menuempleados = new JMenu("Administracion");
+		menuBar.add(menuempleados);
 		if(!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador"))
 		{
 			menuempleados.setEnabled(false);
 		}
-		menuBar.add(menuempleados);
 		
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Registrar Empleados");
 		mntmNewMenuItem_4.addActionListener(new ActionListener() {
@@ -71,28 +173,6 @@ public class Principal extends JFrame{
 		});
 		menuempleados.add(mntmNewMenuItem_4);
 		
-		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Registrar Vacunas");
-		mntmNewMenuItem_5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RegistrarVacuna regvacuna = new RegistrarVacuna(null);
-				regvacuna.setModal(true);
-				regvacuna.setLocationRelativeTo(null);
-				regvacuna.setVisible(true);
-			}
-		});
-		menuempleados.add(mntmNewMenuItem_5);
-		
-		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Registrar Enfermedades");
-		mntmNewMenuItem_6.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RegistrarEnfermedad regenfermedad = new RegistrarEnfermedad(null);
-				regenfermedad.setModal(true);
-				regenfermedad.setLocationRelativeTo(null);
-				regenfermedad.setVisible(true);
-			}
-		});
-		menuempleados.add(mntmNewMenuItem_6);
-		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Listar Empleados");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -102,18 +182,18 @@ public class Principal extends JFrame{
 				listarempleados.setVisible(true);
 			}
 		});
-		menuempleados.add(mntmNewMenuItem);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Listar Enfermedades");
-		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Registrar Usuarios");
+		mntmNewMenuItem_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListarEnfermedades listarenfermedades = new ListarEnfermedades();
-				listarenfermedades.setModal(true);
-				listarenfermedades.setLocationRelativeTo(null);
-				listarenfermedades.setVisible(true);
+				RegistrarUsuario regusuario = new RegistrarUsuario(null);
+				regusuario.setModal(true);
+				regusuario.setLocationRelativeTo(null);
+				regusuario.setVisible(true);
 			}
 		});
-		menuempleados.add(mntmNewMenuItem_1);
+		menuempleados.add(mntmNewMenuItem_7);
+		menuempleados.add(mntmNewMenuItem);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Listar Medicos");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
@@ -126,27 +206,16 @@ public class Principal extends JFrame{
 		});
 		menuempleados.add(mntmNewMenuItem_2);
 		
-		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Listar Vacunas");
+		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Listar Usuario");
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListarVacunas listarvacunas = new ListarVacunas();
-				listarvacunas.setModal(true);
-				listarvacunas.setLocationRelativeTo(null);
-				listarvacunas.setVisible(true);
+				ListarUsuarios listusuario = new ListarUsuarios();
+				listusuario.setModal(true);
+				listusuario.setLocationRelativeTo(null);
+				listusuario.setVisible(true);
 			}
 		});
 		menuempleados.add(mntmNewMenuItem_3);
-		
-		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Registrar Usuarios");
-		mntmNewMenuItem_7.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RegistrarUsuario regusuario = new RegistrarUsuario();
-				regusuario.setModal(true);
-				regusuario.setLocationRelativeTo(null);
-				regusuario.setVisible(true);
-			}
-		});
-		menuempleados.add(mntmNewMenuItem_7);
 	}
 
 }

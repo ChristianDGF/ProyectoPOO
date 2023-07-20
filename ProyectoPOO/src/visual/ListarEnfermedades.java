@@ -70,9 +70,12 @@ public class ListarEnfermedades extends JDialog {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int index = table.getSelectedRow();
-				if (index >= 0) {
+				if (index >= 0 && !Clinica.getLoginUser().getTipo().equalsIgnoreCase("basico") ) {
 					btnmodificar.setEnabled(true);
+					if(Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador") )
+					{
 					btneliminar.setEnabled(true);
+					}
 					mienfermedad = Clinica.getInstance().getEnfermedadByCode(table.getValueAt(index, 0).toString());
 				}
 			}
@@ -84,6 +87,11 @@ public class ListarEnfermedades extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnmodificar = new JButton("Modificar");
+				if(Clinica.getLoginUser().getTipo().equalsIgnoreCase("Privilegiado"))
+				{
+					btnmodificar.setText("Visualizar");
+				}
+				btnmodificar.setEnabled(false);
 				btnmodificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						RegistrarEnfermedad modificar = new RegistrarEnfermedad(mienfermedad);
@@ -94,6 +102,7 @@ public class ListarEnfermedades extends JDialog {
 				});
 				
 				btneliminar = new JButton("Eliminar");
+				btneliminar.setEnabled(false);
 				btneliminar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(mienfermedad != null)
@@ -118,7 +127,7 @@ public class ListarEnfermedades extends JDialog {
 				getRootPane().setDefaultButton(btnmodificar);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Cancelar");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

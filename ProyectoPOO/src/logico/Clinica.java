@@ -390,6 +390,21 @@ public class Clinica implements Serializable{
 	    return vacunasPorTipo;
 	}
 
+	public ArrayList<User> getUsuariosPorTipo(String tipoSeleccionado) {
+		ArrayList<User> usuariosPorTipo = new ArrayList<>();
+		
+		for (User user : misUsuarios) {
+	        if (user.getTipo().equals(tipoSeleccionado)) {
+	        	usuariosPorTipo.add(user);
+	        }
+	        if(tipoSeleccionado.equalsIgnoreCase("<Todos>"))
+            {
+	        	usuariosPorTipo = getMisUsuarios();
+            }
+	    }
+
+	    return usuariosPorTipo;
+	}
 	
 	public void AgregarVacuna(Vacuna vacuna)
 	{
@@ -582,6 +597,25 @@ public class Clinica implements Serializable{
 	    }
 	    return contador;
 	}
+
+	public User getUsuarioporUsuario(String string) {
+		
+		User temp = null;
+		boolean encontrado = false;
+		int ind = 0;
+		
+		while(!encontrado && ind < misUsuarios.size()) {
+			if(misUsuarios.get(ind).getUsuario().equalsIgnoreCase(string))
+			{
+				temp = misUsuarios.get(ind);
+				encontrado = true;
+			}	    
+			ind++;
+		}
+		return temp;
+	}
+
+	
 
 
 }

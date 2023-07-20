@@ -36,12 +36,18 @@ public class RegistrarUsuario extends JDialog {
     private JTable table;
     private JComboBox<String> cmbcargo;
     private Empleado selected = null;
+    private User user;
     private JComboBox<String> cmbtipo;
 
-    /**
-     * Create the dialog.
-     */
-    public RegistrarUsuario() {
+   
+    public RegistrarUsuario(User miusuario) {
+    	user = miusuario;
+    	if(user==null)
+		{
+			setTitle("Registrar Vacuna");	
+		}else {
+			setTitle("Modificar Vacuna");	
+		}
         setBounds(100, 100, 592, 436);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -134,19 +140,23 @@ public class RegistrarUsuario extends JDialog {
         getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
         JButton btnregistrar = new JButton("Registrar");
+        if(user != null )
+        {
+        	btnregistrar.setText("Modificar");
+        }
         btnregistrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (checkfields()) {
-                    User aux = new User(cmbtipo.getSelectedItem().toString(), txtusuario.getText(), txtpassword.getText(), selected);
-                    if (aux.getEmpleado() != null) {
-                        Clinica.getInstance().AgregarUser(aux);
-                        JOptionPane.showMessageDialog(null, "Operación satisfactoria", "Registro", JOptionPane.INFORMATION_MESSAGE);
-                        Clean();
+                if (checkfields() && user==null) {
+                		registrarUsuario();
                     } else {
-                        JOptionPane.showMessageDialog(null, "El empleado seleccionado no es válido", "Error", JOptionPane.INFORMATION_MESSAGE);
+                    	modificarUsuario();
+						JOptionPane.showMessageDialog(null, "Operación satisfactoria", "Registro",
+								JOptionPane.INFORMATION_MESSAGE);
+						dispose();
                     }
+            
                 }
-            }
+            
         });
         btnregistrar.setActionCommand("OK");
         buttonPane.add(btnregistrar);
@@ -161,6 +171,32 @@ public class RegistrarUsuario extends JDialog {
         buttonPane.add(btncancelar);
 
         cargarEmpleadosPorCargo();
+        cargarUsuario();
+    }
+    private void modificarUsuario()
+    {
+    	user.setUsuario(txtusuario.getText());
+    	user.setPassword(txtpassword.getText());
+    	user.setTipo(cmbtipo.getSelectedItem().toString());
+    	user.setEmpleado(selected);
+    }
+    private void cargarUsuario()
+    {
+    	if(user != null)
+    	{
+    		txtusuario.setText(user.getUsuario());
+    		txtpassword.setText(user.getPassword());
+    		cmbtipo.setSelectedItem(user.getTipo());
+    	}
+    }
+    private void registrarUsuario()
+    {
+    	 User aux = new User(cmbtipo.getSelectedItem().toString(), txtusuario.getText(), txtpassword.getText(), selected);
+         if (aux.getEmpleado() != null) {
+             Clinica.getInstance().AgregarUser(aux);
+             JOptionPane.showMessageDialog(null, "Operación satisfactoria", "Registro", JOptionPane.INFORMATION_MESSAGE);
+             Clean();
+         }
     }
 
     private void cargarEmpleadosPorCargo() {

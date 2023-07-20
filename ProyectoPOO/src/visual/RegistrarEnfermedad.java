@@ -39,9 +39,13 @@ public class RegistrarEnfermedad extends JDialog {
 		if(enfermedad==null) {
 		setTitle("Registrar Enfermedad");
 		}
-		else {
+		if(Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
 		setTitle("Modificar Enfermedad");
 		}
+		else {
+			setTitle("Visualizar Enfermedad");
+		}
+		
 		
 		setBounds(100, 100, 576, 288);
 		getContentPane().setLayout(new BorderLayout());
@@ -120,7 +124,11 @@ public class RegistrarEnfermedad extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnregistrar = new JButton("Registrar");
-				if(enfermedad != null)
+				if(!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador"))
+				{
+				btnregistrar.setEnabled(false);
+				}
+				if(enfermedad != null )
 				{
 					btnregistrar.setText("Modificar");
 				}
@@ -155,6 +163,17 @@ public class RegistrarEnfermedad extends JDialog {
 			}
 		}
 		cargarEnfermedad();
+		if(!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador"))
+		{
+			lockfields();
+		}
+	}
+	private void lockfields() {
+		txtcodigo.setEditable(false);
+		txtnombre.setEditable(false);
+		txtdescripcion.setEditable(false);
+		txttipo.setEditable(false);
+		cmbestado.setEnabled(false);
 	}
 	protected void modificarEnfermedad() {
 		enfermedad.setCodigo(txtcodigo.getText());
