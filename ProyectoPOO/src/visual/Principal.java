@@ -63,6 +63,14 @@ public class Principal extends JFrame{
 		menuBar.add(mnNewMenu_2);
 		
 		JMenuItem mntmNewMenuItem_12 = new JMenuItem("Registrar Citas");
+		mntmNewMenuItem_12.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrarCita regCon = new RegistrarCita();
+				regCon.setModal(true);
+				regCon.setLocationRelativeTo(null);
+				regCon.setVisible(true);
+			}
+		});
 		mnNewMenu_2.add(mntmNewMenuItem_12);
 		
 		JMenuItem mntmNewMenuItem_13 = new JMenuItem("Listado de Citas");

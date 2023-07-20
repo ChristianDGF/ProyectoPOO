@@ -9,6 +9,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+
+import logico.Cita;
+import logico.Consulta;
+import logico.Medico;
+import logico.Paciente;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
@@ -19,30 +26,43 @@ import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 import java.awt.Font;
 import javax.swing.JRadioButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class RegistrarConsulta extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtNombre;
-	private JTextField txtApellido;
-	private JTextField txtCedula;
-	private JTextField txtTelefono;
-	private JTextField txtSexo;
-	private JTextField txtTipoDeSangre;
-	private JTextField txtPeso;
-	private JTextField txtAltura;
-	private JTextField textField;
+	private static JTextField txtNombre;
+	private static JTextField txtApellido;
+	private static JTextField txtCedula;
+	private static JTextField txtTelefono;
+	private static JTextField txtSexo;
+	private static JTextField txtTipoDeSangre;
+	private static JTextField txtPeso;
+	private static JTextField txtAltura;
+	private static JTextField txtEdad;
 	private JTable TableHistorialConsultas;
 	private JTextField txtEnfermedadBuscar;
 	private JTextField txtCodigoCita;
 	private JTextField txtFechaCita;
+	private Medico miMedico = null;
+	private Cita miCita = null;
+	private DefaultTableModel misConsultasModel;
+	private Object[] row;
+	private static Paciente miPaciente = null;
+	private JButton btnAbrirConsulta;
+	private ArrayList<Consulta> misConsultas = new ArrayList<Consulta>();
+	private Consulta selected = null;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			RegistrarConsulta dialog = new RegistrarConsulta();
+			RegistrarConsulta dialog = new RegistrarConsulta(null,null,null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -53,7 +73,10 @@ public class RegistrarConsulta extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public RegistrarConsulta() {
+	public RegistrarConsulta(Paciente paciente,Medico doctor,Cita cita) {
+		miMedico = doctor;
+		miPaciente = paciente;
+		miCita = cita;
 		setTitle("Consulta");
 		setResizable(false);
 		setBounds(100, 100, 1097, 727);
@@ -152,11 +175,11 @@ public class RegistrarConsulta extends JDialog {
 		lblNewLabel_8.setBounds(10, 194, 46, 14);
 		panel.add(lblNewLabel_8);
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setBounds(66, 191, 162, 20);
-		panel.add(textField);
-		textField.setColumns(10);
+		txtEdad = new JTextField();
+		txtEdad.setEditable(false);
+		txtEdad.setBounds(66, 191, 162, 20);
+		panel.add(txtEdad);
+		txtEdad.setColumns(10);
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -165,10 +188,26 @@ public class RegistrarConsulta extends JDialog {
 		panel_4.setLayout(null);
 		
 		JButton btnPadecimientos = new JButton("Actualizar");
+		btnPadecimientos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrarPaciente regPac = new RegistrarPaciente(miPaciente);
+				regPac.setModal(true);
+				regPac.setLocationRelativeTo(null);
+				regPac.setVisible(true);
+			}
+		});
 		btnPadecimientos.setBounds(90, 21, 101, 23);
 		panel_4.add(btnPadecimientos);
 		
 		JButton btnNewButton = new JButton("Historial");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				HistorialMedicoPaciente historial = new HistorialMedicoPaciente(miPaciente);
+				historial.setModal(true);
+				historial.setLocationRelativeTo(null);
+				historial.setVisible(true);
+			}
+		});
 		btnNewButton.setBounds(281, 21, 89, 23);
 		panel_4.add(btnNewButton);
 		
@@ -183,9 +222,36 @@ public class RegistrarConsulta extends JDialog {
 		panel_1.add(ScrollPaneHistorialConsultas);
 		
 		TableHistorialConsultas = new JTable();
+		TableHistorialConsultas.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int index = TableHistorialConsultas.getSelectedRow();
+				if(index >= 0)
+				{
+					btnAbrirConsulta.setEnabled(true);
+					selected = misConsultas.get(index);
+				}else {
+					btnAbrirConsulta.setEnabled(false);
+					selected = null;
+				}
+			}
+		});
+		misConsultasModel = new DefaultTableModel();
+		String headers[] = {"Codigo","Fecha","Enfermedad","Estado"};
+		misConsultasModel.setColumnIdentifiers(headers);
+		TableHistorialConsultas.setModel(misConsultasModel);
 		ScrollPaneHistorialConsultas.setViewportView(TableHistorialConsultas);
 		
-		JButton btnAbrirConsulta = new JButton("Abrir");
+		btnAbrirConsulta = new JButton("Abrir");
+		btnAbrirConsulta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ShowConsulta showCon = new ShowConsulta(selected);
+				showCon.setModal(true);
+				showCon.setLocationRelativeTo(null);
+				showCon.setVisible(true);
+			}
+		});
+		btnAbrirConsulta.setEnabled(false);
 		btnAbrirConsulta.setBounds(383, 314, 89, 23);
 		panel_1.add(btnAbrirConsulta);
 		
@@ -273,5 +339,68 @@ public class RegistrarConsulta extends JDialog {
 		txtFechaCita.setBounds(369, 40, 161, 20);
 		panel_3.add(txtFechaCita);
 		txtFechaCita.setColumns(10);
+		
+		loadPaciente();
+		loadPacienteCosultas();
+		loadCitaInfo();
 	}
+	
+	public static void loadPaciente()
+	{
+		if(miPaciente != null)
+		{
+			 txtNombre.setText(miPaciente.getNombre());
+			 txtApellido.setText(miPaciente.getApellido());
+			 txtCedula.setText(miPaciente.getCedula());
+			 txtTelefono.setText(miPaciente.getTelefono());
+			 txtSexo.setText(miPaciente.getGenero());
+			 txtTipoDeSangre.setText(miPaciente.getTipoSangre());
+			 txtAltura.setText(String.valueOf(miPaciente.getAltura()));
+			 txtPeso.setText(String.valueOf(miPaciente.getPeso()));
+			 txtEdad.setText(String.valueOf(miPaciente.getEdad()));
+		}
+	}
+	
+	public void loadPacienteCosultas()
+	{
+		
+		if(miMedico != null && miMedico.getMisconsultas() != null)
+		{
+			consultaMedicoPaciente();
+			misConsultasModel.setRowCount(0);
+			row = new Object[TableHistorialConsultas.getColumnCount()];
+			for(Consulta aux: misConsultas)
+			{
+				row[0] = aux.getCodigo();
+				row[1] = aux.getCita().getFecha().toString();
+				row[2] = aux.getEnfermedad();
+				row[3] = aux.getEstado();
+				misConsultasModel.addRow(row);
+			}
+		}
+	}
+	
+	public void loadCitaInfo()
+	{
+		if(miCita != null)
+		{
+			txtCodigoCita.setText(miCita.getCodigo());
+			txtFechaCita.setText(miCita.getFecha().toString());
+		}
+	}
+	
+	public void consultaMedicoPaciente()
+	{
+		if(miMedico != null && miMedico.getMisconsultas() != null)
+		{
+			for(Consulta aux: miMedico.getMisconsultas())
+			{
+				if(aux.getCita().getPaciente().equals(miPaciente))
+				{
+					misConsultas.add(aux);
+				}
+			}
+		}
+	}
+	
 }

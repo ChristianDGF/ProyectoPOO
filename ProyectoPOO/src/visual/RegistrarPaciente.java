@@ -307,9 +307,12 @@ public class RegistrarPaciente extends JDialog {
 		btnAgregarAlergia = new JButton("Agregar");
 		btnAgregarAlergia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				miPaciente.getMiHistorial().getMisAlergias().add(txtAlergia.getText());
-				loadAlergias();
-				txtAlergia.setText("");
+				if(miPaciente != null)
+				{
+					miPaciente.getMiHistorial().getMisAlergias().add(txtAlergia.getText());
+					loadAlergias();
+					txtAlergia.setText("");
+				}
 			}
 		});
 		btnAgregarAlergia.setBounds(306, 24, 81, 23);
@@ -341,9 +344,12 @@ public class RegistrarPaciente extends JDialog {
 		btnBorrar = new JButton("Borrar");
 		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				miPaciente.getMiHistorial().getMisAlergias().remove(alergiaString);
-				btnBorrar.setEnabled(false);
-				loadAlergias();
+				if(miPaciente != null)
+				{
+					miPaciente.getMiHistorial().getMisAlergias().remove(alergiaString);
+					btnBorrar.setEnabled(false);
+					loadAlergias();
+				}
 			}
 		});
 		btnBorrar.setEnabled(false);
@@ -359,26 +365,29 @@ public class RegistrarPaciente extends JDialog {
 				btnActualizar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
-						LocalDate nac = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-						LocalDate current = LocalDate.now();
-						
-						miPaciente.setNombre(txtNombre.getText());
-						miPaciente.setApellido(txtApellido.getText());
-						miPaciente.setCedula(txtCedula.getText());
-						miPaciente.setTelefono(txtTelefono.getText());
-						miPaciente.setAltura(Float.parseFloat(txtAltura.getText()));
-						miPaciente.setPeso(Float.parseFloat(txtPeso.getText()));
-						miPaciente.setCorreoelectronico(txtEmail.getText());
-						miPaciente.setEstado(txtEstado.getText());
-						miPaciente.setDireccion(txtDireccion.getText());
-						miPaciente.setGenero(comboBoxSexo.getSelectedItem().toString());
-						miPaciente.setTipoSangre(comboBoxSangre.getSelectedItem().toString());
-						miPaciente.setFechaNacimiento(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString());
-						miPaciente.setEdad(Period.between(nac, current).getYears());
-						
-						Clinica.getInstance().ActualizarPaciente(miPaciente);
-						JOptionPane.showMessageDialog(null, "El paciente ha sido actualizado correctamente!");  
-						dispose();
+						if(miPaciente != null)
+						{
+							LocalDate nac = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+							LocalDate current = LocalDate.now();
+							
+							miPaciente.setNombre(txtNombre.getText());
+							miPaciente.setApellido(txtApellido.getText());
+							miPaciente.setCedula(txtCedula.getText());
+							miPaciente.setTelefono(txtTelefono.getText());
+							miPaciente.setAltura(Float.parseFloat(txtAltura.getText()));
+							miPaciente.setPeso(Float.parseFloat(txtPeso.getText()));
+							miPaciente.setCorreoelectronico(txtEmail.getText());
+							miPaciente.setEstado(txtEstado.getText());
+							miPaciente.setDireccion(txtDireccion.getText());
+							miPaciente.setGenero(comboBoxSexo.getSelectedItem().toString());
+							miPaciente.setTipoSangre(comboBoxSangre.getSelectedItem().toString());
+							miPaciente.setFechaNacimiento(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString());
+							miPaciente.setEdad(Period.between(nac, current).getYears());
+							
+							Clinica.getInstance().ActualizarPaciente(miPaciente);
+							JOptionPane.showMessageDialog(null, "El paciente ha sido actualizado correctamente!");  
+							dispose();
+						}
 						
 					}
 				});

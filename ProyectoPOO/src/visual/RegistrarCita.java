@@ -309,6 +309,11 @@ public class RegistrarCita extends JDialog {
 			}
 			{
 				JButton btncancelar = new JButton("Cancelar");
+				btncancelar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				btncancelar.setActionCommand("Cancel");
 				buttonPane.add(btncancelar);
 			}
