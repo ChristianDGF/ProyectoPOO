@@ -59,6 +59,7 @@ public class SearchMedico extends JDialog {
 	 * Create the dialog.
 	 */
 	public SearchMedico() {
+		setResizable(false);
 		setTitle("Buscar Medico");
 		setBounds(100, 100, 895, 494);
 		getContentPane().setLayout(new BorderLayout());

@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 import logico.Cita;
 import logico.Consulta;
+import logico.Enfermedad;
 import logico.Medico;
 import logico.Paciente;
 
@@ -45,7 +46,7 @@ public class RegistrarConsulta extends JDialog {
 	private static JTextField txtAltura;
 	private static JTextField txtEdad;
 	private JTable TableHistorialConsultas;
-	private JTextField txtEnfermedadBuscar;
+	private static JTextField txtEnfermedadNombre;
 	private JTextField txtCodigoCita;
 	private JTextField txtFechaCita;
 	private Medico miMedico = null;
@@ -55,7 +56,10 @@ public class RegistrarConsulta extends JDialog {
 	private static Paciente miPaciente = null;
 	private JButton btnAbrirConsulta;
 	private ArrayList<Consulta> misConsultas = new ArrayList<Consulta>();
+	private static Enfermedad miEnfermedad = null;
 	private Consulta selected = null;
+	private static JTextField txtEnfermedadTipo;
+	private static JTextField txtEnfermedadEstado;
 
 	/**
 	 * Launch the application.
@@ -262,7 +266,7 @@ public class RegistrarConsulta extends JDialog {
 		panel_2.setLayout(null);
 		
 		JTextArea txtSintomas = new JTextArea();
-		txtSintomas.setBounds(10, 48, 541, 137);
+		txtSintomas.setBounds(10, 48, 541, 118);
 		panel_2.add(txtSintomas);
 		
 		JLabel lblNewLabel_9 = new JLabel("Sintomas:");
@@ -270,47 +274,72 @@ public class RegistrarConsulta extends JDialog {
 		panel_2.add(lblNewLabel_9);
 		
 		JLabel lblNewLabel_10 = new JLabel("Diagnostico:");
-		lblNewLabel_10.setBounds(10, 196, 84, 14);
+		lblNewLabel_10.setBounds(10, 177, 84, 14);
 		panel_2.add(lblNewLabel_10);
 		
 		JTextArea txtDiagnosticos = new JTextArea();
-		txtDiagnosticos.setBounds(10, 221, 541, 137);
+		txtDiagnosticos.setBounds(10, 202, 541, 118);
 		panel_2.add(txtDiagnosticos);
 		
 		JLabel lblNewLabel_11 = new JLabel("Enfermedad:");
-		lblNewLabel_11.setBounds(10, 374, 84, 14);
+		lblNewLabel_11.setBounds(12, 345, 84, 14);
 		panel_2.add(lblNewLabel_11);
 		
-		JComboBox comboBoxEnfermedades = new JComboBox();
-		comboBoxEnfermedades.setBounds(10, 399, 541, 20);
-		panel_2.add(comboBoxEnfermedades);
-		
-		txtEnfermedadBuscar = new JTextField();
-		txtEnfermedadBuscar.setBounds(10, 430, 301, 20);
-		panel_2.add(txtEnfermedadBuscar);
-		txtEnfermedadBuscar.setColumns(10);
+		txtEnfermedadNombre = new JTextField();
+		txtEnfermedadNombre.setEditable(false);
+		txtEnfermedadNombre.setBounds(12, 370, 370, 20);
+		panel_2.add(txtEnfermedadNombre);
+		txtEnfermedadNombre.setColumns(10);
 		
 		JButton txtBuscarEnfermedad = new JButton("Buscar");
-		txtBuscarEnfermedad.setBounds(327, 430, 224, 23);
+		txtBuscarEnfermedad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SearchEnfermedad searchEnf = new SearchEnfermedad();
+				searchEnf.setModal(true);
+				searchEnf.setLocationRelativeTo(null);
+				searchEnf.setVisible(true);
+			}
+		});
+		txtBuscarEnfermedad.setBounds(404, 370, 121, 76);
 		panel_2.add(txtBuscarEnfermedad);
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panel_5.setBounds(10, 461, 541, 81);
+		panel_5.setBounds(10, 471, 541, 71);
 		panel_2.add(panel_5);
 		panel_5.setLayout(null);
 		
 		JButton btnCerrar = new JButton("Cerrar");
-		btnCerrar.setBounds(428, 11, 89, 59);
+		btnCerrar.setBounds(426, 13, 89, 47);
 		panel_5.add(btnCerrar);
 		
 		JButton btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setBounds(317, 11, 89, 59);
+		btnRegistrar.setBounds(317, 13, 89, 47);
 		panel_5.add(btnRegistrar);
 		
 		JRadioButton rdbtnRHMP = new JRadioButton("Registrar en el historial medico del paciente");
-		rdbtnRHMP.setBounds(17, 29, 294, 23);
+		rdbtnRHMP.setBounds(17, 25, 294, 23);
 		panel_5.add(rdbtnRHMP);
+		
+		JLabel lblNewLabel_14 = new JLabel("Tipo:");
+		lblNewLabel_14.setBounds(12, 401, 46, 14);
+		panel_2.add(lblNewLabel_14);
+		
+		txtEnfermedadTipo = new JTextField();
+		txtEnfermedadTipo.setEditable(false);
+		txtEnfermedadTipo.setBounds(10, 426, 176, 20);
+		panel_2.add(txtEnfermedadTipo);
+		txtEnfermedadTipo.setColumns(10);
+		
+		JLabel lblNewLabel_15 = new JLabel("Estado:");
+		lblNewLabel_15.setBounds(215, 402, 46, 14);
+		panel_2.add(lblNewLabel_15);
+		
+		txtEnfermedadEstado = new JTextField();
+		txtEnfermedadEstado.setEditable(false);
+		txtEnfermedadEstado.setBounds(215, 426, 167, 20);
+		panel_2.add(txtEnfermedadEstado);
+		txtEnfermedadEstado.setColumns(10);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new TitledBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "Cita", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -403,4 +432,11 @@ public class RegistrarConsulta extends JDialog {
 		}
 	}
 	
+	public static void getEnfermedad(Enfermedad enfermedad)
+	{
+		miEnfermedad = enfermedad;
+		txtEnfermedadNombre.setText(miEnfermedad.getNombre());
+		txtEnfermedadTipo.setText(miEnfermedad.getTipo());
+		txtEnfermedadEstado.setText(miEnfermedad.getEstado());
+	}
 }

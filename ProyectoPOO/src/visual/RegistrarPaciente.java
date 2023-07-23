@@ -423,13 +423,16 @@ public class RegistrarPaciente extends JDialog {
 			txtDireccion.setText(miPaciente.getDireccion());
 			comboBoxSexo.setSelectedItem(miPaciente.getGenero());
 			comboBoxSangre.setSelectedItem(miPaciente.getTipoSangre());
-			Date fecha = null;
-			try {
-				fecha = new SimpleDateFormat("yyyy-MM-dd").parse(miPaciente.getFechaNacimiento());
-			} catch (ParseException e) {
-				e.printStackTrace();
+			if(!miPaciente.getFechaNacimiento().equals(""))
+			{
+				Date fecha = null;
+				try {
+					fecha = new SimpleDateFormat("yyyy-MM-dd").parse(miPaciente.getFechaNacimiento());
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				dateChooser.setDate(fecha);
 			}
-			dateChooser.setDate(fecha);
 			txtEdad.setText(String.valueOf(miPaciente.getEdad()));
 			
 			loadAlergias();
