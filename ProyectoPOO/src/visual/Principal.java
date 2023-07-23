@@ -78,9 +78,25 @@ public class Principal extends JFrame{
 		menuBar.add(mnNewMenu);
 		
 		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Registrar Pacientes");
+		mntmNewMenuItem_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrarPaciente regpac = new RegistrarPaciente(null);
+				regpac.setModal(true);
+				regpac.setLocationRelativeTo(null);
+				regpac.setVisible(true);
+			}
+		});
 		mnNewMenu.add(mntmNewMenuItem_8);
 		
 		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Listado de Pacientes");
+		mntmNewMenuItem_9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarPacientes listpaciente = new ListarPacientes();
+				listpaciente.setModal(true);
+				listpaciente.setLocationRelativeTo(null);
+				listpaciente.setVisible(true);
+			}
+		});
 		mnNewMenu.add(mntmNewMenuItem_9);
 		
 		JMenu mnNewMenu_1 = new JMenu("Consultas");
@@ -91,6 +107,14 @@ public class Principal extends JFrame{
 		menuBar.add(mnNewMenu_1);
 		
 		JMenuItem mntmNewMenuItem_10 = new JMenuItem("Registrar Consultas");
+		mntmNewMenuItem_10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrarConsulta regconsulta = new RegistrarConsulta(null, null, null);
+				regconsulta.setModal(true);
+				regconsulta.setLocationRelativeTo(null);
+				regconsulta.setVisible(true);
+			}
+		});
 		mnNewMenu_1.add(mntmNewMenuItem_10);
 		
 		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Listado de Consultas");

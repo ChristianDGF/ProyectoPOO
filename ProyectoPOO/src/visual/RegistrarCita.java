@@ -55,22 +55,6 @@ public class RegistrarCita extends JDialog {
 	private JFormattedTextField txtCedula;
 	private JDateChooser dateChooser;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			RegistrarCita dialog = new RegistrarCita();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Create the dialog.
-	 */
 	public RegistrarCita() {
 		setTitle("Registrar CIta");
 		setBounds(100, 100, 618, 626);
@@ -274,10 +258,7 @@ public class RegistrarCita extends JDialog {
 								Cita cita = new Cita(txtCodigoCita.getText(), dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), miPaciente, miMedico);
 								Clinica.getInstance().AgregarCita(cita);
 							}else {
-								Paciente newPaciente = new Paciente(txtNombre.getText(), txtApellido.getText(), "", "", "", txtCedula.getText(), txtTelefono.getText(), "", "", 0, 0, "", 0);
-								Cita cita = new Cita(txtCodigoCita.getText(), dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), newPaciente, miMedico);
-								Clinica.getInstance().AgregarPaciente(newPaciente);
-								Clinica.getInstance().AgregarCita(cita);
+								registrar();	
 							}
 
 						}else {
@@ -302,6 +283,18 @@ public class RegistrarCita extends JDialog {
 		}
 	}
 	
+	protected void registrar() {
+		Paciente newPaciente = new Paciente(txtNombre.getText(), txtApellido.getText(), "", "", comboBoxGenero.getSelectedItem().toString(), txtCedula.getText(), txtTelefono.getText(), "", "", 0, 0, "", 0);
+		Cita cita = new Cita(txtCodigoCita.getText(), dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), newPaciente, miMedico);
+		Clinica.getInstance().AgregarPaciente(newPaciente);
+		Clinica.getInstance().AgregarCita(cita);
+		JOptionPane.showMessageDialog(null, "Cita registrada correctamente", "Registro",
+	            JOptionPane.INFORMATION_MESSAGE);
+		clearPacienteInfo();
+		clearMedicoInfo();
+	}
+
+
 	protected MaskFormatter createFormatter(String s) {
 	    MaskFormatter formatter = null;
 	    try {
@@ -347,6 +340,7 @@ public class RegistrarCita extends JDialog {
 	
 	public void clearPacienteInfo()
 	{
+		txtCedula.setText("");
 		txtNombre.setText("");
 		txtApellido.setText("");
 		txtTelefono.setText("");
