@@ -43,12 +43,11 @@ public class RegistrarCita extends JDialog {
 	private JTextField txtNombre;
 	private JTextField txtApellido;
 	private JTextField txtCodigoCita;
-	private JTextField txtExequatur;
-	private JTextField txtNconsultorio;
-	private JTextField txtEspecialidad;
-	private JTextField txtNombreMedico;
-	private JTextField txtApellidoMedico;
-	private Medico miMedico = null;
+	private static JTextField txtNconsultorio;
+	private static JTextField txtEspecialidad;
+	private static JTextField txtNombreMedico;
+	private static JTextField txtApellidoMedico;
+	private static Medico miMedico = null;
 	private Paciente miPaciente = null;
 	private JButton btnBuscarPaciente;
 	private JFormattedTextField txtTelefono;
@@ -202,33 +201,16 @@ public class RegistrarCita extends JDialog {
 			panel.add(panel_2);
 			panel_2.setLayout(null);
 			
-			JLabel lblNewLabel = new JLabel("Exequatur:");
-			lblNewLabel.setBounds(66, 24, 70, 14);
-			panel_2.add(lblNewLabel);
-			
-			txtExequatur = new JTextField();
-			txtExequatur.setBounds(146, 21, 178, 20);
-			panel_2.add(txtExequatur);
-			txtExequatur.setColumns(10);
-			
 			JButton btnNewButton = new JButton("Buscar");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					miMedico = Clinica.getInstance().BuscarMedicoByExequatur(txtExequatur.getText());
-					if(miMedico != null)
-					{
-						JOptionPane.showMessageDialog(null, "El Medico fue encontrado!");
-						txtNconsultorio.setText(miMedico.getNumeroconsultorio());
-						txtEspecialidad.setText(miMedico.getEspecialidad());
-						txtNombreMedico.setText(miMedico.getNombre());
-						txtApellidoMedico.setText(miMedico.getApellido());
-					}else {
-						JOptionPane.showMessageDialog(null, "El Medico no fue encontrado!");
-						clearMedicoInfo();
-					}
+					SearchMedico sMedico = new SearchMedico();
+					sMedico.setModal(true);
+					sMedico.setLocationRelativeTo(null);
+					sMedico.setVisible(true);
 				}
 			});
-			btnNewButton.setBounds(369, 20, 160, 23);
+			btnNewButton.setBounds(212, 18, 160, 23);
 			panel_2.add(btnNewButton);
 			
 			JPanel panel_3 = new JPanel();
@@ -377,5 +359,14 @@ public class RegistrarCita extends JDialog {
 		txtEspecialidad.setText("");
 		txtNombreMedico.setText("");
 		txtApellidoMedico.setText("");
+	}
+	
+	public static void getMedico(Medico medico)
+	{
+		miMedico = medico;
+		txtNconsultorio.setText(miMedico.getNumeroconsultorio());
+		txtEspecialidad.setText(miMedico.getEspecialidad());
+		txtNombreMedico.setText(miMedico.getNombre());
+		txtApellidoMedico.setText(miMedico.getApellido());
 	}
 }
