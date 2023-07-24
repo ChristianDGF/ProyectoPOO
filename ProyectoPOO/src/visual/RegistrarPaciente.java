@@ -236,9 +236,12 @@ public class RegistrarPaciente extends JDialog {
 		dateChooser = new JDateChooser();
 		dateChooser.getCalendarButton().addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				LocalDate nac = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-				LocalDate current = LocalDate.now();
-				txtEdad.setText(String.valueOf(Period.between(nac, current).getYears()));
+				if(dateChooser.getDate() != null)
+				{
+					LocalDate nac = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+					LocalDate current = LocalDate.now();
+					txtEdad.setText(String.valueOf(Period.between(nac, current).getYears()));
+				}
 			}
 		});
 		JTextFieldDateEditor editor = (JTextFieldDateEditor) dateChooser.getDateEditor();
