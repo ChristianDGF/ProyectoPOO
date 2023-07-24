@@ -45,6 +45,7 @@ public class Principal extends JFrame{
 		setTitle("Clinica CW");
 		setBounds(100, 100, 767, 557);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
@@ -194,40 +195,17 @@ public class Principal extends JFrame{
 			menuempleados.setEnabled(false);
 		}
 		
+		JMenu mnNewMenu_5 = new JMenu("Empleados");
+		menuempleados.add(mnNewMenu_5);
+		
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Registrar Empleados");
-		mntmNewMenuItem_4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RegistrarEmpleado regempleado = new RegistrarEmpleado(null);
-				regempleado.setModal(true);
-				regempleado.setLocationRelativeTo(null);
-				regempleado.setVisible(true);
-			}
-		});
-		menuempleados.add(mntmNewMenuItem_4);
+		mnNewMenu_5.add(mntmNewMenuItem_4);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Listar Empleados");
-		mntmNewMenuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ListarEmpleados listarempleados = new ListarEmpleados();
-				listarempleados.setModal(true);
-				listarempleados.setLocationRelativeTo(null);
-				listarempleados.setVisible(true);
-			}
-		});
-		
-		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Registrar Usuarios");
-		mntmNewMenuItem_7.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RegistrarUsuario regusuario = new RegistrarUsuario(null);
-				regusuario.setModal(true);
-				regusuario.setLocationRelativeTo(null);
-				regusuario.setVisible(true);
-			}
-		});
-		menuempleados.add(mntmNewMenuItem_7);
-		menuempleados.add(mntmNewMenuItem);
+		mnNewMenu_5.add(mntmNewMenuItem);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Listar Medicos");
+		mnNewMenu_5.add(mntmNewMenuItem_2);
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListarMedicos listarmedicos = new ListarMedicos();
@@ -236,9 +214,31 @@ public class Principal extends JFrame{
 				listarmedicos.setVisible(true);
 			}
 		});
-		menuempleados.add(mntmNewMenuItem_2);
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarEmpleados listarempleados = new ListarEmpleados();
+				listarempleados.setModal(true);
+				listarempleados.setLocationRelativeTo(null);
+				listarempleados.setVisible(true);
+			}
+		});
+		mntmNewMenuItem_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrarEmpleado regempleado = new RegistrarEmpleado(null);
+				regempleado.setModal(true);
+				regempleado.setLocationRelativeTo(null);
+				regempleado.setVisible(true);
+			}
+		});
+		
+		JMenu mnNewMenu_6 = new JMenu("Usuarios");
+		menuempleados.add(mnNewMenu_6);
+		
+		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Registrar Usuarios");
+		mnNewMenu_6.add(mntmNewMenuItem_7);
 		
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Listar Usuario");
+		mnNewMenu_6.add(mntmNewMenuItem_3);
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListarUsuarios listusuario = new ListarUsuarios();
@@ -247,7 +247,14 @@ public class Principal extends JFrame{
 				listusuario.setVisible(true);
 			}
 		});
-		menuempleados.add(mntmNewMenuItem_3);
+		mntmNewMenuItem_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrarUsuario regusuario = new RegistrarUsuario(null);
+				regusuario.setModal(true);
+				regusuario.setLocationRelativeTo(null);
+				regusuario.setVisible(true);
+			}
+		});
 	}
 
 }
