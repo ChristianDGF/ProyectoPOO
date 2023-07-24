@@ -34,7 +34,6 @@ public class ListarVacunas extends JDialog {
 	private JButton btneliminar;
 	private Vacuna mivacuna = null;
 
-	
 	public ListarVacunas() {
 		setBounds(100, 100, 736, 505);
 		getContentPane().setLayout(new BorderLayout());
@@ -43,7 +42,8 @@ public class ListarVacunas extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			JPanel panel = new JPanel();
-			panel.setBorder(new TitledBorder(null, "Listado de Vacunas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			panel.setBorder(
+					new TitledBorder(null, "Listado de Vacunas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panel.setBounds(12, 13, 694, 397);
 			contentPanel.add(panel);
 			panel.setLayout(null);
@@ -59,7 +59,8 @@ public class ListarVacunas extends JDialog {
 						listarVacunasPorTipo();
 					}
 				});
-				cmbtipo.setModel(new DefaultComboBoxModel(new String[] {"<Todos>", "Vivas atenuadas", "Inactivadas", "Toxoides", "Subunidades", "Vector recombinante", "Vacuna de ADN", "Vacuna de ARN"}));
+				cmbtipo.setModel(new DefaultComboBoxModel(new String[] { "<Todos>", "Vivas atenuadas", "Inactivadas",
+						"Toxoides", "Subunidades", "Vector recombinante", "Vacuna de ADN", "Vacuna de ARN" }));
 				cmbtipo.setBounds(51, 22, 165, 22);
 				panel.add(cmbtipo);
 			}
@@ -73,11 +74,10 @@ public class ListarVacunas extends JDialog {
 						@Override
 						public void mouseClicked(MouseEvent e) {
 							int index = table.getSelectedRow();
-							if (index >= 0 && !Clinica.getLoginUser().getTipo().equalsIgnoreCase("basico") ) {
+							if (index >= 0 && !Clinica.getLoginUser().getTipo().equalsIgnoreCase("basico")) {
 								btnmodificar.setEnabled(true);
-								if(Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador") )
-								{
-								btneliminar.setEnabled(true);
+								if (Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
+									btneliminar.setEnabled(true);
 								}
 								mivacuna = Clinica.getInstance().getVacunaByCode(table.getValueAt(index, 0).toString());
 							}
@@ -95,20 +95,19 @@ public class ListarVacunas extends JDialog {
 				btneliminar = new JButton("Eliminar");
 				btneliminar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(mivacuna != null)
-						{
+						if (mivacuna != null) {
 							int option = JOptionPane
 									.showConfirmDialog(null,
-											"Estas seguro(a) que desea eliminar la vacuna con el Codigo: "
+											"Estas seguro(a) que desea eliminar la vacuna con el codigo: "
 													+ mivacuna.getCodigo(),
-													"Confirmacion", JOptionPane.OK_CANCEL_OPTION);
+											"Confirmacion", JOptionPane.OK_CANCEL_OPTION);
 							if (option == JOptionPane.OK_OPTION) {
 								Clinica.getInstance().EliminarVacuna(mivacuna);
 								btneliminar.setEnabled(false);
 								btnmodificar.setEnabled(false);
 								listarVacunasPorTipo();
+							}
 						}
-					}
 					}
 				});
 				btneliminar.setEnabled(false);
@@ -116,8 +115,7 @@ public class ListarVacunas extends JDialog {
 			}
 			{
 				btnmodificar = new JButton("Modificar");
-				if(Clinica.getLoginUser().getTipo().equalsIgnoreCase("Privilegiado"))
-				{
+				if (Clinica.getLoginUser().getTipo().equalsIgnoreCase("Privilegiado")) {
 					btnmodificar.setText("Visualizar");
 				}
 				btnmodificar.addActionListener(new ActionListener() {
@@ -146,6 +144,7 @@ public class ListarVacunas extends JDialog {
 		}
 		listarVacunasPorTipo();
 	}
+
 	private void listarVacunasPorTipo() {
 		String tipoSeleccionado = cmbtipo.getSelectedItem().toString();
 		ArrayList<Vacuna> vacunas = Clinica.getInstance().getVacunasPorTipo(tipoSeleccionado);
@@ -157,12 +156,8 @@ public class ListarVacunas extends JDialog {
 		model.addColumn("Tipo");
 
 		for (Vacuna vacuna : vacunas) {
-			model.addRow(new Object[] {
-				vacuna.getCodigo(),
-				vacuna.getEnfermedad(),
-				vacuna.getLaboratorio(),
-				vacuna.getTipo()
-			});
+			model.addRow(new Object[] { vacuna.getCodigo(), vacuna.getEnfermedad(), vacuna.getLaboratorio(),
+					vacuna.getTipo() });
 		}
 
 		table.setModel(model);

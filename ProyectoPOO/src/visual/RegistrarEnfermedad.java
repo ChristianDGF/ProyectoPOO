@@ -36,17 +36,16 @@ public class RegistrarEnfermedad extends JDialog {
 
 	public RegistrarEnfermedad(Enfermedad mienfermedad) {
 		enfermedad = mienfermedad;
-		if(enfermedad==null) {
-		setTitle("Registrar Enfermedad");
-		}
-		if(Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
-		setTitle("Modificar Enfermedad");
-		}
-		else {
+		if (Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
+			if (enfermedad == null) {
+				setTitle("Registrar Enfermedad");
+			} else {
+				setTitle("Modificar Enfermedad");
+			}
+		} else {
 			setTitle("Visualizar Enfermedad");
 		}
-		
-		
+
 		setBounds(100, 100, 576, 288);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -95,7 +94,7 @@ public class RegistrarEnfermedad extends JDialog {
 			}
 			{
 				cmbestado = new JComboBox();
-				cmbestado.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Vigilancia"}));
+				cmbestado.setModel(new DefaultComboBoxModel(new String[] { "<Seleccionar>", "Vigilancia" }));
 				cmbestado.setBounds(355, 50, 174, 22);
 				panel.add(cmbestado);
 			}
@@ -124,22 +123,17 @@ public class RegistrarEnfermedad extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnregistrar = new JButton("Registrar");
-				if(!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador"))
-				{
-				btnregistrar.setEnabled(false);
+				if (!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
+					btnregistrar.setEnabled(false);
 				}
-				if(enfermedad != null )
-				{
+				if (enfermedad != null) {
 					btnregistrar.setText("Modificar");
 				}
 				btnregistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(checkfield() && enfermedad == null)
-						{
-						  registrarEnfermedad();
-						}
-						else
-						{
+						if (checkfield() && enfermedad == null) {
+							registrarEnfermedad();
+						} else {
 							modificarEnfermedad();
 							JOptionPane.showMessageDialog(null, "Operación satisfactoria", "Registro",
 									JOptionPane.INFORMATION_MESSAGE);
@@ -163,11 +157,11 @@ public class RegistrarEnfermedad extends JDialog {
 			}
 		}
 		cargarEnfermedad();
-		if(!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador"))
-		{
+		if (!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
 			lockfields();
 		}
 	}
+
 	private void lockfields() {
 		txtcodigo.setEditable(false);
 		txtnombre.setEditable(false);
@@ -175,6 +169,7 @@ public class RegistrarEnfermedad extends JDialog {
 		txttipo.setEditable(false);
 		cmbestado.setEnabled(false);
 	}
+
 	protected void modificarEnfermedad() {
 		enfermedad.setCodigo(txtcodigo.getText());
 		enfermedad.setNombre(txtnombre.getText());
@@ -183,10 +178,8 @@ public class RegistrarEnfermedad extends JDialog {
 		enfermedad.setEstado(cmbestado.getSelectedItem().toString());
 	}
 
-	private void cargarEnfermedad()
-	{
-		if(enfermedad != null)
-		{
+	private void cargarEnfermedad() {
+		if (enfermedad != null) {
 			txtcodigo.setText(enfermedad.getCodigo());
 			txtnombre.setText(enfermedad.getNombre());
 			txtdescripcion.setText(enfermedad.getDescripcion());
@@ -194,38 +187,39 @@ public class RegistrarEnfermedad extends JDialog {
 			cmbestado.setSelectedItem(enfermedad.getEstado());
 		}
 	}
+
 	private void registrarEnfermedad() {
-	    String codigo = txtcodigo.getText();
-	    String nombre = txtnombre.getText();
-	    String descripcion = txtdescripcion.getText();
-	    String tipo = txttipo.getText();
-	    String estado = cmbestado.getSelectedItem().toString();
+		String codigo = txtcodigo.getText();
+		String nombre = txtnombre.getText();
+		String descripcion = txtdescripcion.getText();
+		String tipo = txttipo.getText();
+		String estado = cmbestado.getSelectedItem().toString();
 
-	    Enfermedad enfermedad = new Enfermedad(codigo, nombre, descripcion, tipo, estado);
-	    
-	    Clinica.getInstance().AgregarEnfermedad(enfermedad);
+		Enfermedad enfermedad = new Enfermedad(codigo, nombre, descripcion, tipo, estado);
 
-	    JOptionPane.showMessageDialog(null, "Enfermedad registrada correctamente", "Registro",
-	            JOptionPane.INFORMATION_MESSAGE);
-	    clean();
+		Clinica.getInstance().AgregarEnfermedad(enfermedad);
+
+		JOptionPane.showMessageDialog(null, "Enfermedad registrada correctamente", "Registro",
+				JOptionPane.INFORMATION_MESSAGE);
+		clean();
 	}
 
 	private void clean() {
-	    txtcodigo.setText("");
-	    txtnombre.setText("");
-	    txtdescripcion.setText("");
-	    txttipo.setText("");
-	    cmbestado.setSelectedIndex(0);
-	}
-	private boolean checkfield() {
-	    if (txtnombre.getText().isEmpty() || txttipo.getText().isEmpty() || txtcodigo.getText().isEmpty()
-	            || cmbestado.getSelectedIndex() == 0 || txtdescripcion.getText().isEmpty()) {
-	        JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios", "Error",
-	                JOptionPane.INFORMATION_MESSAGE);
-	        return false;
-	    }
-	    return true;
+		txtcodigo.setText("");
+		txtnombre.setText("");
+		txtdescripcion.setText("");
+		txttipo.setText("");
+		cmbestado.setSelectedIndex(0);
 	}
 
+	private boolean checkfield() {
+		if (txtnombre.getText().isEmpty() || txttipo.getText().isEmpty() || txtcodigo.getText().isEmpty()
+				|| cmbestado.getSelectedIndex() == 0 || txtdescripcion.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios", "Error",
+					JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}
+		return true;
+	}
 
 }

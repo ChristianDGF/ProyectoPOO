@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextPane;
 
 public class Login extends JFrame {
 
@@ -97,25 +98,43 @@ public class Login extends JFrame {
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
+		JPanel PanelUsuario = new JPanel();
+		PanelUsuario.setBounds(12, 13, 398, 94);
+		panel.add(PanelUsuario);
+		PanelUsuario.setLayout(null);
+		
 		JLabel lblusuario = new JLabel("Usuario:");
-		lblusuario.setBounds(58, 58, 56, 16);
-		panel.add(lblusuario);
+		lblusuario.setBounds(12, 16, 56, 16);
+		PanelUsuario.add(lblusuario);
 		
 		txtusuario = new JTextField();
-		txtusuario.setBounds(128, 55, 209, 22);
-		panel.add(txtusuario);
+		txtusuario.setBounds(82, 13, 209, 22);
+		PanelUsuario.add(txtusuario);
 		txtusuario.setColumns(10);
 		
 		txtpassword = new JTextField();
+		txtpassword.setBounds(82, 48, 209, 22);
+		PanelUsuario.add(txtpassword);
 		txtpassword.setColumns(10);
-		txtpassword.setBounds(128, 90, 209, 22);
-		panel.add(txtpassword);
 		
 		JLabel lblPassword = new JLabel("Password:");
-		lblPassword.setBounds(58, 93, 73, 16);
-		panel.add(lblPassword);
+		lblPassword.setBounds(12, 51, 73, 16);
+		PanelUsuario.add(lblPassword);
 		
-		JButton btnlogin = new JButton("Login");
+		JButton btnlogin = new JButton("Entrar");
+		btnlogin.setBounds(303, 13, 73, 57);
+		PanelUsuario.add(btnlogin);
+		
+		JPanel PanelINfo = new JPanel();
+		PanelINfo.setBounds(12, 120, 398, 110);
+		panel.add(PanelINfo);
+		PanelINfo.setLayout(null);
+		
+		JTextPane txtpnIntroduzcaSuUsuario = new JTextPane();
+		txtpnIntroduzcaSuUsuario.setEditable(false);
+		txtpnIntroduzcaSuUsuario.setText("Introduzca su usuario y contrase\u00F1a para ingresar al sistema.\r\n\r\nSi olvido su contrase\u00F1a, contactar con un administrador para reiniciarla.\r\n\r\n");
+		txtpnIntroduzcaSuUsuario.setBounds(0, 5, 386, 92);
+		PanelINfo.add(txtpnIntroduzcaSuUsuario);
 		btnlogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(Clinica.getInstance().confirmLogin(txtusuario.getText(),txtpassword.getText()))
@@ -126,7 +145,5 @@ public class Login extends JFrame {
 				};
 			}
 		});
-		btnlogin.setBounds(177, 136, 97, 25);
-		panel.add(btnlogin);
 	}
 }

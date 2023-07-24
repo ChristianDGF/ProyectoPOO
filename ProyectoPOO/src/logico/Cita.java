@@ -12,9 +12,10 @@ public class Cita implements Serializable{
 	private Paciente paciente;
 	private Medico medico;
 	
-	public Cita(String codigo, LocalDate fecha, Paciente paciente, Medico medico) {
+	public Cita(LocalDate fecha, Paciente paciente, Medico medico) {
 		super();
-		this.codigo = codigo;
+		this.codigo = "CITA-N" + Clinica.codigoCita;
+		Clinica.codigoCita++;
 		this.fecha = fecha;
 		this.paciente = paciente;
 		this.medico = medico;

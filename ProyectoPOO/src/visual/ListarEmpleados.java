@@ -105,7 +105,7 @@ public class ListarEmpleados extends JDialog {
 						if (miempleado != null) {
 							int option = JOptionPane
 									.showConfirmDialog(null,
-											"Estas seguro(a) que desea eliminar el Empleado con el Codigo: "
+											"Estas seguro(a) que desea eliminar el empleado con el codigo: "
 													+ miempleado.getCodigo(),
 													"Confirmacion", JOptionPane.OK_CANCEL_OPTION);
 							if (option == JOptionPane.OK_OPTION) {

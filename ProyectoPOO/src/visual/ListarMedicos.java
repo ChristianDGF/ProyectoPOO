@@ -11,9 +11,11 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import logico.Clinica;
+import logico.Empleado;
 import logico.Medico;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -21,6 +23,8 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ListarMedicos extends JDialog {
 
@@ -28,6 +32,7 @@ public class ListarMedicos extends JDialog {
     private JTable table;
     private JScrollPane scrollPane;
     private JComboBox cmbespecialidad;
+    private Medico mimedico;
 
     public ListarMedicos() {
         setBounds(100, 100, 713, 559);
@@ -66,12 +71,7 @@ public class ListarMedicos extends JDialog {
         buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
         getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
-        JButton okButton = new JButton("OK");
-        okButton.setActionCommand("OK");
-        buttonPane.add(okButton);
-        getRootPane().setDefaultButton(okButton);
-
-        JButton cancelButton = new JButton("Cancel");
+        JButton cancelButton = new JButton("Cancelar");
         cancelButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		dispose();
