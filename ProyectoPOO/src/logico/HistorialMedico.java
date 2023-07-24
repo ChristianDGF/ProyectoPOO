@@ -12,8 +12,7 @@ public class HistorialMedico implements Serializable{
 	private ArrayList<Vacuna> misVancunas;
 	private ArrayList<Consulta> misConsultas;
 	
-	public HistorialMedico(String codigo, ArrayList<String> misAlergias, ArrayList<Enfermedad> misPadecimientos,
-			ArrayList<Vacuna> misVancunas) {
+	public HistorialMedico(String codigo) {
 		super();
 		this.codigo = codigo;
 		this.misAlergias = new ArrayList<String>();

@@ -28,11 +28,11 @@ public class RegistrarEnfermedad extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtnombre;
-	private JTextField txttipo;
 	private JTextField txtcodigo;
 	private JTextPane txtdescripcion;
 	private JComboBox cmbestado;
 	private Enfermedad enfermedad;
+	private JComboBox comboBoxTipo;
 
 	public RegistrarEnfermedad(Enfermedad mienfermedad) {
 		enfermedad = mienfermedad;
@@ -75,12 +75,6 @@ public class RegistrarEnfermedad extends JDialog {
 				panel.add(lbltipo);
 			}
 			{
-				txttipo = new JTextField();
-				txttipo.setColumns(10);
-				txttipo.setBounds(101, 50, 174, 22);
-				panel.add(txttipo);
-			}
-			{
 				JLabel lblcodigo = new JLabel("Codigo:");
 				lblcodigo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				lblcodigo.setBounds(287, 18, 56, 16);
@@ -115,6 +109,11 @@ public class RegistrarEnfermedad extends JDialog {
 				txtdescripcion.setBounds(99, 91, 430, 91);
 				panel.add(txtdescripcion);
 			}
+			
+			comboBoxTipo = new JComboBox();
+			comboBoxTipo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Agudas", "Subagudas", "Cr\u00F3nicas"}));
+			comboBoxTipo.setBounds(101, 52, 174, 20);
+			panel.add(comboBoxTipo);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -166,7 +165,7 @@ public class RegistrarEnfermedad extends JDialog {
 		txtcodigo.setEditable(false);
 		txtnombre.setEditable(false);
 		txtdescripcion.setEditable(false);
-		txttipo.setEditable(false);
+		comboBoxTipo.setEditable(false);
 		cmbestado.setEnabled(false);
 	}
 
@@ -174,7 +173,7 @@ public class RegistrarEnfermedad extends JDialog {
 		enfermedad.setCodigo(txtcodigo.getText());
 		enfermedad.setNombre(txtnombre.getText());
 		enfermedad.setDescripcion(txtdescripcion.getText());
-		enfermedad.setTipo(txttipo.getText());
+		enfermedad.setTipo(comboBoxTipo.getSelectedItem().toString());
 		enfermedad.setEstado(cmbestado.getSelectedItem().toString());
 	}
 
@@ -183,7 +182,7 @@ public class RegistrarEnfermedad extends JDialog {
 			txtcodigo.setText(enfermedad.getCodigo());
 			txtnombre.setText(enfermedad.getNombre());
 			txtdescripcion.setText(enfermedad.getDescripcion());
-			txttipo.setText(enfermedad.getTipo());
+			comboBoxTipo.setSelectedItem(enfermedad.getTipo());
 			cmbestado.setSelectedItem(enfermedad.getEstado());
 		}
 	}
@@ -192,7 +191,7 @@ public class RegistrarEnfermedad extends JDialog {
 		String codigo = txtcodigo.getText();
 		String nombre = txtnombre.getText();
 		String descripcion = txtdescripcion.getText();
-		String tipo = txttipo.getText();
+		String tipo = comboBoxTipo.getSelectedItem().toString();
 		String estado = cmbestado.getSelectedItem().toString();
 
 		Enfermedad enfermedad = new Enfermedad(codigo, nombre, descripcion, tipo, estado);
@@ -208,12 +207,12 @@ public class RegistrarEnfermedad extends JDialog {
 		txtcodigo.setText("");
 		txtnombre.setText("");
 		txtdescripcion.setText("");
-		txttipo.setText("");
+		comboBoxTipo.setSelectedIndex(0);;
 		cmbestado.setSelectedIndex(0);
 	}
 
 	private boolean checkfield() {
-		if (txtnombre.getText().isEmpty() || txttipo.getText().isEmpty() || txtcodigo.getText().isEmpty()
+		if (txtnombre.getText().isEmpty() || comboBoxTipo.getSelectedIndex() == 0 || txtcodigo.getText().isEmpty()
 				|| cmbestado.getSelectedIndex() == 0 || txtdescripcion.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios", "Error",
 					JOptionPane.INFORMATION_MESSAGE);
@@ -221,5 +220,4 @@ public class RegistrarEnfermedad extends JDialog {
 		}
 		return true;
 	}
-
 }
