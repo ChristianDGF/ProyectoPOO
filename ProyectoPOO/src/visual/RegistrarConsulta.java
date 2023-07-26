@@ -12,12 +12,15 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import logico.Cita;
+import logico.Clinica;
 import logico.Consulta;
 import logico.Enfermedad;
 import logico.Medico;
 import logico.Paciente;
+import logico.Persona;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -60,6 +63,10 @@ public class RegistrarConsulta extends JDialog {
 	private Consulta selected = null;
 	private static JTextField txtEnfermedadTipo;
 	private static JTextField txtEnfermedadEstado;
+	private static JButton btnEliminar;
+	private JTextArea txtSintomas;
+	private JTextArea txtDiagnosticos;
+	private JRadioButton rdbtnRHMP;
 
 	/**
 	 * Launch the application.
@@ -77,9 +84,13 @@ public class RegistrarConsulta extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public RegistrarConsulta(Paciente paciente,Medico doctor,Cita cita) {
+	public RegistrarConsulta(Persona persona,Medico doctor,Cita cita) {
+		if(persona != null)
+		{
+			checkPaciente(cita,persona);
+		}
+		
 		miMedico = doctor;
-		miPaciente = paciente;
 		miCita = cita;
 		setTitle("Consulta");
 		setResizable(false);
@@ -265,7 +276,7 @@ public class RegistrarConsulta extends JDialog {
 		contentPanel.add(panel_2);
 		panel_2.setLayout(null);
 		
-		JTextArea txtSintomas = new JTextArea();
+		txtSintomas = new JTextArea();
 		txtSintomas.setBounds(10, 48, 541, 118);
 		panel_2.add(txtSintomas);
 		
@@ -277,7 +288,7 @@ public class RegistrarConsulta extends JDialog {
 		lblNewLabel_10.setBounds(10, 177, 84, 14);
 		panel_2.add(lblNewLabel_10);
 		
-		JTextArea txtDiagnosticos = new JTextArea();
+		txtDiagnosticos = new JTextArea();
 		txtDiagnosticos.setBounds(10, 202, 541, 118);
 		panel_2.add(txtDiagnosticos);
 		
@@ -291,7 +302,7 @@ public class RegistrarConsulta extends JDialog {
 		panel_2.add(txtEnfermedadNombre);
 		txtEnfermedadNombre.setColumns(10);
 		
-		JButton txtBuscarEnfermedad = new JButton("Buscar");
+		JButton txtBuscarEnfermedad = new JButton("Seleccionar");
 		txtBuscarEnfermedad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SearchEnfermedad searchEnf = new SearchEnfermedad();
@@ -300,7 +311,7 @@ public class RegistrarConsulta extends JDialog {
 				searchEnf.setVisible(true);
 			}
 		});
-		txtBuscarEnfermedad.setBounds(404, 370, 121, 76);
+		txtBuscarEnfermedad.setBounds(404, 370, 121, 23);
 		panel_2.add(txtBuscarEnfermedad);
 		
 		JPanel panel_5 = new JPanel();
@@ -310,14 +321,27 @@ public class RegistrarConsulta extends JDialog {
 		panel_5.setLayout(null);
 		
 		JButton btnCerrar = new JButton("Cerrar");
+		btnCerrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnCerrar.setBounds(426, 13, 89, 47);
 		panel_5.add(btnCerrar);
 		
 		JButton btnRegistrar = new JButton("Registrar");
+		btnRegistrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(checkFields())
+				{
+					regConsulta();
+				}
+			}
+		});
 		btnRegistrar.setBounds(317, 13, 89, 47);
 		panel_5.add(btnRegistrar);
 		
-		JRadioButton rdbtnRHMP = new JRadioButton("Registrar en el historial medico del paciente");
+		rdbtnRHMP = new JRadioButton("Registrar en el historial medico del paciente");
 		rdbtnRHMP.setBounds(17, 25, 294, 23);
 		panel_5.add(rdbtnRHMP);
 		
@@ -340,6 +364,18 @@ public class RegistrarConsulta extends JDialog {
 		txtEnfermedadEstado.setBounds(215, 426, 167, 20);
 		panel_2.add(txtEnfermedadEstado);
 		txtEnfermedadEstado.setColumns(10);
+		
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setEnabled(false);
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				miEnfermedad = null;
+				btnEliminar.setEnabled(false);
+				JOptionPane.showMessageDialog(null, "La enfermedad ha sido deseleccionada!");
+			}
+		});
+		btnEliminar.setBounds(404, 425, 121, 23);
+		panel_2.add(btnEliminar);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new TitledBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "Cita", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -374,6 +410,24 @@ public class RegistrarConsulta extends JDialog {
 		loadCitaInfo();
 	}
 	
+	
+	public void regConsulta()
+	{
+		Consulta consulta = new Consulta("CONSUTA-"+Clinica.getInstance().codigoConsulta, miCita, 
+				txtDiagnosticos.getText(), txtSintomas.getText(), miEnfermedad, "Realizada");
+		
+		if((miEnfermedad != null && miEnfermedad.getEstado().equalsIgnoreCase("Vigilancia")) || rdbtnRHMP.isSelected())
+		{
+			miPaciente.getMiHistorial().getMisConsultas().add(consulta);
+		}
+		
+		Clinica.getInstance().AgregarConsulta(consulta);
+		miMedico.getMisconsultas().add(consulta);
+		miCita.setEstado("Realizada");
+		JOptionPane.showMessageDialog(null, "La consulta ha sido registrada!");
+		dispose();
+		
+	}
 	public static void loadPaciente()
 	{
 		if(miPaciente != null)
@@ -424,19 +478,49 @@ public class RegistrarConsulta extends JDialog {
 		{
 			for(Consulta aux: miMedico.getMisconsultas())
 			{
-				if(aux.getCita().getPaciente().equals(miPaciente))
+				if(aux.getCita().getPersona().equals(miPaciente))
 				{
 					misConsultas.add(aux);
 				}
 			}
 		}
 	}
-	
+		
 	public static void getEnfermedad(Enfermedad enfermedad)
 	{
 		miEnfermedad = enfermedad;
 		txtEnfermedadNombre.setText(miEnfermedad.getNombre());
 		txtEnfermedadTipo.setText(miEnfermedad.getTipo());
 		txtEnfermedadEstado.setText(miEnfermedad.getEstado());
+		btnEliminar.setEnabled(true);
+	}
+	
+	public boolean checkFields()
+	{
+		String data = txtDiagnosticos.getText().trim();
+		String data2 = txtSintomas.getText().trim();
+		
+		if(data2.equals("") || data.equals("") )
+		{
+			JOptionPane.showMessageDialog(null, "Debe rellenar todos los datos!");
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public void checkPaciente(Cita cita,Persona persona)
+	{
+		if(persona instanceof Paciente)
+		{
+			miPaciente = (Paciente) persona;
+		}else {
+			Paciente newPaciente = new Paciente(persona.getNombre(), persona.getApellido(), persona.getDireccion(), persona.getFechaNacimiento()
+					, persona.getGenero(), persona.getCedula() ,persona.getTelefono(), persona.getCorreoelectronico()
+					, "Sano", 0, 0, "", 0);
+			Clinica.getInstance().AgregarPaciente(newPaciente);
+			cita.setPersona(newPaciente);
+			miPaciente = newPaciente;
+		} 
 	}
 }

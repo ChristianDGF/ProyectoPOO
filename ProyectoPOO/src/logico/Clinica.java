@@ -18,6 +18,7 @@ public class Clinica implements Serializable{
 	public static Clinica clinica ;
 	private static User loginUser;
 	public static int codigoCita = 1;
+	public static int codigoConsulta = 1;
 	
 	public Clinica() {
 		super();
@@ -48,6 +49,7 @@ public class Clinica implements Serializable{
 
 	public void setMisPersonas(ArrayList<Persona> misPersonas) {
 		this.misPersonas = misPersonas;
+		
 	}
 
 	public ArrayList<Empleado> getMisEmpleados() {
@@ -199,14 +201,14 @@ public class Clinica implements Serializable{
 		
 	}
 	
-	public Cita getCitaByPaciente(Paciente paciente)
+	public Cita getCitaByPersona(Persona persona)
 	{
 		Cita temp = null;
 		boolean encontrado = false;
 		int ind = 0;
 		
 		while(!encontrado && ind < misCitas.size()) {
-			if(misCitas.get(ind).getPaciente().equals(paciente))
+			if(misCitas.get(ind).getPersona().equals(persona))
 			{
 				temp = misCitas.get(ind);
 				encontrado = true;
@@ -253,14 +255,14 @@ public class Clinica implements Serializable{
 		
 	}
 	
-	public Consulta getConsultaByPaciente(Paciente paciente)
+	public Consulta getConsultaByPersona(Persona persona)
 	{
 		Consulta temp = null;
 		boolean encontrado = false;
 		int ind = 0;
 		
 		while(!encontrado && ind < misConsultas.size()) {
-			if(misConsultas.get(ind).getCita().getPaciente().equals(paciente))
+			if(misConsultas.get(ind).getCita().getPersona().equals(persona))
 			{
 				temp = misConsultas.get(ind);
 				encontrado = true;
@@ -436,6 +438,7 @@ public class Clinica implements Serializable{
 	public void AgregarCita(Cita cita)
 	{
 		misCitas.add(cita);
+		codigoCita++;
 	}
 	public void EliminarCita(Cita cita)
 	{

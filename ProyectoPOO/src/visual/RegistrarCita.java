@@ -25,6 +25,7 @@ import logico.Cita;
 import logico.Clinica;
 import logico.Medico;
 import logico.Paciente;
+import logico.Persona;
 
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
@@ -296,12 +297,10 @@ public class RegistrarCita extends JDialog {
 	}
 
 	protected void registrar() {
-		Paciente newPaciente = new Paciente(txtNombre.getText(), txtApellido.getText(), "", "",
-				comboBoxGenero.getSelectedItem().toString(), txtCedula.getText(), txtTelefono.getText(), "", "", 0, 0,
-				"", 0);
+		Persona newPersona = new Persona(txtNombre.getText(), txtApellido.getText(), "", "",
+				comboBoxGenero.getSelectedItem().toString(), txtCedula.getText(), txtTelefono.getText(), "");
 		Cita cita = new Cita(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
-				newPaciente, miMedico);
-		Clinica.getInstance().AgregarPaciente(newPaciente);
+				newPersona, miMedico);
 		Clinica.getInstance().AgregarCita(cita);
 		JOptionPane.showMessageDialog(null, "Cita registrada correctamente", "Registro",
 				JOptionPane.INFORMATION_MESSAGE);

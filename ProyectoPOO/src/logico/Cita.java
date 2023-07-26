@@ -9,16 +9,18 @@ public class Cita implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String codigo;
 	private LocalDate fecha;
-	private Paciente paciente;
+	private Persona persona;
 	private Medico medico;
+	private String estado;
 	
-	public Cita(LocalDate fecha, Paciente paciente, Medico medico) {
+	public Cita(LocalDate fecha, Persona persona, Medico medico) {
 		super();
 		this.codigo = "CITA-N" + Clinica.codigoCita;
 		Clinica.codigoCita++;
 		this.fecha = fecha;
-		this.paciente = paciente;
+		this.persona = persona;
 		this.medico = medico;
+		this.estado = "Pendiente";
 	}
 
 	public String getCodigo() {
@@ -37,12 +39,12 @@ public class Cita implements Serializable{
 		this.fecha = fecha;
 	}
 
-	public Paciente getPaciente() {
-		return paciente;
+	public Persona getPersona() {
+		return persona;
 	}
 
-	public void setPaciente(Paciente paciente) {
-		this.paciente = paciente;
+	public void setPersona(Persona persona) {
+		this.persona = persona;
 	}
 
 	public Medico getMedico() {
@@ -52,6 +54,15 @@ public class Cita implements Serializable{
 	public void setMedico(Medico medico) {
 		this.medico = medico;
 	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
 
 
 }
