@@ -600,6 +600,17 @@ public class Clinica implements Serializable{
 	    }
 	    return contador;
 	}
+	
+	public int contarPacientesPorTipoSangre(String tipoSangre) {
+	    int pacientesConTipoSangre = 0;
+	    for (Paciente paciente : misPacientes) {
+	        if (paciente.getTipoSangre().equalsIgnoreCase(tipoSangre)) {
+	            pacientesConTipoSangre++;
+	        }
+	    }
+	    return pacientesConTipoSangre;
+	}
+
 
 	public User getUsuarioporUsuario(String string) {
 		
