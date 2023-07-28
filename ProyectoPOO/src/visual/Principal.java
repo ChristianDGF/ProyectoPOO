@@ -11,11 +11,14 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
+import logico.Cliente;
 import logico.Clinica;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
@@ -277,6 +280,20 @@ public class Principal extends JFrame {
 
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Listar Usuario");
 		mnNewMenu_6.add(mntmNewMenuItem_3);
+		
+		JMenu mnNewMenu_7 = new JMenu("Respaldo");
+		menuempleados.add(mnNewMenu_7);
+		
+		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Realizar Backup");
+		mntmNewMenuItem_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {  
+				int option = JOptionPane.showConfirmDialog(null,"Estas seguro(a) que desea hacer el respaldo ","Confirmacion", JOptionPane.OK_CANCEL_OPTION);
+				if (option == JOptionPane.OK_OPTION) {
+		        Cliente.enviarCopiaRespaldo(); 
+				}
+			}
+		});
+		mnNewMenu_7.add(mntmNewMenuItem_5);
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListarUsuarios listusuario = new ListarUsuarios();
@@ -304,6 +321,22 @@ public class Principal extends JFrame {
 				}
 			}
 		});
+		actualizacionThread.start();
+		
+		Thread backupThread = new Thread(() -> {
+		    while (true) {
+		        SwingUtilities.invokeLater(() -> {
+		            Cliente.enviarCopiaRespaldo();
+		        });
+
+		        try {
+		            Thread.sleep(7200000);
+		        } catch (InterruptedException e) {
+		            e.printStackTrace();
+		        }
+		    }
+		});
+		backupThread.start();
 		actualizacionThread.start();
 	}
 
