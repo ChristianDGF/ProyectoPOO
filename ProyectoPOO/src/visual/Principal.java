@@ -323,21 +323,7 @@ public class Principal extends JFrame {
 		});
 		actualizacionThread.start();
 		
-		Thread backupThread = new Thread(() -> {
-		    while (true) {
-		        SwingUtilities.invokeLater(() -> {
-		            Cliente.enviarCopiaRespaldo();
-		        });
-
-		        try {
-		            Thread.sleep(7200000);
-		        } catch (InterruptedException e) {
-		            e.printStackTrace();
-		        }
-		    }
-		});
-		backupThread.start();
-		actualizacionThread.start();
+		
 	}
 
 	private void actualizarGraficoPastelPanel1() {
