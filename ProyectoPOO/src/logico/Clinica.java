@@ -629,6 +629,33 @@ public class Clinica implements Serializable{
 		return temp;
 	}
 
+	public boolean chekLoginUser() {
+		
+		for(Empleado aux: misEmpleados)
+		{
+			if(aux instanceof Medico && aux.getCargo().equalsIgnoreCase(loginUser.getEmpleado().getCedula()))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public Empleado getEmpleadoByCedula(String string) {
+		   Empleado aux = null;
+		    boolean find = false;
+		    int i = 0;
+		    while (i < misEmpleados.size() && !find) {
+		        Empleado empleado = misEmpleados.get(i);
+		        if (empleado != null && empleado.getCedula() != null && empleado.getCedula().equalsIgnoreCase(string)) {
+		            find = true;
+		            aux = empleado;
+		        }
+		        i++;
+		    }
+		    return aux;
+	}
+
 	
 
 

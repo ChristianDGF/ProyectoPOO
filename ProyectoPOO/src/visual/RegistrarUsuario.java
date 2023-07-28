@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 import logico.Clinica;
 import logico.Empleado;
+import logico.Medico;
 import logico.User;
 
 import javax.swing.JLabel;
@@ -125,7 +126,7 @@ public class RegistrarUsuario extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				int index = table.getSelectedRow();
 				if (index >= 0) {
-					selected = Clinica.getInstance().getEmpleadoByCode(table.getValueAt(index, 0).toString());
+					selected = Clinica.getInstance().getEmpleadoByCedula(table.getValueAt(index, 1).toString());
 					if (selected != null) {
 						txtempleado.setText(selected.getCodigo());
 					}
@@ -185,6 +186,7 @@ public class RegistrarUsuario extends JDialog {
 			txtusuario.setText(user.getUsuario());
 			txtpassword.setText(user.getPassword());
 			cmbtipo.setSelectedItem(user.getTipo());
+			txtempleado.setText(user.getEmpleado().getCodigo());
 		}
 	}
 

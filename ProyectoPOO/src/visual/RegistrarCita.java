@@ -348,7 +348,6 @@ public class RegistrarCita extends JDialog {
 	}
 
 	public void clearPacienteInfo() {
-		txtCedula.setText("");
 		txtNombre.setText("");
 		txtApellido.setText("");
 		txtTelefono.setText("");

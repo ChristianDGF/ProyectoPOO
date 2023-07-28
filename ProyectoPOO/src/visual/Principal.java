@@ -13,6 +13,7 @@ import org.jfree.data.general.DefaultPieDataset;
 
 import logico.Cliente;
 import logico.Clinica;
+import logico.Medico;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -119,6 +120,28 @@ public class Principal extends JFrame {
 		mnNewMenu_2.add(mntmNewMenuItem_12);
 
 		JMenuItem mntmNewMenuItem_13 = new JMenuItem("Listado de Citas");
+		mntmNewMenuItem_13.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(Clinica.getLoginUser().getEmpleado() instanceof Medico)
+				{
+					JOptionPane.showMessageDialog(null, "Hay doctor logeado :D", "Registro",
+							JOptionPane.INFORMATION_MESSAGE);
+					Medico medico = (Medico) Clinica.getLoginUser().getEmpleado();
+					ListarCitas listCitas = new ListarCitas(medico);
+					listCitas.setModal(true);
+					listCitas.setLocationRelativeTo(null);
+					listCitas.setVisible(true);
+				}else {
+					
+					ListarCitas listCitas = new ListarCitas(null);
+					listCitas.setModal(true);
+					listCitas.setLocationRelativeTo(null);
+					listCitas.setVisible(true);
+				}
+			
+				
+			}
+		});
 		mnNewMenu_2.add(mntmNewMenuItem_13);
 		menuBar.add(mnNewMenu);
 

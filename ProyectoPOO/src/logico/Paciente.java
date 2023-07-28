@@ -15,7 +15,7 @@ public class Paciente extends Persona {
 	public Paciente(String nombre,String apellido,String direccion, String fechaNacimiento, String genero, String cedula,
 			String telefono,String correoelectronico,String estado,float peso,float altura,String tipoSangre,int edad) {
 		super(nombre, apellido, direccion, fechaNacimiento, genero, cedula, telefono,correoelectronico);
-		this.estado = estado;
+		this.estado = "Sano";
 		this.miHistorial = new HistorialMedico("MIHISTORIAL");
 		this.peso = peso;
 		this.altura = altura;

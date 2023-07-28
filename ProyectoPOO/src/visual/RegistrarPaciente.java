@@ -388,6 +388,7 @@ public class RegistrarPaciente extends JDialog {
 							miPaciente.setEdad(Period.between(nac, current).getYears());
 							
 							Clinica.getInstance().ActualizarPaciente(miPaciente);
+							RegistrarConsulta.loadPaciente();
 							JOptionPane.showMessageDialog(null, "El paciente ha sido actualizado correctamente!");  
 							dispose();
 						}
