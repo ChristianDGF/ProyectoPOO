@@ -2,12 +2,16 @@ package visual;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
@@ -28,12 +32,19 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
+import net.miginfocom.swing.MigLayout;
 
 public class Principal extends JFrame {
 
 	private JFrame frmClinicaCw;
 	private JPanel panel1;
 	private JPanel panel2;
+	private JPanel panel3;
+	private JPanel panel4;
+	private Dimension dim;
 
 	public Principal() {
 		addWindowListener(new WindowAdapter() {
@@ -56,45 +67,35 @@ public class Principal extends JFrame {
 		setTitle("Clinica CW");
 		setBounds(100, 100, 767, 557);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		dim = super.getToolkit().getScreenSize();
+		super.setSize(dim.width + 50, dim.height);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setLayout(null);
+		panel.setLayout(new MigLayout("fill", "[grow][grow][grow]", "[grow][grow][grow]"));
 
 		panel1 = new JPanel();
-		panel1.setBounds(12, 13, 317, 256);
-		panel.add(panel1);
+		panel.add(panel1, "cell 0 0,grow");
 
 		DefaultPieDataset dataset = new DefaultPieDataset();
 		dataset.setValue("Masculino", Clinica.getInstance().obtenerNumeroPacientesPorSexo("Masculino"));
 		dataset.setValue("Femenino", Clinica.getInstance().obtenerNumeroPacientesPorSexo("Femenino"));
 
-		JFreeChart chart = ChartFactory.createPieChart("Distribución de sexos de pacientes", dataset, true, true,true);
+		JFreeChart chart = ChartFactory.createPieChart("Distribución de sexos de pacientes", dataset, true, true, true);
 		ChartPanel chartPanel = new ChartPanel(chart);
 		panel1.setLayout(new BorderLayout());
 		panel1.add(chartPanel, BorderLayout.CENTER);
 
 		panel2 = new JPanel();
-		panel2.setBounds(376, 13, 304, 256);
-		panel.add(panel2);
+		panel.add(panel2, "cell 1 0,grow");
 
-		DefaultCategoryDataset dataset2 = new DefaultCategoryDataset();
-		dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("A+"), "Cantidad", "A+");
-		dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("B+"), "Cantidad", "B+");
-		dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("O+"), "Cantidad", "O+");
-		dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("AB+"), "Cantidad", "AB+");
-		dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("A-"), "Cantidad", "A-");
-		dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("B-"), "Cantidad", "B-");
-		dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("O-"), "Cantidad", "O-");
-		dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("AB-"), "Cantidad", "AB-");
+		panel3 = new JPanel();
+		panel.add(panel3, "cell 0 1 2 1,grow");
 
-		JFreeChart chart2 = ChartFactory.createBarChart("Distribución de tipos de sangre de pacientes",
-				"Tipo de Sangre", "Cantidad", dataset2);
-		ChartPanel chartPanel2 = new ChartPanel(chart2);
-		panel2.setLayout(new BorderLayout());
-		panel2.add(chartPanel2, BorderLayout.CENTER);
+		panel4 = new JPanel();
+		panel.add(panel4, "cell 2 1,grow");
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -122,8 +123,7 @@ public class Principal extends JFrame {
 		JMenuItem mntmNewMenuItem_13 = new JMenuItem("Listado de Citas");
 		mntmNewMenuItem_13.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Clinica.getLoginUser().getEmpleado() instanceof Medico)
-				{
+				if (Clinica.getLoginUser().getEmpleado() instanceof Medico) {
 					JOptionPane.showMessageDialog(null, "Hay doctor logeado :D", "Registro",
 							JOptionPane.INFORMATION_MESSAGE);
 					Medico medico = (Medico) Clinica.getLoginUser().getEmpleado();
@@ -131,15 +131,14 @@ public class Principal extends JFrame {
 					listCitas.setModal(true);
 					listCitas.setLocationRelativeTo(null);
 					listCitas.setVisible(true);
-				}else {
-					
+				} else {
+
 					ListarCitas listCitas = new ListarCitas(null);
 					listCitas.setModal(true);
 					listCitas.setLocationRelativeTo(null);
 					listCitas.setVisible(true);
 				}
-			
-				
+
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_13);
@@ -303,16 +302,17 @@ public class Principal extends JFrame {
 
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Listar Usuario");
 		mnNewMenu_6.add(mntmNewMenuItem_3);
-		
+
 		JMenu mnNewMenu_7 = new JMenu("Respaldo");
 		menuempleados.add(mnNewMenu_7);
-		
+
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Realizar Backup");
 		mntmNewMenuItem_5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {  
-				int option = JOptionPane.showConfirmDialog(null,"Estas seguro(a) que desea hacer el respaldo ","Confirmacion", JOptionPane.OK_CANCEL_OPTION);
+			public void actionPerformed(ActionEvent e) {
+				int option = JOptionPane.showConfirmDialog(null, "Estas seguro(a) que desea hacer el respaldo ",
+						"Confirmacion", JOptionPane.OK_CANCEL_OPTION);
 				if (option == JOptionPane.OK_OPTION) {
-		        Cliente.enviarCopiaRespaldo(); 
+					Cliente.enviarCopiaRespaldo();
 				}
 			}
 		});
@@ -335,18 +335,19 @@ public class Principal extends JFrame {
 		});
 		Thread actualizacionThread = new Thread(() -> {
 			while (true) {
-				 SwingUtilities.invokeLater(this::actualizarGraficoPastelPanel1);
-		         SwingUtilities.invokeLater(this::actualizarGraficoBarrasPanel2);
+				SwingUtilities.invokeLater(this::actualizarGraficoPastelPanel1);
+				SwingUtilities.invokeLater(this::actualizarGraficoBarrasPanel2);
+				SwingUtilities.invokeLater(this::actualizarGraficoBarrasPanel3);
+				SwingUtilities.invokeLater(this::actualizarGraficoBarrasPanel4);
 				try {
-					Thread.sleep(6000); // modificar el tiempo de actualizacion
+					Thread.sleep(3600000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
 		});
 		actualizacionThread.start();
-		
-		
+
 	}
 
 	private void actualizarGraficoPastelPanel1() {
@@ -354,8 +355,7 @@ public class Principal extends JFrame {
 		dataset.setValue("Masculino", Clinica.getInstance().obtenerNumeroPacientesPorSexo("Masculino"));
 		dataset.setValue("Femenino", Clinica.getInstance().obtenerNumeroPacientesPorSexo("Femenino"));
 
-		JFreeChart chart = ChartFactory.createPieChart("Distribución de sexos de pacientes", dataset, true, true,
-				true);
+		JFreeChart chart = ChartFactory.createPieChart("Distribución de sexos de pacientes", dataset, true, true, true);
 		ChartPanel chartPanel = new ChartPanel(chart);
 
 		panel1.removeAll();
@@ -363,23 +363,68 @@ public class Principal extends JFrame {
 		panel1.add(chartPanel, BorderLayout.CENTER);
 		panel1.revalidate();
 	}
+
 	private void actualizarGraficoBarrasPanel2() {
 		DefaultCategoryDataset dataset2 = new DefaultCategoryDataset();
-	    dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("A+"), "Cantidad", "A+");
-	    dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("B+"), "Cantidad", "B+");
-	    dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("O+"), "Cantidad", "O+");
-	    dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("AB+"), "Cantidad", "AB+");
-	    dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("A-"), "Cantidad", "A-");
-	    dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("B-"), "Cantidad", "B-");
-	    dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("O-"), "Cantidad", "O-");
-	    dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("AB-"), "Cantidad", "AB+");
-    
-	    JFreeChart chart2 = ChartFactory.createBarChart("Distribución de tipos de sangre de pacientes",
-	            "Tipo de Sangre", "Cantidad", dataset2);
-	    ChartPanel chartPanel2 = new ChartPanel(chart2);
-	    panel2.removeAll();
-	    panel2.setLayout(new BorderLayout());
-	    panel2.add(chartPanel2, BorderLayout.CENTER);
-	    panel2.revalidate();
+		dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("A+"), "Cantidad", "A+");
+		dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("B+"), "Cantidad", "B+");
+		dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("O+"), "Cantidad", "O+");
+		dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("AB+"), "Cantidad", "AB+");
+		dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("A-"), "Cantidad", "A-");
+		dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("B-"), "Cantidad", "B-");
+		dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("O-"), "Cantidad", "O-");
+		dataset2.setValue(Clinica.getInstance().contarPacientesPorTipoSangre("AB-"), "Cantidad", "AB+");
+
+		JFreeChart chart2 = ChartFactory.createBarChart("Distribución de tipos de sangre de pacientes",
+				"Tipo de Sangre", "Cantidad", dataset2);
+
+		NumberAxis yAxis = (NumberAxis) chart2.getCategoryPlot().getRangeAxis();
+		yAxis.setTickUnit(new NumberTickUnit(1));
+
+		ChartPanel chartPanel2 = new ChartPanel(chart2);
+		panel2.removeAll();
+		panel2.setLayout(new BorderLayout());
+		panel2.add(chartPanel2, BorderLayout.CENTER);
+		panel2.revalidate();
+	}
+
+	private void actualizarGraficoBarrasPanel3() {
+		DefaultCategoryDataset dataset3 = new DefaultCategoryDataset();
+		dataset3.addValue(Clinica.getInstance().contarPacientesMenoresDe(18), "Pacientes", "-18 ");
+		dataset3.addValue(Clinica.getInstance().contarPacientesPorRangoEdad(18, 25), "Pacientes", "18-25 ");
+		dataset3.addValue(Clinica.getInstance().contarPacientesPorRangoEdad(25, 35), "Pacientes", "25-35 ");
+		dataset3.addValue(Clinica.getInstance().contarPacientesPorRangoEdad(35, 45), "Pacientes", "35-45 ");
+		dataset3.addValue(Clinica.getInstance().contarPacientesMayoresDe(45), "Pacientes", "45+ ");
+
+		JFreeChart chart3 = ChartFactory.createBarChart("Rango de edad de pacientes", "Rango de Edad", "Pacientes",
+				dataset3);
+
+		NumberAxis yAxis = (NumberAxis) chart3.getCategoryPlot().getRangeAxis();
+		yAxis.setTickUnit(new NumberTickUnit(1));
+
+		ChartPanel chartPanel3 = new ChartPanel(chart3);
+		panel3.removeAll();
+		panel3.setLayout(new BorderLayout());
+		panel3.add(chartPanel3, BorderLayout.CENTER);
+		panel3.revalidate();
+	}
+
+	private void actualizarGraficoBarrasPanel4() {
+		DefaultCategoryDataset dataset4 = new DefaultCategoryDataset();
+		dataset4.addValue(Clinica.getInstance().pacientesEnfermedades(), "Enfermedades Normales", "");
+		dataset4.addValue(Clinica.getInstance().PacientesEnfermedadesVigilancia(), "Enfermedades en Vigilancia", "");
+		dataset4.addValue(Clinica.getInstance().PacientesSanos(), "Sanos", "");
+
+		JFreeChart chart4 = ChartFactory.createBarChart("Cantidad de Pacientes por Estado de Salud", "", "Cantidad",
+				dataset4);
+
+		NumberAxis yAxis = (NumberAxis) chart4.getCategoryPlot().getRangeAxis();
+		yAxis.setTickUnit(new NumberTickUnit(1));
+
+		ChartPanel chartPanel4 = new ChartPanel(chart4);
+		panel4.removeAll();
+		panel4.setLayout(new BorderLayout());
+		panel4.add(chartPanel4, BorderLayout.CENTER);
+		panel4.revalidate();
 	}
 }
