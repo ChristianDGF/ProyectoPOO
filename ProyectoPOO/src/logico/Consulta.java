@@ -11,16 +11,18 @@ public class Consulta implements Serializable{
 	private String diagnostico;
 	private Enfermedad enfermedad;
 	private String estado;
+	public static int codigoConsulta = 1;
 	
 	public Consulta(String codigo, Cita cita, String sintomas,String diagnostico
 			,Enfermedad enfermedad,String estado) {
 		super();
-		this.codigo = codigo;
+		this.codigo = "CONSULTA-" + codigoConsulta;
 		this.cita = cita;
 		this.sintomas = sintomas;
 		this.diagnostico = diagnostico;
 		this.enfermedad = enfermedad;	
 		this.estado = estado;
+		codigoConsulta++;
 	}
 
 	public String getCodigo() {

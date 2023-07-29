@@ -86,7 +86,7 @@ public class RegistrarCita extends JDialog {
 			txtCodigoCita.setColumns(10);
 			txtCodigoCita.setBounds(80, 26, 178, 22);
 			panelcita.add(txtCodigoCita);
-			txtCodigoCita.setText("CITA-N" + Clinica.codigoCita);
+			txtCodigoCita.setText("CITA-N." + Cita.codigoCita);
 
 			JLabel lblFecha = new JLabel("Fecha:");
 			lblFecha.setBounds(302, 29, 56, 16);
@@ -281,21 +281,25 @@ public class RegistrarCita extends JDialog {
 				btnregistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if (checkFields()) {
-							if (miPaciente != null) {
-								Cita cita = new Cita(
-										dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
-										miPaciente, miMedico);
-								Clinica.getInstance().AgregarCita(cita);
-								JOptionPane.showMessageDialog(null, "Cita registrada correctamente", "Registro",
-										JOptionPane.INFORMATION_MESSAGE);
-								clearPacienteInfo();
-								clearMedicoInfo();
-								txtCodigoCita.setText("CITA-N" + Clinica.codigoCita);
+							if(Clinica.getInstance().checkCedula(txtCedula.getText()))
+							{
+								if (miPaciente != null) {
+									Cita cita = new Cita(
+											dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+											miPaciente, miMedico);
+									Clinica.getInstance().AgregarCita(cita);
+									JOptionPane.showMessageDialog(null, "Cita registrada correctamente", "Registro",
+											JOptionPane.INFORMATION_MESSAGE);
+									clearPacienteInfo();
+									clearMedicoInfo();
+									txtCodigoCita.setText("CITA-N." + Cita.codigoCita);
 
-							} else {
-								registrar();
+								} else {
+									registrar();
+								}
+							}else {
+								JOptionPane.showMessageDialog(null, "La cedula ya esta registrada!");
 							}
-
 						} else {
 							JOptionPane.showMessageDialog(null, "Debe llenar todos los campos!");
 						}
@@ -328,7 +332,7 @@ public class RegistrarCita extends JDialog {
 				JOptionPane.INFORMATION_MESSAGE);
 		clearPacienteInfo();
 		clearMedicoInfo();
-		txtCodigoCita.setText("CITA-N" + Clinica.codigoCita);
+		txtCodigoCita.setText("CITA-N." + Cita.codigoCita);
 	}
 
 	protected MaskFormatter createFormatter(String s) {

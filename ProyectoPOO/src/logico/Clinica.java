@@ -17,8 +17,6 @@ public class Clinica implements Serializable {
 	private ArrayList<User> misUsuarios;
 	public static Clinica clinica;
 	private static User loginUser;
-	public static int codigoCita = 1;
-	public static int codigoConsulta = 1;
 
 	public Clinica() {
 		super();
@@ -403,7 +401,6 @@ public class Clinica implements Serializable {
 
 	public void AgregarCita(Cita cita) {
 		misCitas.add(cita);
-		codigoCita++;
 	}
 
 	public void EliminarCita(Cita cita) {
@@ -693,6 +690,28 @@ public class Clinica implements Serializable {
 		}
 
 		return pacientesSanos;
+	}
+	
+	public boolean checkCedula(String cedula)
+	{
+		
+		for(Paciente paciente: misPacientes)
+		{
+			if(paciente.getCedula().equalsIgnoreCase(cedula))
+			{
+				return false;
+			}
+		}
+		
+		for(Empleado empleado: misEmpleados)
+		{
+			if(empleado.getCedula().equalsIgnoreCase(cedula))
+			{
+				return false;
+			}
+		}
+		
+		return true;
 	}
 
 }

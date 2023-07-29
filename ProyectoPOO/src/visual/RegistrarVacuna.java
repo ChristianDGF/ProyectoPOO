@@ -75,9 +75,11 @@ public class RegistrarVacuna extends JDialog {
 											lblcodigo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 											
 														txtcodigo = new JTextField();
+														txtcodigo.setEditable(false);
 														txtcodigo.setBounds(365, 22, 174, 22);
 														contentPanel.add(txtcodigo);
 														txtcodigo.setColumns(10);
+														txtcodigo.setText("VACUNA-"+Vacuna.codigoVacuna);
 														
 																	JLabel lbllaboratorio = new JLabel("Laboratorio:");
 																	lbllaboratorio.setBounds(22, 61, 75, 16);
@@ -199,7 +201,7 @@ public class RegistrarVacuna extends JDialog {
 
 	private void clean() {
 		txtenfermedad.setText("");
-		txtcodigo.setText("");
+		txtcodigo.setText("VACUNA-"+Vacuna.codigoVacuna);
 		txtlaboratorio.setText("");
 		cmbtipo.setSelectedIndex(0);
 		textdescripcion.setText("");

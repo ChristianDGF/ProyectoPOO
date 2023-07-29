@@ -82,8 +82,10 @@ public class RegistrarEnfermedad extends JDialog {
 			}
 			{
 				txtcodigo = new JTextField();
+				txtcodigo.setEditable(false);
 				txtcodigo.setColumns(10);
 				txtcodigo.setBounds(355, 15, 174, 22);
+				txtcodigo.setText("ENFERMEDAD-"+Enfermedad.codigoEnfermedad);
 				panel.add(txtcodigo);
 			}
 			{
@@ -204,7 +206,7 @@ public class RegistrarEnfermedad extends JDialog {
 	}
 
 	private void clean() {
-		txtcodigo.setText("");
+		txtcodigo.setText("ENFERMEDAD-"+Enfermedad.codigoEnfermedad);
 		txtnombre.setText("");
 		txtdescripcion.setText("");
 		comboBoxTipo.setSelectedIndex(0);;

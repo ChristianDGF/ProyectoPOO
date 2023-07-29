@@ -12,15 +12,16 @@ public class Cita implements Serializable{
 	private Persona persona;
 	private Medico medico;
 	private String estado;
+	public static int codigoCita = 1;
 	
 	public Cita(LocalDate fecha, Persona persona, Medico medico) {
 		super();
-		this.codigo = "CITA-N" + Clinica.codigoCita;
-		Clinica.codigoCita++;
+		this.codigo = "CITA-N." + codigoCita;
 		this.fecha = fecha;
 		this.persona = persona;
 		this.medico = medico;
 		this.estado = "Pendiente";
+		codigoCita++;
 	}
 
 	public String getCodigo() {
@@ -61,6 +62,10 @@ public class Cita implements Serializable{
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public static void setCodigoCita(int codigoCita) {
+		Cita.codigoCita = codigoCita;
 	}
 
 

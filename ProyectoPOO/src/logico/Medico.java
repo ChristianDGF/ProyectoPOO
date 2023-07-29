@@ -9,6 +9,7 @@ public class Medico extends Empleado {
 	private String exequatur;
 	private String numeroconsultorio;
 	private ArrayList<Consulta> misconsultas;
+	private static int codigoMedico = 1; 
 	
 	public Medico(String nombre, String apellido, String direccion, String fechaNacimiento, String genero,
 			String cedula, String telefono,String correoelectronico,String cargo, String departamento,String especialidad,String exequatur,
@@ -18,6 +19,8 @@ public class Medico extends Empleado {
 		this.exequatur = exequatur;
 		this.numeroconsultorio = numeroconsultorio;
 		this.misconsultas = new ArrayList<Consulta>();
+		this.codigo = "MEDICO-" + codigoMedico;
+		codigoMedico++;
 	}
 
 	public String getEspecialidad() {
@@ -51,5 +54,9 @@ public class Medico extends Empleado {
 
 	public void setMisconsultas(ArrayList<Consulta> misconsultas) {
 		this.misconsultas = misconsultas;
+	}
+
+	public static void setCodigoMedico(int codigoMedico) {
+		Medico.codigoMedico = codigoMedico;
 	}
 }

@@ -10,14 +10,16 @@ public class Vacuna implements Serializable{
 	private String descripcion;
 	private String enfermedad;
 	private String tipo;
+	public static int codigoVacuna = 1;
 	
 	public Vacuna(String codigo, String laboratorio, String descripcion, String enfermedad,String tipo) {
 		super();
-		this.codigo = codigo;
+		this.codigo = "VACUNA-" + codigoVacuna;
 		this.laboratorio = laboratorio;
 		this.enfermedad = enfermedad;
 		this.tipo = tipo;
 		this.descripcion = descripcion;
+		codigoVacuna++;
 	}
 
 	public String getCodigo() {
@@ -58,6 +60,10 @@ public class Vacuna implements Serializable{
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public static void setCodigoVacuna(int codigoVacuna) {
+		Vacuna.codigoVacuna = codigoVacuna;
 	}
 
 

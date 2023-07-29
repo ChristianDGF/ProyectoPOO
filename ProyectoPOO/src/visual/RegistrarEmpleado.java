@@ -55,7 +55,7 @@ public class RegistrarEmpleado extends JDialog {
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("DD/MM/YYYY");
 	private JComboBox cmbdepartamento;
 	private JDateChooser dateChooser;
-	private Empleado empleado;
+	private Empleado empleado = null;
 
 	public RegistrarEmpleado(Empleado miempleado) {
 		empleado = miempleado;
@@ -260,14 +260,24 @@ public class RegistrarEmpleado extends JDialog {
 				JButton okButton = new JButton("Registrar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if (checkfield() && empleado == null) {
-							registrarEmpleado();
-						} else {
-							modificarEmpleado();
-							JOptionPane.showMessageDialog(null, "Operación satisfactoria", "Registro",
-									JOptionPane.INFORMATION_MESSAGE);
-							dispose();
+						if(checkfield())
+						{
+							if (empleado == null) {
+								if(Clinica.getInstance().checkCedula(txtcedula.getText()))
+								{
+									registrarEmpleado();
+								}else {
+									JOptionPane.showMessageDialog(null, "La Cedula ya esta registrada!", "Registro",
+											JOptionPane.INFORMATION_MESSAGE);
+								}
+							} else {
+								modificarEmpleado();
+								JOptionPane.showMessageDialog(null, "Operación satisfactoria", "Registro",
+										JOptionPane.INFORMATION_MESSAGE);
+								dispose();
+							}
 						}
+						
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -288,21 +298,24 @@ public class RegistrarEmpleado extends JDialog {
 	}
 
 	private void modificarEmpleado() {
-		empleado.setCedula(txtcedula.getText());
-		// fecha
-		empleado.setNombre(txtnombre.getText());
-		empleado.setApellido(txtapellido.getText());
-		empleado.setTelefono(txttelefono.getText());
-		empleado.setCargo(cmbcargo.getSelectedItem().toString());
-		empleado.setCorreoelectronico(txtcorreo.getText());
-		empleado.setGenero(cmbsexo.getSelectedItem().toString());
-		empleado.setDireccion(txtdireccion.getText());
-		empleado.setDepartamento(cmbdepartamento.getSelectedItem().toString());
-		if (empleado instanceof Medico) {
-			Medico medico = (Medico) empleado;
-			medico.setEspecialidad(cmbespecialidad.getSelectedItem().toString());
-			medico.setExequatur(txtexequatur.getText());
-			medico.setNumeroconsultorio(txtconsultorio.getText());
+		
+		if(empleado != null)
+		{
+			empleado.setCedula(txtcedula.getText());
+			empleado.setNombre(txtnombre.getText());
+			empleado.setApellido(txtapellido.getText());
+			empleado.setTelefono(txttelefono.getText());
+			empleado.setCargo(cmbcargo.getSelectedItem().toString());
+			empleado.setCorreoelectronico(txtcorreo.getText());
+			empleado.setGenero(cmbsexo.getSelectedItem().toString());
+			empleado.setDireccion(txtdireccion.getText());
+			empleado.setDepartamento(cmbdepartamento.getSelectedItem().toString());
+			if (empleado instanceof Medico) {
+				Medico medico = (Medico) empleado;
+				medico.setEspecialidad(cmbespecialidad.getSelectedItem().toString());
+				medico.setExequatur(txtexequatur.getText());
+				medico.setNumeroconsultorio(txtconsultorio.getText());
+			}
 		}
 	}
 

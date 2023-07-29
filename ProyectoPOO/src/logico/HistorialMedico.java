@@ -11,14 +11,16 @@ public class HistorialMedico implements Serializable{
 	private ArrayList<Enfermedad> misPadecimientos;
 	private ArrayList<Vacuna> misVancunas;
 	private ArrayList<Consulta> misConsultas;
+	public static int codigoHistorial = 1;
 	
-	public HistorialMedico(String codigo) {
+	public HistorialMedico() {
 		super();
-		this.codigo = codigo;
+		this.codigo = "HISTORIA-"+codigoHistorial;
 		this.misAlergias = new ArrayList<String>();
 		this.misPadecimientos = new ArrayList<Enfermedad>();
 		this.misVancunas = new ArrayList<Vacuna>();
 		this.misConsultas = new ArrayList<Consulta>();
+		codigoHistorial++;
 	}
 	
 	public String getCodigo() {
@@ -52,6 +54,10 @@ public class HistorialMedico implements Serializable{
 
 	public void setMisConsultas(ArrayList<Consulta> misConsultas) {
 		this.misConsultas = misConsultas;
+	}
+
+	public static void setCodigoHistorial(int codigoHistorial) {
+		HistorialMedico.codigoHistorial = codigoHistorial;
 	}
 
 

@@ -164,6 +164,15 @@ public class HistorialMedicoPaciente extends JDialog {
 		scrollPane_3.setViewportView(tableVacunas);
 		
 		JButton btnAgregar = new JButton("Agregar");
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AgregarVacuna agregarVac = new AgregarVacuna(miPaciente.getMiHistorial());
+				agregarVac.setModal(true);
+				agregarVac.setLocationRelativeTo(null);
+				agregarVac.setVisible(true);
+				
+			}
+		});
 		btnAgregar.setBounds(607, 283, 89, 23);
 		PanelVacunas.add(btnAgregar);
 		

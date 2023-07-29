@@ -413,7 +413,7 @@ public class RegistrarConsulta extends JDialog {
 	
 	public void regConsulta()
 	{
-		Consulta consulta = new Consulta("CONSUTA-"+Clinica.getInstance().codigoConsulta, miCita, 
+		Consulta consulta = new Consulta("CONSUTA-"+Consulta.codigoConsulta, miCita, 
 				txtDiagnosticos.getText(), txtSintomas.getText(), miEnfermedad, "Realizada");
 		
 		if((miEnfermedad != null && miEnfermedad.getEstado().equalsIgnoreCase("Vigilancia")) || rdbtnRHMP.isSelected())

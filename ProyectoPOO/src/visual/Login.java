@@ -13,8 +13,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import logico.Cita;
 import logico.Clinica;
+import logico.Empleado;
+import logico.Enfermedad;
+import logico.HistorialMedico;
+import logico.Medico;
+import logico.Paciente;
+import logico.Persona;
 import logico.User;
+import logico.Vacuna;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -145,5 +153,19 @@ public class Login extends JFrame {
 				};
 			}
 		});
+		
+		loadCodes();
+	}
+	
+	public void loadCodes()
+	{
+	    Persona.setProximoID(Clinica.getInstance().getMisPersonas().size() + 1);
+		Vacuna.setCodigoVacuna(Clinica.getInstance().getMisVacunas().size() + 1);
+		Enfermedad.setCodigoEnfermedad(Clinica.getInstance().getMisEnfermedades().size() + 1);;
+		Cita.setCodigoCita(Clinica.getInstance().getMisCitas().size() + 1);
+		HistorialMedico.setCodigoHistorial(Clinica.getInstance().getMisPacientes().size() + 1);
+		Medico.setCodigoMedico(Clinica.getInstance().getMisMedicos().size() + 1);
+		Paciente.setCodigoPaciente(Clinica.getInstance().getMisPacientes().size() + 1);
+		Empleado.setCodigoEmpleado(Clinica.getInstance().getMisEmpleados().size() + 1);
 	}
 }

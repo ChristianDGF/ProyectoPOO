@@ -104,4 +104,8 @@ public class Persona implements Serializable {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
+
+	public static void setProximoID(int proximoID) {
+		Persona.proximoID = proximoID;
+	}
 }
