@@ -2,6 +2,8 @@ package logico;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Cita implements Serializable{
@@ -12,15 +14,17 @@ public class Cita implements Serializable{
 	private Persona persona;
 	private Medico medico;
 	private String estado;
+	private LocalTime hora;
 	public static int codigoCita = 1;
 	
-	public Cita(LocalDate fecha, Persona persona, Medico medico) {
+	public Cita(LocalDate fecha, Persona persona, Medico medico,LocalTime hora) {
 		super();
 		this.codigo = "CITA-N." + codigoCita;
 		this.fecha = fecha;
 		this.persona = persona;
 		this.medico = medico;
 		this.estado = "Pendiente";
+		this.hora = hora;
 		codigoCita++;
 	}
 
@@ -66,6 +70,14 @@ public class Cita implements Serializable{
 
 	public static void setCodigoCita(int codigoCita) {
 		Cita.codigoCita = codigoCita;
+	}
+
+	public LocalTime getHora() {
+		return hora;
+	}
+
+	public void setHora(LocalTime hora) {
+		this.hora = hora;
 	}
 
 

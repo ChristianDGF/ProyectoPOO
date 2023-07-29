@@ -32,20 +32,24 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.Format;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 import java.awt.Font;
 import javax.swing.SpinnerNumberModel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import com.raven.swing.TimePicker;
 
 public class RegistrarCita extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtNombre;
 	private JTextField txtApellido;
-	private JTextField txtCodigoCita;
 	private static JTextField txtNconsultorio;
 	private static JTextField txtEspecialidad;
 	private static JTextField txtNombreMedico;
@@ -57,10 +61,13 @@ public class RegistrarCita extends JDialog {
 	private JComboBox comboBoxGenero;
 	private JFormattedTextField txtCedula;
 	private JDateChooser dateChooser;
+	private JTextField txtHora;
+	private static JTextField txtExequatur;
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
 
 	public RegistrarCita() {
-		setTitle("Registrar Cita");
-		setBounds(100, 100, 618, 626);
+		setTitle("Agendar Cita");
+		setBounds(100, 100, 918, 525);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -73,38 +80,45 @@ public class RegistrarCita extends JDialog {
 			JPanel panelcita = new JPanel();
 			panelcita.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null),
 					"Informacion Cita:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			panelcita.setBounds(12, 378, 572, 128);
+			panelcita.setBounds(594, 11, 290, 417);
 			panel.add(panelcita);
 			panelcita.setLayout(null);
 
-			JLabel lblCodigo = new JLabel("Codigo:");
-			lblCodigo.setBounds(12, 29, 56, 16);
-			panelcita.add(lblCodigo);
-
-			txtCodigoCita = new JTextField();
-			txtCodigoCita.setEditable(false);
-			txtCodigoCita.setColumns(10);
-			txtCodigoCita.setBounds(80, 26, 178, 22);
-			panelcita.add(txtCodigoCita);
-			txtCodigoCita.setText("CITA-N." + Cita.codigoCita);
-
 			JLabel lblFecha = new JLabel("Fecha:");
-			lblFecha.setBounds(302, 29, 56, 16);
+			lblFecha.setBounds(22, 28, 56, 16);
 			panelcita.add(lblFecha);
 
 			dateChooser = new JDateChooser();
 			dateChooser.setDateFormatString("yyyy-MM-dd");
 			JTextFieldDateEditor editor = (JTextFieldDateEditor) dateChooser.getDateEditor();
 			editor.setEditable(false);
-			dateChooser.setBounds(351, 29, 178, 20);
+			dateChooser.setBounds(78, 26, 192, 20);
 			panelcita.add(dateChooser);
+			
+			TimePicker timePicker = new TimePicker();
+			timePicker.set24hourMode(false);
+			timePicker.setForeground(Color.GRAY);
+			timePicker.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+			timePicker.setBounds(22, 95, 248, 309);
+			panelcita.add(timePicker);
+			
+			JLabel lblNewLabel = new JLabel("Hora:");
+			lblNewLabel.setBounds(22, 55, 46, 14);
+			panelcita.add(lblNewLabel);
+			
+			txtHora = new JTextField();
+			txtHora.setEditable(false);
+			timePicker.setDisplayText(txtHora);
+			txtHora.setBounds(78, 52, 192, 20);
+			panelcita.add(txtHora);
+			txtHora.setColumns(10);
 
 			Format shortTime = DateFormat.getTimeInstance(DateFormat.SHORT);
 
 			JPanel panel_1 = new JPanel();
 			panel_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Paciente",
 					TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			panel_1.setBounds(10, 11, 574, 185);
+			panel_1.setBounds(12, 11, 574, 185);
 			panel.add(panel_1);
 			panel_1.setLayout(null);
 
@@ -208,7 +222,7 @@ public class RegistrarCita extends JDialog {
 			JPanel panel_2 = new JPanel();
 			panel_2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Medico",
 					TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			panel_2.setBounds(12, 207, 572, 160);
+			panel_2.setBounds(12, 207, 572, 221);
 			panel.add(panel_2);
 			panel_2.setLayout(null);
 
@@ -227,49 +241,59 @@ public class RegistrarCita extends JDialog {
 			JPanel panel_3 = new JPanel();
 			panel_3.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Datos:",
 					TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel_3.setBounds(10, 52, 552, 93);
+			panel_3.setBounds(10, 52, 552, 158);
 			panel_2.add(panel_3);
 			panel_3.setLayout(null);
 
 			JLabel lblNewLabel_1 = new JLabel("N. Consultorio:");
-			lblNewLabel_1.setBounds(10, 26, 92, 14);
+			lblNewLabel_1.setBounds(10, 29, 92, 14);
 			panel_3.add(lblNewLabel_1);
 
 			txtNconsultorio = new JTextField();
 			txtNconsultorio.setEditable(false);
-			txtNconsultorio.setBounds(115, 23, 158, 20);
+			txtNconsultorio.setBounds(115, 26, 158, 20);
 			panel_3.add(txtNconsultorio);
 			txtNconsultorio.setColumns(10);
 
 			JLabel lblNewLabel_2 = new JLabel("Especialidad:");
-			lblNewLabel_2.setBounds(286, 26, 78, 14);
+			lblNewLabel_2.setBounds(286, 29, 78, 14);
 			panel_3.add(lblNewLabel_2);
 
 			txtEspecialidad = new JTextField();
 			txtEspecialidad.setEditable(false);
-			txtEspecialidad.setBounds(377, 23, 158, 20);
+			txtEspecialidad.setBounds(377, 26, 158, 20);
 			panel_3.add(txtEspecialidad);
 			txtEspecialidad.setColumns(10);
 
 			JLabel lblNewLabel_3 = new JLabel("Nombre:");
-			lblNewLabel_3.setBounds(10, 57, 61, 14);
+			lblNewLabel_3.setBounds(10, 72, 61, 14);
 			panel_3.add(lblNewLabel_3);
 
 			txtNombreMedico = new JTextField();
 			txtNombreMedico.setEditable(false);
-			txtNombreMedico.setBounds(115, 54, 158, 20);
+			txtNombreMedico.setBounds(115, 69, 158, 20);
 			panel_3.add(txtNombreMedico);
 			txtNombreMedico.setColumns(10);
 
 			txtApellidoMedico = new JTextField();
 			txtApellidoMedico.setEditable(false);
-			txtApellidoMedico.setBounds(377, 54, 158, 20);
+			txtApellidoMedico.setBounds(377, 69, 158, 20);
 			panel_3.add(txtApellidoMedico);
 			txtApellidoMedico.setColumns(10);
 
 			JLabel lblNewLabel_4 = new JLabel("Apellido:");
-			lblNewLabel_4.setBounds(286, 59, 61, 14);
+			lblNewLabel_4.setBounds(286, 72, 61, 14);
 			panel_3.add(lblNewLabel_4);
+			
+			JLabel lblNewLabel_5 = new JLabel("Exequatur:");
+			lblNewLabel_5.setBounds(10, 115, 61, 14);
+			panel_3.add(lblNewLabel_5);
+			
+			txtExequatur = new JTextField();
+			txtExequatur.setEditable(false);
+			txtExequatur.setBounds(115, 112, 158, 20);
+			panel_3.add(txtExequatur);
+			txtExequatur.setColumns(10);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -281,27 +305,28 @@ public class RegistrarCita extends JDialog {
 				btnregistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if (checkFields()) {
-							if(Clinica.getInstance().checkCedula(txtCedula.getText()))
+							if(validateDateHour())
 							{
-								if (miPaciente != null) {
-									Cita cita = new Cita(
-											dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
-											miPaciente, miMedico);
-									Clinica.getInstance().AgregarCita(cita);
-									JOptionPane.showMessageDialog(null, "Cita registrada correctamente", "Registro",
-											JOptionPane.INFORMATION_MESSAGE);
-									clearPacienteInfo();
-									clearMedicoInfo();
-									txtCodigoCita.setText("CITA-N." + Cita.codigoCita);
-
-								} else {
-									registrar();
+								if(Clinica.getInstance().checkCedula(txtCedula.getText()))
+								{
+									if(JOptionPane.showConfirmDialog(null, "Agendar CITA-N." + Cita.codigoCita) == 0)
+									{
+										if (miPaciente != null) {
+											Cita cita = new Cita(
+													dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+													miPaciente, miMedico,LocalTime.parse(txtHora.getText(),formatter));
+											Clinica.getInstance().AgregarCita(cita);
+											JOptionPane.showMessageDialog(null, "Cita registrada correctamente", "Registro", JOptionPane.INFORMATION_MESSAGE);
+											clearPacienteInfo();
+											clearMedicoInfo();
+										} else {
+											registrar();
+										}
+									}
+								}else {
+									JOptionPane.showMessageDialog(null, "La cedula ya esta registrada!");
 								}
-							}else {
-								JOptionPane.showMessageDialog(null, "La cedula ya esta registrada!");
 							}
-						} else {
-							JOptionPane.showMessageDialog(null, "Debe llenar todos los campos!");
 						}
 					}
 				});
@@ -326,13 +351,11 @@ public class RegistrarCita extends JDialog {
 		Persona newPersona = new Persona(txtNombre.getText(), txtApellido.getText(), "", "",
 				comboBoxGenero.getSelectedItem().toString(), txtCedula.getText(), txtTelefono.getText(), "");
 		Cita cita = new Cita(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
-				newPersona, miMedico);
+				newPersona, miMedico,LocalTime.parse(txtHora.getText(),formatter));
 		Clinica.getInstance().AgregarCita(cita);
-		JOptionPane.showMessageDialog(null, "Cita registrada correctamente", "Registro",
-				JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Cita registrada correctamente", "Registro", JOptionPane.INFORMATION_MESSAGE);
 		clearPacienteInfo();
 		clearMedicoInfo();
-		txtCodigoCita.setText("CITA-N." + Cita.codigoCita);
 	}
 
 	protected MaskFormatter createFormatter(String s) {
@@ -347,17 +370,74 @@ public class RegistrarCita extends JDialog {
 	}
 
 	public boolean checkFields() {
+		
 		if (miPaciente != null && miMedico != null && dateChooser.getDate() != null) {
-			return true;
-		} else if (miPaciente == null && miMedico != null && dateChooser.getDate() != null
-				&& !txtNombre.getText().equals("") && !txtTelefono.getText().equals("")
-				&& !txtApellido.getText().equals("") && comboBoxGenero.getSelectedIndex() != 0) {
-			return true;
+			
+			if(chekHourAndDate())
+			{
+				return true;
+			}else {
+				return false;
+			}
 		}
-
+		
+		if (miPaciente == null && miMedico != null && dateChooser.getDate() != null && !txtNombre.getText().equals("") && !txtTelefono.getText().equals("")
+				&& !txtApellido.getText().equals("") && comboBoxGenero.getSelectedIndex() != 0 && !txtHora.getText().equals("")) 
+		{
+			if(chekHourAndDate())
+			{
+				return true;
+			}else {
+				return false;
+			}
+		}
+		
+		JOptionPane.showMessageDialog(null, "Debe llenar todos los campos!", "Error",JOptionPane.INFORMATION_MESSAGE);
 		return false;
 
 	}
+	
+	public boolean chekHourAndDate()
+	{
+		if(LocalTime.now().isAfter(LocalTime.parse(txtHora.getText(),formatter)))
+		{
+			JOptionPane.showMessageDialog(null, "Hora invalida!", "Error",JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}
+		if(LocalDate.now().isAfter(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()))
+		{
+			JOptionPane.showMessageDialog(null, "Fecha invalida!", "Error",JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean validateDateHour()
+	{
+		for(Cita aux: Clinica.getInstance().getMisCitas())
+		{
+			if(aux.getMedico().equals(miMedico) && aux.getFecha().equals(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()))
+			{
+				if(aux.getHora().equals(LocalTime.parse(txtHora.getText(),formatter)))
+				{
+					JOptionPane.showMessageDialog(null, "Hay una Cita agendad ha la hora seleccionada!", "Error",JOptionPane.INFORMATION_MESSAGE);
+					return false;
+				}
+				
+				Duration duration = Duration.between(aux.getHora(), LocalTime.parse(txtHora.getText(),formatter));
+		        long minutesDifference = duration.toMinutes();
+		        
+		        if(minutesDifference < 20)
+		        {
+		        	JOptionPane.showMessageDialog(null, "Hay una Cita agendad ha la hora seleccionada!", "Error",JOptionPane.INFORMATION_MESSAGE);
+		        	return false;
+		        }
+			}
+		}
+		
+		return true;
+	}
+
 
 	public void enableInputs() {
 		txtNombre.setEditable(true);
@@ -393,5 +473,6 @@ public class RegistrarCita extends JDialog {
 		txtEspecialidad.setText(miMedico.getEspecialidad());
 		txtNombreMedico.setText(miMedico.getNombre());
 		txtApellidoMedico.setText(miMedico.getApellido());
+		txtExequatur.setText(miMedico.getExequatur());
 	}
 }
