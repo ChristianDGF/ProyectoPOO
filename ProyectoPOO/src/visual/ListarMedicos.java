@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.border.EtchedBorder;
+import java.awt.Color;
 
 public class ListarMedicos extends JDialog {
 
@@ -42,7 +44,7 @@ public class ListarMedicos extends JDialog {
         contentPanel.setLayout(new BorderLayout(0, 0));
 
         JPanel panel = new JPanel();
-        panel.setBorder(new TitledBorder(null, "Listar Medicos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Listar Medicos", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
         contentPanel.add(panel, BorderLayout.CENTER);
         panel.setLayout(null);
 
@@ -61,7 +63,7 @@ public class ListarMedicos extends JDialog {
         panel.add(cmbespecialidad);
 
         scrollPane = new JScrollPane();
-        scrollPane.setBounds(12, 55, 647, 383);
+        scrollPane.setBounds(12, 55, 665, 411);
         panel.add(scrollPane);
 
         table = new JTable();

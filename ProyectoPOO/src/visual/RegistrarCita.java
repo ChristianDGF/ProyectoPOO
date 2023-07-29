@@ -37,6 +37,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 import java.awt.Font;
 import javax.swing.SpinnerNumberModel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class RegistrarCita extends JDialog {
 
@@ -118,6 +120,16 @@ public class RegistrarCita extends JDialog {
 			panelpaciente.add(lblnombre);
 
 			txtNombre = new JTextField();
+			txtNombre.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent e) {
+					char c = e.getKeyChar();
+				    if(!Character.isAlphabetic(c) && c != ' ')
+					{
+						e.consume();
+					}
+				}
+			});
 			txtNombre.setEditable(false);
 			txtNombre.setColumns(10);
 			txtNombre.setBounds(89, 33, 178, 22);
@@ -128,6 +140,16 @@ public class RegistrarCita extends JDialog {
 			panelpaciente.add(lblapellido);
 
 			txtApellido = new JTextField();
+			txtApellido.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent e) {
+					char c = e.getKeyChar();
+				    if(!Character.isAlphabetic(c) && c != ' ')
+					{
+						e.consume();
+					}
+				}
+			});
 			txtApellido.setEditable(false);
 			txtApellido.setColumns(10);
 			txtApellido.setBounds(346, 33, 178, 22);

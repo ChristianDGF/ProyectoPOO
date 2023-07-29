@@ -24,6 +24,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.border.EtchedBorder;
+import java.awt.Color;
 
 public class ListarEmpleados extends JDialog {
 
@@ -44,7 +46,7 @@ public class ListarEmpleados extends JDialog {
 		contentPanel.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Listado de Empleados:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Listado de Empleados:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setBounds(12, 13, 714, 434);
 		contentPanel.add(panel);
 		panel.setLayout(null);
@@ -64,7 +66,7 @@ public class ListarEmpleados extends JDialog {
 		panel.add(cmbcargo);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(22, 54, 680, 367);
+		scrollPane.setBounds(12, 54, 690, 367);
 		panel.add(scrollPane);
 		
 		table = new JTable();

@@ -11,6 +11,7 @@ import javax.swing.border.EtchedBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.MaskFormatter;
 
 import logico.Clinica;
 import logico.Empleado;
@@ -33,6 +34,8 @@ import java.time.ZoneId;
 import java.awt.event.ItemEvent;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JTextFieldDateEditor;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class RegistrarEmpleado extends JDialog {
 
@@ -81,7 +84,7 @@ public class RegistrarEmpleado extends JDialog {
 		lblcedula.setBounds(26, 34, 53, 14);
 		panel.add(lblcedula);
 
-		txtcedula = new JFormattedTextField();
+		txtcedula = new JFormattedTextField(createFormatter("###-#######-#"));
 		txtcedula.setBounds(118, 31, 185, 20);
 		panel.add(txtcedula);
 
@@ -96,6 +99,16 @@ public class RegistrarEmpleado extends JDialog {
 		panel.add(lblnombre);
 
 		txtnombre = new JTextField();
+		txtnombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+			    if(!Character.isAlphabetic(c) && c != ' ')
+				{
+					e.consume();
+				}
+			}
+		});
 		txtnombre.setBounds(118, 79, 185, 20);
 		panel.add(txtnombre);
 		txtnombre.setColumns(10);
@@ -106,6 +119,16 @@ public class RegistrarEmpleado extends JDialog {
 		panel.add(lblapellido);
 
 		txtapellido = new JTextField();
+		txtapellido.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+			    if(!Character.isAlphabetic(c) && c != ' ')
+				{
+					e.consume();
+				}
+			}
+		});
 		txtapellido.setBounds(463, 79, 185, 20);
 		panel.add(txtapellido);
 		txtapellido.setColumns(10);
@@ -115,7 +138,7 @@ public class RegistrarEmpleado extends JDialog {
 		lbltelefono.setBounds(26, 130, 53, 14);
 		panel.add(lbltelefono);
 
-		txttelefono = new JFormattedTextField();
+		txttelefono = new JFormattedTextField(createFormatter("###-###-####"));
 		txttelefono.setBounds(118, 127, 185, 20);
 		panel.add(txttelefono);
 
@@ -187,8 +210,7 @@ public class RegistrarEmpleado extends JDialog {
 		panel.add(dateChooser);
 
 		DoctorPanel = new JPanel();
-		DoctorPanel.setBorder(new TitledBorder(null, "Informacion Medico:", TitledBorder.LEADING, TitledBorder.TOP,
-				null, new Color(0, 0, 0)));
+		DoctorPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Informacion Medico:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		DoctorPanel.setBounds(10, 389, 673, 119);
 		contentPanel.add(DoctorPanel);
 		DoctorPanel.setLayout(null);
@@ -216,7 +238,7 @@ public class RegistrarEmpleado extends JDialog {
 		lblexequatur.setBounds(346, 22, 76, 14);
 		DoctorPanel.add(lblexequatur);
 
-		txtexequatur = new JFormattedTextField();
+		txtexequatur = new JFormattedTextField(createFormatter("###-###"));
 		txtexequatur.setBounds(449, 20, 185, 20);
 		DoctorPanel.add(txtexequatur);
 
@@ -374,6 +396,17 @@ public class RegistrarEmpleado extends JDialog {
 		}
 
 		return true;
+	}
+	
+	protected MaskFormatter createFormatter(String s) {
+	    MaskFormatter formatter = null;
+	    try {
+	        formatter = new MaskFormatter(s);
+	    } catch (java.text.ParseException exc) {
+	        System.err.println("formatter is bad: " + exc.getMessage());
+	        System.exit(-1);
+	    }
+	    return formatter;
 	}
 
 }
