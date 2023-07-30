@@ -24,6 +24,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class ListarUsuarios extends JDialog {
 
@@ -35,6 +36,7 @@ public class ListarUsuarios extends JDialog {
 	private User miusuario = null;
 
 	public ListarUsuarios() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-employees-24.png"));
 		setTitle("Usuarios");
 		setBounds(100, 100, 727, 464);
 		getContentPane().setLayout(new BorderLayout());

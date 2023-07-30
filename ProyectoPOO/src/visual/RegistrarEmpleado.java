@@ -38,6 +38,7 @@ import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.Toolkit;
 
 public class RegistrarEmpleado extends JDialog {
 
@@ -60,6 +61,7 @@ public class RegistrarEmpleado extends JDialog {
 	private Empleado empleado = null;
 
 	public RegistrarEmpleado(Empleado miempleado) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-employees-24.png"));
 		empleado = miempleado;
 		if (empleado == null) {
 			setTitle("Registrar Empleado");

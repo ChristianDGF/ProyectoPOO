@@ -44,6 +44,7 @@ import javax.swing.SpinnerNumberModel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import com.raven.swing.TimePicker;
+import java.awt.Toolkit;
 
 public class RegistrarCita extends JDialog {
 
@@ -66,6 +67,7 @@ public class RegistrarCita extends JDialog {
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
 
 	public RegistrarCita() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-calendar-40.png"));
 		setTitle("Agendar Cita");
 		setBounds(100, 100, 918, 525);
 		getContentPane().setLayout(new BorderLayout());

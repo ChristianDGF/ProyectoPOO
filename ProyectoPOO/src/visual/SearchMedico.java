@@ -27,6 +27,7 @@ import javax.swing.JRadioButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.awt.Toolkit;
 
 public class SearchMedico extends JDialog {
 
@@ -43,6 +44,7 @@ public class SearchMedico extends JDialog {
 	private JButton seleccionarBtn;
 
 	public SearchMedico() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-doctor-50.png"));
 		setResizable(false);
 		setTitle("Buscar Medico");
 		setBounds(100, 100, 895, 494);

@@ -12,6 +12,7 @@ import javax.swing.border.EtchedBorder;
 import logico.Consulta;
 
 import javax.swing.JTextField;
+import java.awt.Toolkit;
 
 public class ShowConsulta extends JDialog {
 
@@ -22,6 +23,7 @@ public class ShowConsulta extends JDialog {
 	private JTextArea txtDiagnostico;
 
 	public ShowConsulta(Consulta consulta) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-medical-history-40.png"));
 		miConsulta = consulta;
 		setTitle("Consulta");
 		setBounds(100, 100, 619, 543);

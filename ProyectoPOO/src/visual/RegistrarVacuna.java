@@ -21,6 +21,7 @@ import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Toolkit;
 
 public class RegistrarVacuna extends JDialog {
 
@@ -35,6 +36,7 @@ public class RegistrarVacuna extends JDialog {
 	private JButton okButton;
 
 	public RegistrarVacuna(Vacuna mivacuna,boolean mode) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-vaccine-50.png"));
 		setResizable(false);
 		vacuna = mivacuna;
 		if (Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {

@@ -26,6 +26,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Toolkit;
 
 public class SearchEnfermedad extends JDialog {
 
@@ -40,6 +41,7 @@ public class SearchEnfermedad extends JDialog {
 	private JButton seleccionarBtn;
 
 	public SearchEnfermedad() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-virus-50.png"));
 		setResizable(false);
 		setTitle("Buscar Enfermedad:");
 		setBounds(100, 100, 895, 494);

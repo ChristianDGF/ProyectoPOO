@@ -25,6 +25,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class HistorialMedicoPaciente extends JDialog {
 
@@ -32,22 +33,23 @@ public class HistorialMedicoPaciente extends JDialog {
 	private JTable tableHistorial;
 	private JTable tablePadecimientos;
 	private JTable tableAlergias;
-	private JTable tableVacunas;
-	private DefaultTableModel VacunaModel = new DefaultTableModel();
+	private static JTable tableVacunas;
+	private static DefaultTableModel VacunaModel = new DefaultTableModel();
 	private DefaultTableModel EnfermedadModel = new DefaultTableModel();
 	private DefaultTableModel AlergiaModel = new DefaultTableModel();
 	private DefaultTableModel ConsultaModel = new DefaultTableModel();
-	private Object[] row;
+	private static Object[] row;
 	private String[] headersV = { "Codigo", "Enfermedad", "Laboratorio" };
 	private String[] headersE = { "Enfermedad" };
 	private String[] headersA = { "Alergia" };
 	private String[] headersC = { "Codigo", "Fecha", "Medico", "Enfermedad" };
-	private Paciente miPaciente = null;
+	private static Paciente miPaciente = null;
 	private JButton btnAbrirConsulta;
 	private Consulta selectedConsulta = null;
 	private ArrayList<Consulta> misConsultas = new ArrayList<Consulta>();
 
 	public HistorialMedicoPaciente(Paciente paciente) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-medical-history-40.png"));
 		setTitle("Historial Medico");
 		miPaciente = paciente;
 		setResizable(false);
@@ -215,7 +217,7 @@ public class HistorialMedicoPaciente extends JDialog {
 		}
 	}
 
-	public void loadVacunas() {
+	public static void loadVacunas() {
 		if (miPaciente != null) {
 			VacunaModel.setRowCount(0);
 			row = new Object[tableVacunas.getColumnCount()];

@@ -22,6 +22,7 @@ import logico.Clinica;
 import logico.Enfermedad;
 
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Toolkit;
 
 public class RegistrarEnfermedad extends JDialog {
 
@@ -35,6 +36,7 @@ public class RegistrarEnfermedad extends JDialog {
 	private JButton btnregistrar;
 
 	public RegistrarEnfermedad(Enfermedad mienfermedad,boolean mode) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-virus-50.png"));
 		enfermedad = mienfermedad;
 		if (Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
 			if (enfermedad == null) {

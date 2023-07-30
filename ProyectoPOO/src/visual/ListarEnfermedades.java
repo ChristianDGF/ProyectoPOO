@@ -24,6 +24,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Toolkit;
 
 public class ListarEnfermedades extends JDialog {
 
@@ -35,6 +36,7 @@ public class ListarEnfermedades extends JDialog {
 	private Enfermedad mienfermedad = null;
 
 	public ListarEnfermedades() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-virus-50.png"));
 		setTitle("Enfermedades");
 		setBounds(100, 100, 765, 584);
 		getContentPane().setLayout(new BorderLayout());

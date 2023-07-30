@@ -32,6 +32,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.awt.Toolkit;
 
 public class RegistrarConsulta extends JDialog {
 
@@ -66,6 +67,7 @@ public class RegistrarConsulta extends JDialog {
 	private JRadioButton rdbtnRHMP;
 
 	public RegistrarConsulta(Persona persona, Medico doctor, Cita cita) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-doctor-50.png"));
 		if (persona != null) {
 			checkPaciente(cita, persona);
 		}
@@ -310,7 +312,7 @@ public class RegistrarConsulta extends JDialog {
 				dispose();
 			}
 		});
-		btnCerrar.setBounds(426, 13, 89, 47);
+		btnCerrar.setBounds(426, 25, 89, 23);
 		panel_5.add(btnCerrar);
 
 		JButton btnRegistrar = new JButton("Registrar");
@@ -321,7 +323,7 @@ public class RegistrarConsulta extends JDialog {
 				}
 			}
 		});
-		btnRegistrar.setBounds(317, 13, 89, 47);
+		btnRegistrar.setBounds(317, 25, 89, 23);
 		panel_5.add(btnRegistrar);
 
 		rdbtnRHMP = new JRadioButton("Registrar en el historial medico del paciente");
@@ -415,6 +417,7 @@ public class RegistrarConsulta extends JDialog {
 			clearPacienteEnfermedades();
 		}
 		JOptionPane.showMessageDialog(null, "La consulta ha sido registrada!");
+		ListarCitas.loadCitas();
 		dispose();
 
 	}

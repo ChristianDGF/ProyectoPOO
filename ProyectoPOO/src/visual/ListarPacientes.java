@@ -26,6 +26,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Toolkit;
 
 public class ListarPacientes extends JDialog {
 
@@ -38,6 +39,7 @@ public class ListarPacientes extends JDialog {
 	private Paciente mipaciente;
 
 	public ListarPacientes() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-employees-24.png"));
 		setBounds(100, 100, 809, 589);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -129,12 +131,12 @@ public class ListarPacientes extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						if(Clinica.getLoginUser().getEmpleado() instanceof Medico)
 						{
-							RegistrarPaciente modificar = new RegistrarPaciente(mipaciente,false);
+							RegistrarPaciente modificar = new RegistrarPaciente(mipaciente,true);
 							modificar.setModal(true);
 							modificar.setVisible(true);
 							llenarTablaConPacientes();
 						}else {
-							RegistrarPaciente modificar = new RegistrarPaciente(mipaciente,true);
+							RegistrarPaciente modificar = new RegistrarPaciente(mipaciente,false);
 							modificar.setModal(true);
 							modificar.setVisible(true);
 							llenarTablaConPacientes();

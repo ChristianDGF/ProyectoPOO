@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class ListarMedicos extends JDialog {
 
@@ -33,6 +34,7 @@ public class ListarMedicos extends JDialog {
 	private Medico mimedico;
 
 	public ListarMedicos() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-employees-24.png"));
 		setTitle("Medicos");
 		setBounds(100, 100, 713, 559);
 		getContentPane().setLayout(new BorderLayout());

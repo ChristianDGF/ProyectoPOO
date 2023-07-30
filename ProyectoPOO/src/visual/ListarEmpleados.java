@@ -26,6 +26,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class ListarEmpleados extends JDialog {
 
@@ -38,6 +39,7 @@ public class ListarEmpleados extends JDialog {
 	private JButton btneliminar;
 
 	public ListarEmpleados() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-employees-24.png"));
 		setTitle("Empleados");
 		setBounds(100, 100, 756, 542);
 		getContentPane().setLayout(new BorderLayout());

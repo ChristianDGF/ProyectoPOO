@@ -47,6 +47,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import java.awt.Toolkit;
 
 public class Principal extends JFrame {
 
@@ -79,6 +80,7 @@ public class Principal extends JFrame {
 	private ArrayList<Cita> misCitasShowed = new ArrayList<Cita>();
 
 	public Principal() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-ambulance-48.png"));
 
 		if (Clinica.getLoginUser().getEmpleado() instanceof Medico) {
 			miMedico = (Medico) Clinica.getLoginUser().getEmpleado();

@@ -28,33 +28,35 @@ import javax.swing.JOptionPane;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Toolkit;
 
 public class ListarCitas extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTable table;
-	private DefaultTableModel CitasModel = new DefaultTableModel();
+	private static JTable table;
+	private static DefaultTableModel CitasModel = new DefaultTableModel();
 	private Cita selected = null;
-	private Object[] row;
-	private Medico miMedico = null;
-	private ArrayList<Cita> misCitas = new ArrayList<Cita>();
-	private ArrayList<Cita> misCitasShowed = new ArrayList<Cita>();
+	private static Object[] row;
+	private static Medico miMedico = null;
+	private static ArrayList<Cita> misCitas = new ArrayList<Cita>();
+	private static ArrayList<Cita> misCitasShowed = new ArrayList<Cita>();
 	private JButton realizarBtn;
 	private JDateChooser dateChooser_1;
 	private JDateChooser dateChooser;
 	private JComboBox comboBox;
 
 	public ListarCitas(Medico medico) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-calendar-40.png"));
 		miMedico = medico;
 		setTitle("Citas");
-		setBounds(100, 100, 853, 470);
+		setBounds(100, 100, 929, 470);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 613, 376);
+		scrollPane.setBounds(10, 11, 689, 376);
 		contentPanel.add(scrollPane);
 
 		table = new JTable();
@@ -71,25 +73,25 @@ public class ListarCitas extends JDialog {
 				}
 			}
 		});
-		String headers[] = { "Codigo", "Persona", "Cedula", "Fecha", "Estado" };
+		String headers[] = { "Codigo","Doctor", "Persona", "Cedula", "Fecha", "Estado" };
 		CitasModel.setColumnIdentifiers(headers);
 		table.setModel(CitasModel);
 		scrollPane.setViewportView(table);
 		
 		JLabel lblNewLabel = new JLabel("Fecha Incial:");
-		lblNewLabel.setBounds(633, 12, 73, 14);
+		lblNewLabel.setBounds(709, 11, 73, 14);
 		contentPanel.add(lblNewLabel);
 		
 		dateChooser = new JDateChooser();
-		dateChooser.setBounds(633, 37, 194, 20);
+		dateChooser.setBounds(709, 36, 194, 20);
 		contentPanel.add(dateChooser);
 		
 		JLabel lblNewLabel_1 = new JLabel("Fecha Final:");
-		lblNewLabel_1.setBounds(633, 68, 73, 14);
+		lblNewLabel_1.setBounds(709, 67, 73, 14);
 		contentPanel.add(lblNewLabel_1);
 		
 		dateChooser_1 = new JDateChooser();
-		dateChooser_1.setBounds(633, 93, 194, 20);
+		dateChooser_1.setBounds(709, 92, 194, 20);
 		contentPanel.add(dateChooser_1);
 		
 		JButton btnNewButton = new JButton("Filtrar");
@@ -98,26 +100,35 @@ public class ListarCitas extends JDialog {
 				filterCitas();
 			}
 		});
-		btnNewButton.setBounds(633, 330, 194, 23);
+		btnNewButton.setBounds(709, 330, 194, 23);
 		contentPanel.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Mostrar Todos");
+		JButton btnNewButton_1 = new JButton("Mostrar Todo");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				refreshCitas();
 			}
 		});
-		btnNewButton_1.setBounds(633, 364, 194, 23);
+		btnNewButton_1.setBounds(709, 364, 194, 23);
 		contentPanel.add(btnNewButton_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Estado:");
-		lblNewLabel_2.setBounds(633, 124, 46, 14);
+		lblNewLabel_2.setBounds(709, 123, 46, 14);
 		contentPanel.add(lblNewLabel_2);
 		
 		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Pendiente", "Realizada"}));
-		comboBox.setBounds(633, 149, 194, 20);
+		comboBox.setBounds(709, 148, 194, 20);
 		contentPanel.add(comboBox);
+		
+		JButton btnMisCitas = new JButton("mis Citas");
+		btnMisCitas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				misCitasHoy();
+			}
+		});
+		btnMisCitas.setBounds(709, 296, 194, 23);
+		contentPanel.add(btnMisCitas);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -128,11 +139,14 @@ public class ListarCitas extends JDialog {
 				realizarBtn.setEnabled(false);
 				realizarBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						RegistrarConsulta regConsulta = new RegistrarConsulta(selected.getPersona(),
-								selected.getMedico(), selected);
-						regConsulta.setModal(true);
-						regConsulta.setLocationRelativeTo(null);
-						regConsulta.setVisible(true);
+						if(selected.getEstado().equalsIgnoreCase("Pendiente"))
+						{
+							RegistrarConsulta regConsulta = new RegistrarConsulta(selected.getPersona(),
+									selected.getMedico(), selected);
+							regConsulta.setModal(true);
+							regConsulta.setLocationRelativeTo(null);
+							regConsulta.setVisible(true);
+						}
 					}
 				});
 				realizarBtn.setActionCommand("OK");
@@ -158,6 +172,26 @@ public class ListarCitas extends JDialog {
 	}
 	
 	
+	public void misCitasHoy()
+	{
+		CitasModel.setRowCount(0);
+		row = new Object[table.getColumnCount()];
+		misCitasShowed.clear();
+		
+		for (Cita cita : misCitas) {
+			if (cita.getMedico().equals(miMedico) && cita.getEstado().equals("Pendiente") && LocalDate.now().equals(cita.getFecha())) {
+				misCitasShowed.add(cita);
+				row[0] = cita.getCodigo();
+				row[1] = cita.getMedico().getNombre() + " " + cita.getMedico().getApellido();
+				row[2] = cita.getPersona().getNombre();
+				row[3] = cita.getPersona().getCedula();
+				row[4] = cita.getFecha();
+				row[5] = cita.getEstado();
+				CitasModel.addRow(row);
+			}
+		}
+		
+	}
 	public void filterCitas()
 	{		
 		if(dateChooser.getDate() != null && dateChooser_1.getDate() != null && comboBox.getSelectedIndex() != 0)
@@ -173,10 +207,11 @@ public class ListarCitas extends JDialog {
 				{
 					misCitasShowed.add(cita);
 					row[0] = cita.getCodigo();
-					row[1] = cita.getPersona().getNombre();
-					row[2] = cita.getPersona().getCedula();
-					row[3] = cita.getFecha();
-					row[4] = cita.getEstado();
+					row[1] = cita.getMedico().getNombre() + " " + cita.getMedico().getApellido();
+					row[2] = cita.getPersona().getNombre();
+					row[3] = cita.getPersona().getCedula();
+					row[4] = cita.getFecha();
+					row[5] = cita.getEstado();
 					CitasModel.addRow(row);
 				}
 			}
@@ -196,28 +231,30 @@ public class ListarCitas extends JDialog {
 		{
 			misCitasShowed.add(cita);
 			row[0] = cita.getCodigo();
-			row[1] = cita.getPersona().getNombre();
-			row[2] = cita.getPersona().getCedula();
-			row[3] = cita.getFecha();
-			row[4] = cita.getEstado();
+			row[1] = cita.getMedico().getNombre() + " " + cita.getMedico().getApellido();
+			row[2] = cita.getPersona().getNombre();
+			row[3] = cita.getPersona().getCedula();
+			row[4] = cita.getFecha();
+			row[5] = cita.getEstado();
 			CitasModel.addRow(row);
 		}
 	}
 
-	public void loadCitas() {
+	public static void loadCitas() {
 		CitasModel.setRowCount(0);
 		row = new Object[table.getColumnCount()];
 
 		if (miMedico != null) {
 			for (Cita cita : Clinica.getInstance().getMisCitas()) {
-				if (cita.getMedico().equals(miMedico) && cita.getEstado().equals("Pendiente") && LocalDate.now().equals(cita.getFecha())) {
+				if (cita.getMedico().equals(miMedico) && cita.getEstado().equals("Pendiente")) {
 					misCitasShowed.add(cita);
 					misCitas.add(cita);
 					row[0] = cita.getCodigo();
-					row[1] = cita.getPersona().getNombre();
-					row[2] = cita.getPersona().getCedula();
-					row[3] = cita.getFecha();
-					row[4] = cita.getEstado();
+					row[1] = cita.getMedico().getNombre() + " " + cita.getMedico().getApellido();
+					row[2] = cita.getPersona().getNombre();
+					row[3] = cita.getPersona().getCedula();
+					row[4] = cita.getFecha();
+					row[5] = cita.getEstado();
 					CitasModel.addRow(row);
 				}
 			}
@@ -228,10 +265,11 @@ public class ListarCitas extends JDialog {
 				misCitasShowed.add(cita);
 				misCitas.add(cita);
 				row[0] = cita.getCodigo();
-				row[1] = cita.getPersona().getNombre();
-				row[2] = cita.getPersona().getCedula();
-				row[3] = cita.getFecha();
-				row[4] = cita.getEstado();
+				row[1] = cita.getMedico().getNombre() + " " + cita.getMedico().getApellido();
+				row[2] = cita.getPersona().getNombre();
+				row[3] = cita.getPersona().getCedula();
+				row[4] = cita.getFecha();
+				row[5] = cita.getEstado();
 				CitasModel.addRow(row);
 			}
 		}

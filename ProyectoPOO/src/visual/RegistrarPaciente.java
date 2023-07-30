@@ -42,6 +42,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.JFormattedTextField;
+import java.awt.Toolkit;
 
 public class RegistrarPaciente extends JDialog {
 
@@ -72,8 +73,8 @@ public class RegistrarPaciente extends JDialog {
 	private JScrollPane scrollPane;
 
 	public RegistrarPaciente(Paciente paciente,boolean mode) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-person-64.png"));
 		miPaciente = paciente;
-		checkMode(mode);
 		setTitle("Actualizar Paciente");
 		setBounds(100, 100, 1071, 465);
 		getContentPane().setLayout(new BorderLayout());
@@ -381,6 +382,7 @@ public class RegistrarPaciente extends JDialog {
 			}
 		}
 		loadPaciente();
+		checkMode(mode);
 	}
 
 	public void loadPaciente() {
@@ -455,7 +457,7 @@ public class RegistrarPaciente extends JDialog {
 			btnAgregarAlergia.setVisible(false);
 			btnAgregarAlergia.setVisible(false);
 			scrollPane.setBounds(20, 25, 458, 335);
-			setTitle("Paciente");
+			setTitle("Paciente"); 
 		}
 	}
 }

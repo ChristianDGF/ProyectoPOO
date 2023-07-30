@@ -27,6 +27,7 @@ import javax.swing.JOptionPane;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Toolkit;
 
 public class AgregarVacuna extends JDialog {
 
@@ -47,6 +48,7 @@ public class AgregarVacuna extends JDialog {
 	private Vacuna selected = null;
 
 	public AgregarVacuna(HistorialMedico historial) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-vaccine-50.png"));
 		miHistorial = historial;
 		setTitle("Vacunaci\u00F3n");
 		setBounds(100, 100, 1224, 512);
@@ -146,6 +148,7 @@ public class AgregarVacuna extends JDialog {
 						historial.setMisVancunas(misVacunas);
 						JOptionPane.showMessageDialog(null, "Operación satisfactoria", "Registro",
 								JOptionPane.INFORMATION_MESSAGE);
+						HistorialMedicoPaciente.loadVacunas();
 						dispose();
 					}
 				});

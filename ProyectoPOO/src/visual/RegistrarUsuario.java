@@ -27,6 +27,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Toolkit;
 
 public class RegistrarUsuario extends JDialog {
 
@@ -41,6 +42,7 @@ public class RegistrarUsuario extends JDialog {
 	private JComboBox<String> cmbtipo;
 
 	public RegistrarUsuario(User miusuario) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-employees-24.png"));
 		user = miusuario;
 		if (user == null) {
 			setTitle("Registrar Usuario");
