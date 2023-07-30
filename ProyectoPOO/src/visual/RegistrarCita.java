@@ -395,11 +395,12 @@ public class RegistrarCita extends JDialog {
 	}
 
 	public boolean chekHourAndDate() {
-		/*
-		 * if (LocalTime.now().isAfter(LocalTime.parse(txtHora.getText(), formatter))) {
-		 * JOptionPane.showMessageDialog(null, "Hora invalida!", "Error",
-		 * JOptionPane.INFORMATION_MESSAGE); return false; }
-		 */
+		
+		 if (LocalDate.now().equals(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()) && LocalTime.now().isAfter(LocalTime.parse(txtHora.getText(), formatter))) {
+		    JOptionPane.showMessageDialog(null, "Hora invalida!", "Error", JOptionPane.INFORMATION_MESSAGE); 
+		    return false; 
+		 }
+		 
 		if (LocalDate.now().isAfter(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())) {
 			JOptionPane.showMessageDialog(null, "Fecha invalida!", "Error", JOptionPane.INFORMATION_MESSAGE);
 			return false;
