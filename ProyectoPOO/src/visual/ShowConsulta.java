@@ -71,7 +71,10 @@ public class ShowConsulta extends JDialog {
 		if (miConsulta != null) {
 			txtSintomas.setText(miConsulta.getSintomas());
 			txtDiagnostico.setText(miConsulta.getDiagnostico());
-			txtEnfermedad.setText(miConsulta.getEnfermedad().getNombre());
+			if(miConsulta.getEnfermedad() != null)
+			{
+				txtEnfermedad.setText(miConsulta.getEnfermedad().getNombre());
+			}
 		}
 	}
 }

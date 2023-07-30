@@ -408,9 +408,31 @@ public class RegistrarConsulta extends JDialog {
 		Clinica.getInstance().AgregarConsulta(consulta);
 		miMedico.getMisconsultas().add(consulta);
 		miCita.setEstado("Realizada");
+		if(miEnfermedad != null)
+		{
+			miPaciente.getMiHistorial().getMisPadecimientos().add(miEnfermedad);
+		}else {
+			clearPacienteEnfermedades();
+		}
 		JOptionPane.showMessageDialog(null, "La consulta ha sido registrada!");
 		dispose();
 
+	}
+	
+	public void clearPacienteEnfermedades()
+	{
+		ArrayList<Enfermedad> enfermedad = new ArrayList<Enfermedad>();
+		for(Enfermedad aux: miPaciente.getMiHistorial().getMisPadecimientos())
+		{
+			if(aux.getTipo() != "Crónicas")
+			{
+				enfermedad.add(aux);
+			}
+		}
+		for(Enfermedad aux: enfermedad)
+		{
+			miPaciente.getMiHistorial().getMisPadecimientos().remove(aux);
+		}
 	}
 
 	public static void loadPaciente() {
