@@ -32,8 +32,9 @@ public class RegistrarEnfermedad extends JDialog {
 	private JComboBox cmbestado;
 	private Enfermedad enfermedad;
 	private JComboBox comboBoxTipo;
+	private JButton btnregistrar;
 
-	public RegistrarEnfermedad(Enfermedad mienfermedad) {
+	public RegistrarEnfermedad(Enfermedad mienfermedad,boolean mode) {
 		enfermedad = mienfermedad;
 		if (Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
 			if (enfermedad == null) {
@@ -41,8 +42,6 @@ public class RegistrarEnfermedad extends JDialog {
 			} else {
 				setTitle("Modificar Enfermedad");
 			}
-		} else {
-			setTitle("Visualizar Enfermedad");
 		}
 
 		setBounds(100, 100, 576, 288);
@@ -89,7 +88,7 @@ public class RegistrarEnfermedad extends JDialog {
 			}
 			{
 				cmbestado = new JComboBox();
-				cmbestado.setModel(new DefaultComboBoxModel(new String[] { "<Seleccionar>", "Vigilancia" }));
+				cmbestado.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Vigilancia", "Normal", "Investigacion"}));
 				cmbestado.setBounds(355, 50, 174, 22);
 				panel.add(cmbestado);
 			}
@@ -123,22 +122,22 @@ public class RegistrarEnfermedad extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton btnregistrar = new JButton("Registrar");
-				if (!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
-					btnregistrar.setEnabled(false);
-				}
+				btnregistrar = new JButton("Registrar");
 				if (enfermedad != null) {
 					btnregistrar.setText("Modificar");
 				}
 				btnregistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if (checkfield() && enfermedad == null) {
-							registrarEnfermedad();
-						} else {
-							modificarEnfermedad();
-							JOptionPane.showMessageDialog(null, "Operación satisfactoria", "Registro",
-									JOptionPane.INFORMATION_MESSAGE);
-							dispose();
+						if(checkfield())
+						{
+							if (enfermedad == null) {
+								registrarEnfermedad();
+							} else {
+								modificarEnfermedad();
+								JOptionPane.showMessageDialog(null, "Operación satisfactoria", "Registro",
+										JOptionPane.INFORMATION_MESSAGE);
+								dispose();
+							}
 						}
 					}
 				});
@@ -157,18 +156,21 @@ public class RegistrarEnfermedad extends JDialog {
 				buttonPane.add(btncancelar);
 			}
 		}
-		cargarEnfermedad();
-		if (!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
+		if(mode)
+		{
 			lockfields();
 		}
+		cargarEnfermedad();
 	}
 
 	private void lockfields() {
 		txtcodigo.setEditable(false);
 		txtnombre.setEditable(false);
 		txtdescripcion.setEditable(false);
-		comboBoxTipo.setEditable(false);
+		comboBoxTipo.setEnabled(false);
 		cmbestado.setEnabled(false);
+		btnregistrar.setVisible(false);
+		setTitle("Visualizar Enfermedad");
 	}
 
 	protected void modificarEnfermedad() {
@@ -217,8 +219,7 @@ public class RegistrarEnfermedad extends JDialog {
 	private boolean checkfield() {
 		if (txtnombre.getText().isEmpty() || comboBoxTipo.getSelectedIndex() == 0 || txtcodigo.getText().isEmpty()
 				|| cmbestado.getSelectedIndex() == 0 || txtdescripcion.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios", "Error",
-					JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios", "Error",JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		return true;

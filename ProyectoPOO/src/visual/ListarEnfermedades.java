@@ -35,6 +35,7 @@ public class ListarEnfermedades extends JDialog {
 	private Enfermedad mienfermedad = null;
 
 	public ListarEnfermedades() {
+		setTitle("Enfermedades");
 		setBounds(100, 100, 765, 584);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -58,7 +59,7 @@ public class ListarEnfermedades extends JDialog {
 				cargarEnfermedades();
 			}
 		});
-		comboBox.setModel(new DefaultComboBoxModel(new String[] { "<Todos>", "Vigilancia" }));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"<Todos>", "Vigilancia", "Normal", "Investigacion"}));
 		comboBox.setBounds(80, 23, 132, 22);
 		panel.add(comboBox);
 
@@ -93,10 +94,19 @@ public class ListarEnfermedades extends JDialog {
 				btnmodificar.setEnabled(false);
 				btnmodificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						RegistrarEnfermedad modificar = new RegistrarEnfermedad(mienfermedad);
-						modificar.setModal(true);
-						modificar.setVisible(true);
-						cargarEnfermedades();
+						if(Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador"))
+						{
+							RegistrarEnfermedad modificar = new RegistrarEnfermedad(mienfermedad,false);
+							modificar.setModal(true);
+							modificar.setVisible(true);
+							cargarEnfermedades();
+						}else {
+							RegistrarEnfermedad modificar = new RegistrarEnfermedad(mienfermedad,true);
+							modificar.setModal(true);
+							modificar.setVisible(true);
+							cargarEnfermedades();
+						}
+
 					}
 				});
 
@@ -120,6 +130,10 @@ public class ListarEnfermedades extends JDialog {
 					}
 				});
 				buttonPane.add(btneliminar);
+				if(!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador"))
+				{
+					btneliminar.setVisible(false);
+				}
 				btnmodificar.setActionCommand("OK");
 				buttonPane.add(btnmodificar);
 				getRootPane().setDefaultButton(btnmodificar);

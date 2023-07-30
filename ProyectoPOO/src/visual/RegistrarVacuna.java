@@ -34,7 +34,7 @@ public class RegistrarVacuna extends JDialog {
 	private Vacuna vacuna = null;
 	private JButton okButton;
 
-	public RegistrarVacuna(Vacuna mivacuna) {
+	public RegistrarVacuna(Vacuna mivacuna,boolean mode) {
 		setResizable(false);
 		vacuna = mivacuna;
 		if (Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
@@ -43,9 +43,7 @@ public class RegistrarVacuna extends JDialog {
 			} else {
 				setTitle("Modificar Vacuna");
 			}
-		} else {
-			setTitle("Visualizar Vacuna");
-		}
+		} 
 
 		setBounds(100, 100, 580, 306);
 		getContentPane().setLayout(new BorderLayout());
@@ -110,28 +108,27 @@ public class RegistrarVacuna extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				okButton = new JButton("Registrar");
-				if (!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
-					okButton.setEnabled(false);
-				}
 				if (vacuna != null) {
 					okButton.setText("Modificar");
 				}
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if (checkfield() && vacuna == null) {
-							registrarVacuna();
-						} else {
-							modificarVacuna();
-							JOptionPane.showMessageDialog(null, "Operación satisfactoria", "Registro",
-									JOptionPane.INFORMATION_MESSAGE);
-							dispose();
+						if(checkfield())
+						{
+							if (vacuna == null) {
+								registrarVacuna();
+							} else {
+								modificarVacuna();
+								JOptionPane.showMessageDialog(null, "Operación satisfactoria", "Registro",
+										JOptionPane.INFORMATION_MESSAGE);
+								dispose();
+							}
 						}
 					}
 				});
 
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
@@ -145,7 +142,8 @@ public class RegistrarVacuna extends JDialog {
 			}
 		}
 		cargarVacuna();
-		if (!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
+		if(mode)
+		{
 			lockfields();
 		}
 	}
@@ -156,6 +154,8 @@ public class RegistrarVacuna extends JDialog {
 		txtlaboratorio.setEditable(false);
 		textdescripcion.setEditable(false);
 		cmbtipo.setEnabled(false);
+		setTitle("Visualizar Vacuna");
+		okButton.setVisible(false);
 	}
 
 	protected void modificarVacuna() {
@@ -204,8 +204,7 @@ public class RegistrarVacuna extends JDialog {
 		if (txtenfermedad.getText().isEmpty() || txtcodigo.getText().isEmpty() || txtlaboratorio.getText().isEmpty()
 				|| cmbtipo.getSelectedIndex() == 0 || textdescripcion.getText().isEmpty()) {
 
-			JOptionPane.showMessageDialog(null, "Todos los campos deben estar llenos", "Error",
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios", "Error",JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 

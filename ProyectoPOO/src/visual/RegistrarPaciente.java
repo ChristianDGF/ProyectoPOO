@@ -68,9 +68,12 @@ public class RegistrarPaciente extends JDialog {
 	private JButton btnAgregarAlergia;
 	private String alergiaString;
 	private JFormattedTextField txtTelefono;
+	private JButton btnActualizar;
+	private JScrollPane scrollPane;
 
-	public RegistrarPaciente(Paciente paciente) {
+	public RegistrarPaciente(Paciente paciente,boolean mode) {
 		miPaciente = paciente;
+		checkMode(mode);
 		setTitle("Actualizar Paciente");
 		setBounds(100, 100, 1071, 465);
 		getContentPane().setLayout(new BorderLayout());
@@ -290,7 +293,7 @@ public class RegistrarPaciente extends JDialog {
 		btnAgregarAlergia.setBounds(306, 24, 81, 23);
 		panel_1.add(btnAgregarAlergia);
 
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(20, 55, 458, 305);
 		panel_1.add(scrollPane);
@@ -331,7 +334,7 @@ public class RegistrarPaciente extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton btnActualizar = new JButton("Actualizar");
+				btnActualizar = new JButton("Actualizar");
 				btnActualizar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 
@@ -405,7 +408,6 @@ public class RegistrarPaciente extends JDialog {
 			txtEdad.setText(String.valueOf(miPaciente.getEdad()));
 
 			loadAlergias();
-
 		}
 	}
 
@@ -429,5 +431,31 @@ public class RegistrarPaciente extends JDialog {
 			System.exit(-1);
 		}
 		return formatter;
+	}
+	
+	public void checkMode(boolean mode)
+	{
+		if(mode)
+		{
+			txtNombre.setEditable(false);
+			txtApellido.setEditable(false);
+			txtCedula.setEditable(false);
+			txtTelefono.setEditable(false);
+			txtAltura.setEditable(false);
+			txtPeso.setEditable(false);
+			txtEmail.setEditable(false);
+			txtEstado.setEditable(false);
+			txtDireccion.setEditable(false);
+			comboBoxSexo.setEditable(false);
+			comboBoxSangre.setEditable(false);
+			dateChooser.setEnabled(false);
+			txtEdad.setEditable(false);
+			btnActualizar.setVisible(false);
+			txtAlergia.setVisible(false);
+			btnAgregarAlergia.setVisible(false);
+			btnAgregarAlergia.setVisible(false);
+			scrollPane.setBounds(20, 25, 458, 335);
+			setTitle("Paciente");
+		}
 	}
 }

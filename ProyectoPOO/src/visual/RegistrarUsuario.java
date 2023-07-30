@@ -146,15 +146,17 @@ public class RegistrarUsuario extends JDialog {
 		}
 		btnregistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (checkfields() && user == null) {
-					registrarUsuario();
-				} else {
-					modificarUsuario();
-					JOptionPane.showMessageDialog(null, "Operación satisfactoria", "Registro",
-							JOptionPane.INFORMATION_MESSAGE);
-					dispose();
+				if(checkfields())
+				{
+					if (user == null) {
+						registrarUsuario();
+					} else {
+						modificarUsuario();
+						JOptionPane.showMessageDialog(null, "Operación satisfactoria", "Registro",
+								JOptionPane.INFORMATION_MESSAGE);
+						dispose();
+					}
 				}
-
 			}
 
 		});
@@ -221,8 +223,7 @@ public class RegistrarUsuario extends JDialog {
 	private boolean checkfields() {
 		if (txtusuario.getText().isEmpty() || txtpassword.getText().isEmpty() || cmbtipo.getSelectedIndex() == 0
 				|| selected == null) {
-			JOptionPane.showMessageDialog(null, "Todos los campos deben estar llenos", "Error",
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios", "Error",JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		return true;

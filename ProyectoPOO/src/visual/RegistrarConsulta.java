@@ -186,7 +186,7 @@ public class RegistrarConsulta extends JDialog {
 		JButton btnPadecimientos = new JButton("Actualizar");
 		btnPadecimientos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrarPaciente regPac = new RegistrarPaciente(miPaciente);
+				RegistrarPaciente regPac = new RegistrarPaciente(miPaciente,false);
 				regPac.setModal(true);
 				regPac.setLocationRelativeTo(null);
 				regPac.setVisible(true);

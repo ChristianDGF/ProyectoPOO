@@ -225,10 +225,20 @@ public class Principal extends JFrame {
 		MenuRegEnfermedad = new JMenuItem("Registrar Enfermedad");
 		MenuRegEnfermedad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrarEnfermedad regenfermedad = new RegistrarEnfermedad(null);
-				regenfermedad.setModal(true);
-				regenfermedad.setLocationRelativeTo(null);
-				regenfermedad.setVisible(true);
+				if(Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador"))
+				{
+					RegistrarEnfermedad regenfermedad = new RegistrarEnfermedad(null,false);
+					regenfermedad.setModal(true);
+					regenfermedad.setLocationRelativeTo(null);
+					regenfermedad.setVisible(true);
+				}else {
+
+					RegistrarEnfermedad regenfermedad = new RegistrarEnfermedad(null,true);
+					regenfermedad.setModal(true);
+					regenfermedad.setLocationRelativeTo(null);
+					regenfermedad.setVisible(true);
+				}
+		
 			}
 		});
 		MenuEnfermedades.add(MenuRegEnfermedad);
@@ -250,10 +260,19 @@ public class Principal extends JFrame {
 		MenuRegVacuna = new JMenuItem("Registrar Vacunas");
 		MenuRegVacuna.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrarVacuna regvacuna = new RegistrarVacuna(null);
-				regvacuna.setModal(true);
-				regvacuna.setLocationRelativeTo(null);
-				regvacuna.setVisible(true);
+				if(Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador"))
+				{
+					RegistrarVacuna regvacuna = new RegistrarVacuna(null,false);
+					regvacuna.setModal(true);
+					regvacuna.setLocationRelativeTo(null);
+					regvacuna.setVisible(true);
+				}else {
+					RegistrarVacuna regvacuna = new RegistrarVacuna(null,true);
+					regvacuna.setModal(true);
+					regvacuna.setLocationRelativeTo(null);
+					regvacuna.setVisible(true);
+				}
+				
 			}
 		});
 		MenuVacunas.add(MenuRegVacuna);

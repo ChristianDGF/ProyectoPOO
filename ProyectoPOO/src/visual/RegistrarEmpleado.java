@@ -29,8 +29,10 @@ import javax.swing.JTextArea;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Color;
 import java.awt.event.ItemListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
+import java.util.Date;
 import java.awt.event.ItemEvent;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JTextFieldDateEditor;
@@ -318,7 +320,15 @@ public class RegistrarEmpleado extends JDialog {
 	public void cargarEmpleado() {
 		if (empleado != null) {
 			txtcedula.setText(empleado.getCedula());
-			// Establecer fecha
+			if (!empleado.getFechaNacimiento().equals("")) {
+				Date fecha = null;
+				try {
+					fecha = new SimpleDateFormat("yyyy-MM-dd").parse(empleado.getFechaNacimiento());
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				dateChooser.setDate(fecha);
+			}
 			txtnombre.setText(empleado.getNombre());
 			txtapellido.setText(empleado.getApellido());
 			txttelefono.setText(empleado.getTelefono());
@@ -398,8 +408,7 @@ public class RegistrarEmpleado extends JDialog {
 		if (cmbcargo.getSelectedItem().toString().equals("Medico")) {
 			if (cmbespecialidad.getSelectedIndex() == 0 || txtexequatur.getText().isEmpty()
 					|| txtconsultorio.getText().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios", "Error",
-						JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios", "Error",JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 		}

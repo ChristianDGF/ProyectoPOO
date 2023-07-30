@@ -33,6 +33,7 @@ public class ListarMedicos extends JDialog {
 	private Medico mimedico;
 
 	public ListarMedicos() {
+		setTitle("Medicos");
 		setBounds(100, 100, 713, 559);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

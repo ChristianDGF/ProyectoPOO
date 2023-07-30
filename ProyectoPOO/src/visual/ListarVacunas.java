@@ -35,6 +35,7 @@ public class ListarVacunas extends JDialog {
 	private Vacuna mivacuna = null;
 
 	public ListarVacunas() {
+		setTitle("Vacunas");
 		setBounds(100, 100, 736, 505);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -111,6 +112,10 @@ public class ListarVacunas extends JDialog {
 					}
 				});
 				btneliminar.setEnabled(false);
+				if(!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador"))
+				{
+					btneliminar.setVisible(false);
+				}
 				buttonPane.add(btneliminar);
 			}
 			{
@@ -120,10 +125,19 @@ public class ListarVacunas extends JDialog {
 				}
 				btnmodificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						RegistrarVacuna modificar = new RegistrarVacuna(mivacuna);
-						modificar.setModal(true);
-						modificar.setVisible(true);
-						listarVacunasPorTipo();
+						if(Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador"))
+						{
+							RegistrarVacuna modificar = new RegistrarVacuna(mivacuna,false);
+							modificar.setModal(true);
+							modificar.setVisible(true);
+							listarVacunasPorTipo();
+						}else {
+							RegistrarVacuna modificar = new RegistrarVacuna(mivacuna,true);
+							modificar.setModal(true);
+							modificar.setVisible(true);
+							listarVacunasPorTipo();
+						}
+				
 					}
 				});
 				btnmodificar.setEnabled(false);

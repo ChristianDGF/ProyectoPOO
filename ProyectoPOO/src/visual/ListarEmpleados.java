@@ -38,6 +38,7 @@ public class ListarEmpleados extends JDialog {
 	private JButton btneliminar;
 
 	public ListarEmpleados() {
+		setTitle("Empleados");
 		setBounds(100, 100, 756, 542);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
 import logico.Clinica;
+import logico.Medico;
 import logico.Paciente;
 
 import javax.swing.JLabel;
@@ -126,10 +127,18 @@ public class ListarPacientes extends JDialog {
 				btnmodificar.setEnabled(false);
 				btnmodificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						RegistrarPaciente modificar = new RegistrarPaciente(mipaciente);
-						modificar.setModal(true);
-						modificar.setVisible(true);
-						llenarTablaConPacientes();
+						if(Clinica.getLoginUser().getEmpleado() instanceof Medico)
+						{
+							RegistrarPaciente modificar = new RegistrarPaciente(mipaciente,false);
+							modificar.setModal(true);
+							modificar.setVisible(true);
+							llenarTablaConPacientes();
+						}else {
+							RegistrarPaciente modificar = new RegistrarPaciente(mipaciente,true);
+							modificar.setModal(true);
+							modificar.setVisible(true);
+							llenarTablaConPacientes();
+						}
 					}
 				});
 				btnmodificar.setActionCommand("OK");
