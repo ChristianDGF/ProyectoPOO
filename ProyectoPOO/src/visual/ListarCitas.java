@@ -149,6 +149,11 @@ public class ListarCitas extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		
+		if(miMedico == null)
+		{
+			realizarBtn.setVisible(false);
+		}
 		loadCitas();
 	}
 	

@@ -458,7 +458,7 @@ public class RegistrarConsulta extends JDialog {
 			for (Consulta aux : misConsultas) {
 				row[0] = aux.getCodigo();
 				row[1] = aux.getCita().getFecha().toString();
-				row[2] = aux.getEnfermedad();
+				row[2] = aux.getEnfermedad().getNombre();
 				row[3] = aux.getEstado();
 				misConsultasModel.addRow(row);
 			}
