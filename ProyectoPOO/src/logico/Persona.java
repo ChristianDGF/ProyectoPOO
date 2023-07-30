@@ -3,7 +3,7 @@ package logico;
 import java.io.Serializable;
 
 public class Persona implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 	private static int proximoID = 1;
 	protected String nombre;
@@ -11,14 +11,13 @@ public class Persona implements Serializable {
 	protected String direccion;
 	protected String fechaNacimiento;
 	protected String genero;
-	protected String cedula; 
+	protected String cedula;
 	protected String telefono;
 	protected String correoelectronico;
 	protected String codigo;
-    
-	public Persona(String nombre,String apellido,String direccion, String fechaNacimiento, String genero, String cedula,
-			String telefono,String correoelectronico) 
-	{
+
+	public Persona(String nombre, String apellido, String direccion, String fechaNacimiento, String genero,
+			String cedula, String telefono, String correoelectronico) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -30,7 +29,7 @@ public class Persona implements Serializable {
 		this.correoelectronico = correoelectronico;
 		this.codigo = "P" + proximoID;
 		proximoID++;
-		
+
 	}
 
 	public String getNombre() {

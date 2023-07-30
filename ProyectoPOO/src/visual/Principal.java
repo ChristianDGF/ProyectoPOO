@@ -18,6 +18,7 @@ import org.jfree.data.general.DefaultPieDataset;
 import logico.Cliente;
 import logico.Clinica;
 import logico.Medico;
+import logico.Vacuna;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -32,10 +33,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 
 import net.miginfocom.swing.MigLayout;
+
+import javax.swing.JComboBox;
 
 public class Principal extends JFrame {
 
@@ -45,6 +46,8 @@ public class Principal extends JFrame {
 	private JPanel panel3;
 	private JPanel panel4;
 	private Dimension dim;
+	private JPanel panel5;
+	private JComboBox comboBox;
 
 	public Principal() {
 		addWindowListener(new WindowAdapter() {
@@ -74,28 +77,31 @@ public class Principal extends JFrame {
 
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setLayout(new MigLayout("fill", "[grow][grow][grow]", "[grow][grow][grow]"));
+		panel.setLayout(new MigLayout("fill", "[grow][grow][grow]", "[][grow][grow][grow]"));
+
+		comboBox = new JComboBox();
+		llenarComboBoxVacunas(comboBox);
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				actualizarGraficoPastelPanel5();
+			}
+		});
+		panel.add(comboBox, "cell 2 0,growx");
 
 		panel1 = new JPanel();
-		panel.add(panel1, "cell 0 0,grow");
-
-		DefaultPieDataset dataset = new DefaultPieDataset();
-		dataset.setValue("Masculino", Clinica.getInstance().obtenerNumeroPacientesPorSexo("Masculino"));
-		dataset.setValue("Femenino", Clinica.getInstance().obtenerNumeroPacientesPorSexo("Femenino"));
-
-		JFreeChart chart = ChartFactory.createPieChart("Distribución de sexos de pacientes", dataset, true, true, true);
-		ChartPanel chartPanel = new ChartPanel(chart);
-		panel1.setLayout(new BorderLayout());
-		panel1.add(chartPanel, BorderLayout.CENTER);
+		panel.add(panel1, "cell 0 1,grow");
 
 		panel2 = new JPanel();
-		panel.add(panel2, "cell 1 0,grow");
+		panel.add(panel2, "cell 1 1,grow");
+
+		panel5 = new JPanel();
+		panel.add(panel5, "cell 2 1,grow");
 
 		panel3 = new JPanel();
-		panel.add(panel3, "cell 0 1 2 1,grow");
+		panel.add(panel3, "cell 0 2 2 1,grow");
 
 		panel4 = new JPanel();
-		panel.add(panel4, "cell 2 1,grow");
+		panel.add(panel4, "cell 2 2,grow");
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -144,17 +150,6 @@ public class Principal extends JFrame {
 		mnNewMenu_2.add(mntmNewMenuItem_13);
 		menuBar.add(mnNewMenu);
 
-		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Registrar Pacientes");
-		mntmNewMenuItem_8.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RegistrarPaciente regpac = new RegistrarPaciente(null);
-				regpac.setModal(true);
-				regpac.setLocationRelativeTo(null);
-				regpac.setVisible(true);
-			}
-		});
-		mnNewMenu.add(mntmNewMenuItem_8);
-
 		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Listado de Pacientes");
 		mntmNewMenuItem_9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -172,17 +167,6 @@ public class Principal extends JFrame {
 			mnNewMenu_1.setEnabled(false);
 		}
 		menuBar.add(mnNewMenu_1);
-
-		JMenuItem mntmNewMenuItem_10 = new JMenuItem("Registrar Consultas");
-		mntmNewMenuItem_10.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RegistrarConsulta regconsulta = new RegistrarConsulta(null, null, null);
-				regconsulta.setModal(true);
-				regconsulta.setLocationRelativeTo(null);
-				regconsulta.setVisible(true);
-			}
-		});
-		mnNewMenu_1.add(mntmNewMenuItem_10);
 
 		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Listado de Consultas");
 		mnNewMenu_1.add(mntmNewMenuItem_11);
@@ -339,6 +323,7 @@ public class Principal extends JFrame {
 				SwingUtilities.invokeLater(this::actualizarGraficoBarrasPanel2);
 				SwingUtilities.invokeLater(this::actualizarGraficoBarrasPanel3);
 				SwingUtilities.invokeLater(this::actualizarGraficoBarrasPanel4);
+				SwingUtilities.invokeLater(this::actualizarGraficoPastelPanel5);
 				try {
 					Thread.sleep(3600000);
 				} catch (InterruptedException e) {
@@ -411,7 +396,7 @@ public class Principal extends JFrame {
 
 	private void actualizarGraficoBarrasPanel4() {
 		DefaultCategoryDataset dataset4 = new DefaultCategoryDataset();
-		dataset4.addValue(Clinica.getInstance().pacientesEnfermedades(), "Enfermedades Normales", "");
+		dataset4.addValue(Clinica.getInstance().pacientesEnfermedades(), "Enfermos", "");
 		dataset4.addValue(Clinica.getInstance().PacientesEnfermedadesVigilancia(), "Enfermedades en Vigilancia", "");
 		dataset4.addValue(Clinica.getInstance().PacientesSanos(), "Sanos", "");
 
@@ -426,5 +411,29 @@ public class Principal extends JFrame {
 		panel4.setLayout(new BorderLayout());
 		panel4.add(chartPanel4, BorderLayout.CENTER);
 		panel4.revalidate();
+	}
+
+	private void actualizarGraficoPastelPanel5() {
+		DefaultPieDataset dataset5 = new DefaultPieDataset();
+		dataset5.setValue("Vacunados",
+				Clinica.getInstance().contarPacientesConVacuna(comboBox.getSelectedItem().toString()));
+		dataset5.setValue("No Vacunados",
+				Clinica.getInstance().contarPacientesSinVacuna(comboBox.getSelectedItem().toString()));
+
+		JFreeChart chart5 = ChartFactory.createPieChart("Pacintes vacunados", dataset5, true, true, true);
+		ChartPanel chartPanel5 = new ChartPanel(chart5);
+
+		panel5.removeAll();
+		panel5.setLayout(new BorderLayout());
+		panel5.add(chartPanel5, BorderLayout.CENTER);
+		panel5.revalidate();
+	}
+
+	public void llenarComboBoxVacunas(JComboBox<String> comboBox) {
+		comboBox.removeAllItems();
+		comboBox.addItem("<seleccionar>");
+		for (Vacuna vacuna : Clinica.getInstance().getMisVacunas()) {
+			comboBox.addItem(vacuna.getCodigo());
+		}
 	}
 }

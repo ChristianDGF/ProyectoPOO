@@ -13,7 +13,6 @@ import javax.swing.table.DefaultTableModel;
 
 import logico.Clinica;
 import logico.User;
-import logico.Vacuna;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -35,52 +34,50 @@ public class ListarUsuarios extends JDialog {
 	private JButton btnmodificar;
 	private User miusuario = null;
 
-
-	/**
-	 * Create the dialog.
-	 */
 	public ListarUsuarios() {
 		setBounds(100, 100, 727, 464);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		
+
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Listado de Usuarios", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBorder(
+				new TitledBorder(null, "Listado de Usuarios", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(12, 13, 685, 356);
 		contentPanel.add(panel);
 		panel.setLayout(null);
-		
+
 		JLabel label = new JLabel("Tipo:");
 		label.setBounds(12, 28, 56, 16);
 		panel.add(label);
-		
+
 		cmbtipo = new JComboBox();
 		cmbtipo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListarUsuariosPorTipo();
 			}
 		});
-		cmbtipo.setModel(new DefaultComboBoxModel(new String[] {"<Todos>", "Administrador", "Privilegiado", "Basico"}));
+		cmbtipo.setModel(
+				new DefaultComboBoxModel(new String[] { "<Todos>", "Administrador", "Privilegiado", "Basico" }));
 		cmbtipo.setBounds(51, 25, 165, 22);
 		panel.add(cmbtipo);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 59, 661, 284);
 		panel.add(scrollPane);
-		
+
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int index = table.getSelectedRow();
-				if (index >= 0 ) {
+				if (index >= 0) {
 					btnmodificar.setEnabled(true);
 					btneliminar.setEnabled(true);
 					miusuario = Clinica.getInstance().getUsuarioporUsuario(table.getValueAt(index, 0).toString());
 				}
-				
+
 			}
 		});
 		scrollPane.setViewportView(table);
@@ -92,20 +89,17 @@ public class ListarUsuarios extends JDialog {
 				btneliminar = new JButton("Eliminar");
 				btneliminar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(miusuario != null)
-						{
-							int option = JOptionPane
-									.showConfirmDialog(null,
-											"Estas seguro(a) que desea eliminar el usuario : "
-													+ miusuario.getUsuario(),
-													"Confirmacion", JOptionPane.OK_CANCEL_OPTION);
+						if (miusuario != null) {
+							int option = JOptionPane.showConfirmDialog(null,
+									"Estas seguro(a) que desea eliminar el usuario : " + miusuario.getUsuario(),
+									"Confirmacion", JOptionPane.OK_CANCEL_OPTION);
 							if (option == JOptionPane.OK_OPTION) {
 								Clinica.getInstance().EliminarUser(miusuario);
 								btneliminar.setEnabled(false);
 								btnmodificar.setEnabled(false);
 								ListarUsuariosPorTipo();
+							}
 						}
-					}
 					}
 				});
 				btneliminar.setEnabled(false);
@@ -139,6 +133,7 @@ public class ListarUsuarios extends JDialog {
 		}
 		ListarUsuariosPorTipo();
 	}
+
 	private void ListarUsuariosPorTipo() {
 		String tipoSeleccionado = cmbtipo.getSelectedItem().toString();
 		ArrayList<User> users = Clinica.getInstance().getUsuariosPorTipo(tipoSeleccionado);
@@ -149,11 +144,7 @@ public class ListarUsuarios extends JDialog {
 		model.addColumn("Acceso");
 
 		for (User user : users) {
-			model.addRow(new Object[] {
-				user.getUsuario(),
-				user.getPassword(),
-				user.getTipo(),
-			});
+			model.addRow(new Object[] { user.getUsuario(), user.getPassword(), user.getTipo(), });
 		}
 
 		table.setModel(model);

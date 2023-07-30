@@ -50,30 +50,26 @@ public class Login extends JFrame {
 				try {
 					clinica = new FileInputStream("clinica.dat");
 					clinicaRead = new ObjectInputStream(clinica);
-					Clinica temp = (Clinica)clinicaRead.readObject();
+					Clinica temp = (Clinica) clinicaRead.readObject();
 					Clinica.setClinica(temp);
 					clinica.close();
-					clinicaRead.close();	
-				}
-				catch(FileNotFoundException e)
-				{
+					clinicaRead.close();
+				} catch (FileNotFoundException e) {
 					try {
-					clinica2 = new FileOutputStream("clinica.dat");
-					clinicaWrite = new ObjectOutputStream(clinica2);
-                    User admin = new User("Administrador", "Admin", "Admin", null);
-                    Clinica.getInstance().AgregarUser(admin);
-					clinicaWrite.writeObject(Clinica.getInstance());
-					clinica2.close();
-					clinicaWrite.close();
-					}
-					catch(FileNotFoundException e1)
-					{
-						
+						clinica2 = new FileOutputStream("clinica.dat");
+						clinicaWrite = new ObjectOutputStream(clinica2);
+						User admin = new User("Administrador", "Admin", "Admin", null);
+						Clinica.getInstance().AgregarUser(admin);
+						clinicaWrite.writeObject(Clinica.getInstance());
+						clinica2.close();
+						clinicaWrite.close();
+					} catch (FileNotFoundException e1) {
+
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					
+
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -101,67 +97,68 @@ public class Login extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		
+
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
-		
+
 		JPanel PanelUsuario = new JPanel();
 		PanelUsuario.setBounds(12, 13, 398, 94);
 		panel.add(PanelUsuario);
 		PanelUsuario.setLayout(null);
-		
+
 		JLabel lblusuario = new JLabel("Usuario:");
 		lblusuario.setBounds(12, 16, 56, 16);
 		PanelUsuario.add(lblusuario);
-		
+
 		txtusuario = new JTextField();
 		txtusuario.setBounds(82, 13, 209, 22);
 		PanelUsuario.add(txtusuario);
 		txtusuario.setColumns(10);
-		
+
 		txtpassword = new JTextField();
 		txtpassword.setBounds(82, 48, 209, 22);
 		PanelUsuario.add(txtpassword);
 		txtpassword.setColumns(10);
-		
+
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setBounds(12, 51, 73, 16);
 		PanelUsuario.add(lblPassword);
-		
+
 		JButton btnlogin = new JButton("Entrar");
 		btnlogin.setBounds(303, 13, 73, 57);
 		PanelUsuario.add(btnlogin);
-		
+
 		JPanel PanelINfo = new JPanel();
 		PanelINfo.setBounds(12, 120, 398, 110);
 		panel.add(PanelINfo);
 		PanelINfo.setLayout(null);
-		
+
 		JTextPane txtpnIntroduzcaSuUsuario = new JTextPane();
 		txtpnIntroduzcaSuUsuario.setEditable(false);
-		txtpnIntroduzcaSuUsuario.setText("Introduzca su usuario y contrase\u00F1a para ingresar al sistema.\r\n\r\nSi olvido su contrase\u00F1a, contactar con un administrador para reiniciarla.\r\n\r\n");
+		txtpnIntroduzcaSuUsuario.setText(
+				"Introduzca su usuario y contrase\u00F1a para ingresar al sistema.\r\n\r\nSi olvido su contrase\u00F1a, contactar con un administrador para reiniciarla.\r\n\r\n");
 		txtpnIntroduzcaSuUsuario.setBounds(0, 5, 386, 92);
 		PanelINfo.add(txtpnIntroduzcaSuUsuario);
 		btnlogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Clinica.getInstance().confirmLogin(txtusuario.getText(),txtpassword.getText()))
-				{
+				if (Clinica.getInstance().confirmLogin(txtusuario.getText(), txtpassword.getText())) {
 					Principal frame = new Principal();
 					dispose();
 					frame.setVisible(true);
-				};
+				}
+				;
 			}
 		});
-		
+
 		loadCodes();
 	}
-	
-	public void loadCodes()
-	{
-	    Persona.setProximoID(Clinica.getInstance().getMisPersonas().size() + 1);
+
+	public void loadCodes() {
+		Persona.setProximoID(Clinica.getInstance().getMisPersonas().size() + 1);
 		Vacuna.setCodigoVacuna(Clinica.getInstance().getMisVacunas().size() + 1);
-		Enfermedad.setCodigoEnfermedad(Clinica.getInstance().getMisEnfermedades().size() + 1);;
+		Enfermedad.setCodigoEnfermedad(Clinica.getInstance().getMisEnfermedades().size() + 1);
+		;
 		Cita.setCodigoCita(Clinica.getInstance().getMisCitas().size() + 1);
 		HistorialMedico.setCodigoHistorial(Clinica.getInstance().getMisPacientes().size() + 1);
 		Medico.setCodigoMedico(Clinica.getInstance().getMisMedicos().size() + 1);

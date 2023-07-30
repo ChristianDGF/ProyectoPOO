@@ -12,10 +12,11 @@ public class Paciente extends Persona {
 	private String tipoSangre;
 	private int edad;
 	private static int codigoPaciente = 1;
-	
-	public Paciente(String nombre,String apellido,String direccion, String fechaNacimiento, String genero, String cedula,
-			String telefono,String correoelectronico,String estado,float peso,float altura,String tipoSangre,int edad) {
-		super(nombre, apellido, direccion, fechaNacimiento, genero, cedula, telefono,correoelectronico);
+
+	public Paciente(String nombre, String apellido, String direccion, String fechaNacimiento, String genero,
+			String cedula, String telefono, String correoelectronico, String estado, float peso, float altura,
+			String tipoSangre, int edad) {
+		super(nombre, apellido, direccion, fechaNacimiento, genero, cedula, telefono, correoelectronico);
 		this.estado = "Sano";
 		this.miHistorial = new HistorialMedico();
 		this.peso = peso;
@@ -25,10 +26,11 @@ public class Paciente extends Persona {
 		this.codigo = "PACIENTE-" + codigoPaciente;
 		codigoPaciente++;
 	}
-	
+
 	public String getEstado() {
 		return estado;
 	}
+
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}

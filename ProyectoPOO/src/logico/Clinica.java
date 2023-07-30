@@ -645,17 +645,17 @@ public class Clinica implements Serializable {
 		int pacientesConEnfermedades = 0;
 
 		for (Paciente paciente : misPacientes) {
-			boolean tieneEnfermedadesEnVigilancia = false;
+			boolean tieneEnfermedades = false;
 
 			if (!paciente.getMiHistorial().getMisPadecimientos().isEmpty()) {
 				for (Enfermedad enfermedad : paciente.getMiHistorial().getMisPadecimientos()) {
 					if (enfermedad.getEstado().equalsIgnoreCase("Vigilancia")) {
-						tieneEnfermedadesEnVigilancia = true;
+						tieneEnfermedades = true;
 						break;
 					}
 				}
 			}
-			if (!tieneEnfermedadesEnVigilancia) {
+			if (!tieneEnfermedades) {
 				pacientesConEnfermedades++;
 			}
 		}
@@ -691,27 +691,52 @@ public class Clinica implements Serializable {
 
 		return pacientesSanos;
 	}
-	
-	public boolean checkCedula(String cedula)
-	{
-		
-		for(Paciente paciente: misPacientes)
-		{
-			if(paciente.getCedula().equalsIgnoreCase(cedula))
-			{
+
+	public boolean checkCedula(String cedula) {
+
+		for (Paciente paciente : misPacientes) {
+			if (paciente.getCedula().equalsIgnoreCase(cedula)) {
 				return false;
 			}
 		}
-		
-		for(Empleado empleado: misEmpleados)
-		{
-			if(empleado.getCedula().equalsIgnoreCase(cedula))
-			{
+
+		for (Empleado empleado : misEmpleados) {
+			if (empleado.getCedula().equalsIgnoreCase(cedula)) {
 				return false;
 			}
 		}
-		
+
 		return true;
+	}
+
+	public int contarPacientesConVacuna(String codigoVacuna) {
+		int pacientesConVacuna = 0;
+		for (Paciente paciente : misPacientes) {
+			for (Vacuna vacuna : paciente.getMiHistorial().getMisVancunas()) {
+				if (vacuna.getCodigo().equalsIgnoreCase(codigoVacuna)) {
+					pacientesConVacuna++;
+					break;
+				}
+			}
+		}
+		return pacientesConVacuna;
+	}
+
+	public int contarPacientesSinVacuna(String codigoVacuna) {
+		int pacientesSinVacuna = 0;
+		for (Paciente paciente : misPacientes) {
+			boolean tieneVacuna = false;
+			for (Vacuna vacuna : paciente.getMiHistorial().getMisVancunas()) {
+				if (vacuna.getCodigo().equalsIgnoreCase(codigoVacuna)) {
+					tieneVacuna = true;
+					break;
+				}
+			}
+			if (!tieneVacuna) {
+				pacientesSinVacuna++;
+			}
+		}
+		return pacientesSinVacuna;
 	}
 
 }

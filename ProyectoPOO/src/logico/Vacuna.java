@@ -2,8 +2,8 @@ package logico;
 
 import java.io.Serializable;
 
-public class Vacuna implements Serializable{
-	
+public class Vacuna implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	private String codigo;
 	private String laboratorio;
@@ -11,8 +11,8 @@ public class Vacuna implements Serializable{
 	private String enfermedad;
 	private String tipo;
 	public static int codigoVacuna = 1;
-	
-	public Vacuna(String codigo, String laboratorio, String descripcion, String enfermedad,String tipo) {
+
+	public Vacuna(String codigo, String laboratorio, String descripcion, String enfermedad, String tipo) {
 		super();
 		this.codigo = "VACUNA-" + codigoVacuna;
 		this.laboratorio = laboratorio;
@@ -65,6 +65,5 @@ public class Vacuna implements Serializable{
 	public static void setCodigoVacuna(int codigoVacuna) {
 		Vacuna.codigoVacuna = codigoVacuna;
 	}
-
 
 }

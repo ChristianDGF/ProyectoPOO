@@ -6,8 +6,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-public class Cita implements Serializable{
-	
+public class Cita implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	private String codigo;
 	private LocalDate fecha;
@@ -16,8 +16,8 @@ public class Cita implements Serializable{
 	private String estado;
 	private LocalTime hora;
 	public static int codigoCita = 1;
-	
-	public Cita(LocalDate fecha, Persona persona, Medico medico,LocalTime hora) {
+
+	public Cita(LocalDate fecha, Persona persona, Medico medico, LocalTime hora) {
 		super();
 		this.codigo = "CITA-N." + codigoCita;
 		this.fecha = fecha;
@@ -79,7 +79,5 @@ public class Cita implements Serializable{
 	public void setHora(LocalTime hora) {
 		this.hora = hora;
 	}
-
-
 
 }

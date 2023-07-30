@@ -40,41 +40,41 @@ public class ListarEnfermedades extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		
+
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Listado de Enfermedades", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBorder(
+				new TitledBorder(null, "Listado de Enfermedades", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(12, 13, 723, 476);
 		contentPanel.add(panel);
 		panel.setLayout(null);
-		
+
 		JLabel lblNewLabel = new JLabel("Estado:");
 		lblNewLabel.setBounds(12, 26, 56, 16);
 		panel.add(lblNewLabel);
-		
+
 		comboBox = new JComboBox();
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cargarEnfermedades();
 			}
 		});
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"<Todos>", "Vigilancia"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "<Todos>", "Vigilancia" }));
 		comboBox.setBounds(80, 23, 132, 22);
 		panel.add(comboBox);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 54, 699, 409);
 		panel.add(scrollPane);
-		
+
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int index = table.getSelectedRow();
-				if (index >= 0 && !Clinica.getLoginUser().getTipo().equalsIgnoreCase("basico") ) {
+				if (index >= 0 && !Clinica.getLoginUser().getTipo().equalsIgnoreCase("basico")) {
 					btnmodificar.setEnabled(true);
-					if(Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador") )
-					{
-					btneliminar.setEnabled(true);
+					if (Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
+						btneliminar.setEnabled(true);
 					}
 					mienfermedad = Clinica.getInstance().getEnfermedadByCode(table.getValueAt(index, 0).toString());
 				}
@@ -87,8 +87,7 @@ public class ListarEnfermedades extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnmodificar = new JButton("Modificar");
-				if(Clinica.getLoginUser().getTipo().equalsIgnoreCase("Privilegiado"))
-				{
+				if (Clinica.getLoginUser().getTipo().equalsIgnoreCase("Privilegiado")) {
 					btnmodificar.setText("Visualizar");
 				}
 				btnmodificar.setEnabled(false);
@@ -100,25 +99,24 @@ public class ListarEnfermedades extends JDialog {
 						cargarEnfermedades();
 					}
 				});
-				
+
 				btneliminar = new JButton("Eliminar");
 				btneliminar.setEnabled(false);
 				btneliminar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(mienfermedad != null)
-						{
+						if (mienfermedad != null) {
 							int option = JOptionPane
 									.showConfirmDialog(null,
 											"Estas seguro(a) que desea eliminar la Enfermedad con el Codigo: "
 													+ mienfermedad.getCodigo(),
-													"Confirmacion", JOptionPane.OK_CANCEL_OPTION);
+											"Confirmacion", JOptionPane.OK_CANCEL_OPTION);
 							if (option == JOptionPane.OK_OPTION) {
 								Clinica.getInstance().EliminarEnfermedad(mienfermedad);
 								btneliminar.setEnabled(false);
 								btnmodificar.setEnabled(false);
 								cargarEnfermedades();
+							}
 						}
-					}
 					}
 				});
 				buttonPane.add(btneliminar);
@@ -139,26 +137,27 @@ public class ListarEnfermedades extends JDialog {
 		}
 		cargarEnfermedades();
 	}
+
 	private void cargarEnfermedades() {
-	    String estadoSeleccionado = comboBox.getSelectedItem().toString();
+		String estadoSeleccionado = comboBox.getSelectedItem().toString();
 
-	    ArrayList<Enfermedad> enfermedades = Clinica.getInstance().obtenerEnfermedadesPorEstado(estadoSeleccionado);
+		ArrayList<Enfermedad> enfermedades = Clinica.getInstance().obtenerEnfermedadesPorEstado(estadoSeleccionado);
 
-	    DefaultTableModel model = new DefaultTableModel();
-	    model.addColumn("Código");
-	    model.addColumn("Nombre");
-	    model.addColumn("Tipo");
-	    model.addColumn("Estado");
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("Código");
+		model.addColumn("Nombre");
+		model.addColumn("Tipo");
+		model.addColumn("Estado");
 
-	    for (Enfermedad enfermedad : enfermedades) {
-	        Object[] row = new Object[5];
-	        row[0] = enfermedad.getCodigo();
-	        row[1] = enfermedad.getNombre();
-	        row[2] = enfermedad.getTipo();
-	        row[3] = enfermedad.getEstado();
-	        model.addRow(row);
-	    }
+		for (Enfermedad enfermedad : enfermedades) {
+			Object[] row = new Object[5];
+			row[0] = enfermedad.getCodigo();
+			row[1] = enfermedad.getNombre();
+			row[2] = enfermedad.getTipo();
+			row[3] = enfermedad.getEstado();
+			model.addRow(row);
+		}
 
-	    table.setModel(model);
+		table.setModel(model);
 	}
 }

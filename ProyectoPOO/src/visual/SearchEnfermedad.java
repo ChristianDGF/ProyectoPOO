@@ -16,7 +16,6 @@ import javax.swing.table.DefaultTableModel;
 
 import logico.Clinica;
 import logico.Enfermedad;
-import logico.Medico;
 
 import java.awt.Color;
 import javax.swing.JScrollPane;
@@ -40,22 +39,6 @@ public class SearchEnfermedad extends JDialog {
 	private JComboBox comboBoxE;
 	private JButton seleccionarBtn;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			SearchEnfermedad dialog = new SearchEnfermedad();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Create the dialog.
-	 */
 	public SearchEnfermedad() {
 		setResizable(false);
 		setTitle("Buscar Enfermedad:");
@@ -64,13 +47,14 @@ public class SearchEnfermedad extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		
+
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Enfermedades:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Enfermedades:",
+				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setBounds(10, 11, 859, 396);
 		contentPanel.add(panel);
 		panel.setLayout(null);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 22, 608, 363);
 		panel.add(scrollPane);
@@ -80,18 +64,17 @@ public class SearchEnfermedad extends JDialog {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					int index = tableEnfermedades.getSelectedRow();
-					if(index >= 0)
-					{
+					if (index >= 0) {
 						selected = misEnfermedades.get(index);
 						seleccionarBtn.setEnabled(true);
-					}else {
+					} else {
 						selected = null;
 						seleccionarBtn.setEnabled(false);
 					}
 				}
 			});
 			enfermedadModel = new DefaultTableModel();
-			String headers[] = {"Codigo","Nombre","Estado","Tipo"};
+			String headers[] = { "Codigo", "Nombre", "Estado", "Tipo" };
 			enfermedadModel.setColumnIdentifiers(headers);
 			tableEnfermedades.setModel(enfermedadModel);
 			scrollPane.setViewportView(tableEnfermedades);
@@ -101,33 +84,33 @@ public class SearchEnfermedad extends JDialog {
 			lblNewLabel.setBounds(628, 23, 46, 14);
 			panel.add(lblNewLabel);
 		}
-		
+
 		comboBoxT = new JComboBox();
-		comboBoxT.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Agudas", "Subagudas", "Cr\u00F3nicas"}));
+		comboBoxT.setModel(
+				new DefaultComboBoxModel(new String[] { "<Seleccionar>", "Agudas", "Subagudas", "Cr\u00F3nicas" }));
 		comboBoxT.setBounds(628, 48, 221, 20);
 		panel.add(comboBoxT);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Estado:");
 		lblNewLabel_1.setBounds(628, 79, 46, 14);
 		panel.add(lblNewLabel_1);
-		
+
 		comboBoxE = new JComboBox();
-		comboBoxE.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Vigilancia", "Registrada"}));
+		comboBoxE.setModel(new DefaultComboBoxModel(new String[] { "<Seleccionar>", "Vigilancia", "Registrada" }));
 		comboBoxE.setBounds(628, 104, 221, 20);
 		panel.add(comboBoxE);
-		
+
 		JButton btnFiltrar = new JButton("Filtrar");
 		btnFiltrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(checkFields())
-				{
+				if (checkFields()) {
 					loadEnfermedades();
 				}
 			}
 		});
 		btnFiltrar.setBounds(628, 321, 102, 48);
 		panel.add(btnFiltrar);
-		
+
 		JButton btnTodos = new JButton("Todos");
 		btnTodos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -146,8 +129,7 @@ public class SearchEnfermedad extends JDialog {
 				seleccionarBtn.setEnabled(false);
 				seleccionarBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(selected != null)
-						{
+						if (selected != null) {
 							JOptionPane.showMessageDialog(null, "La enfermedad ha sido seleccionada correctamente!");
 							RegistrarConsulta.getEnfermedad(selected);
 							dispose();
@@ -170,30 +152,25 @@ public class SearchEnfermedad extends JDialog {
 		}
 		loadAllEnfermedades();
 	}
-	
-	private boolean checkFields()
-	{
-		if(comboBoxT.getSelectedIndex() == 0 || comboBoxE.getSelectedIndex() == 0)
-		{
+
+	private boolean checkFields() {
+		if (comboBoxT.getSelectedIndex() == 0 || comboBoxE.getSelectedIndex() == 0) {
 			JOptionPane.showMessageDialog(null, "Debe seleccionar todos los Filtros!");
 			return false;
 		}
 		return true;
-		
+
 	}
-	
-	public void loadEnfermedades()
-	{
+
+	public void loadEnfermedades() {
 		enfermedadModel.setRowCount(0);
 		misEnfermedades.clear();
 		row = new Object[tableEnfermedades.getColumnCount()];
-		
-		if(comboBoxT.getSelectedIndex() == 0 || comboBoxE.getSelectedIndex() == 0)
-		{
-			for(Enfermedad enfermedad: Clinica.getInstance().getMisEnfermedades())
-			{
-				if(enfermedad.getTipo().equals(comboBoxT.getSelectedItem()) && enfermedad.getEstado().equals(comboBoxE.getSelectedItem()))
-				{
+
+		if (comboBoxT.getSelectedIndex() == 0 || comboBoxE.getSelectedIndex() == 0) {
+			for (Enfermedad enfermedad : Clinica.getInstance().getMisEnfermedades()) {
+				if (enfermedad.getTipo().equals(comboBoxT.getSelectedItem())
+						&& enfermedad.getEstado().equals(comboBoxE.getSelectedItem())) {
 					misEnfermedades.add(enfermedad);
 					row[0] = enfermedad.getCodigo();
 					row[1] = enfermedad.getNombre();
@@ -204,21 +181,19 @@ public class SearchEnfermedad extends JDialog {
 			}
 		}
 	}
-	
-	public void loadAllEnfermedades()
-	{
+
+	public void loadAllEnfermedades() {
 		enfermedadModel.setRowCount(0);
 		misEnfermedades.clear();
 		row = new Object[tableEnfermedades.getColumnCount()];
-		for(Enfermedad enfermedad: Clinica.getInstance().getMisEnfermedades())
-		{
+		for (Enfermedad enfermedad : Clinica.getInstance().getMisEnfermedades()) {
 			misEnfermedades.add(enfermedad);
 			row[0] = enfermedad.getCodigo();
 			row[1] = enfermedad.getNombre();
 			row[2] = enfermedad.getEstado();
 			row[3] = enfermedad.getTipo();
 			enfermedadModel.addRow(row);
-			
+
 		}
 	}
 }

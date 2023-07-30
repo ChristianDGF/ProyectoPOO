@@ -2,8 +2,8 @@ package logico;
 
 import java.io.Serializable;
 
-public class Consulta implements Serializable{
-	
+public class Consulta implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	private String codigo;
 	private Cita cita;
@@ -12,15 +12,15 @@ public class Consulta implements Serializable{
 	private Enfermedad enfermedad;
 	private String estado;
 	public static int codigoConsulta = 1;
-	
-	public Consulta(String codigo, Cita cita, String sintomas,String diagnostico
-			,Enfermedad enfermedad,String estado) {
+
+	public Consulta(String codigo, Cita cita, String sintomas, String diagnostico, Enfermedad enfermedad,
+			String estado) {
 		super();
 		this.codigo = "CONSULTA-" + codigoConsulta;
 		this.cita = cita;
 		this.sintomas = sintomas;
 		this.diagnostico = diagnostico;
-		this.enfermedad = enfermedad;	
+		this.enfermedad = enfermedad;
 		this.estado = estado;
 		codigoConsulta++;
 	}

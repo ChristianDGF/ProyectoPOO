@@ -94,18 +94,18 @@ public class RegistrarCita extends JDialog {
 			editor.setEditable(false);
 			dateChooser.setBounds(78, 26, 192, 20);
 			panelcita.add(dateChooser);
-			
+
 			TimePicker timePicker = new TimePicker();
 			timePicker.set24hourMode(false);
 			timePicker.setForeground(Color.GRAY);
 			timePicker.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 			timePicker.setBounds(22, 95, 248, 309);
 			panelcita.add(timePicker);
-			
+
 			JLabel lblNewLabel = new JLabel("Hora:");
 			lblNewLabel.setBounds(22, 55, 46, 14);
 			panelcita.add(lblNewLabel);
-			
+
 			txtHora = new JTextField();
 			txtHora.setEditable(false);
 			timePicker.setDisplayText(txtHora);
@@ -138,8 +138,7 @@ public class RegistrarCita extends JDialog {
 				@Override
 				public void keyTyped(KeyEvent e) {
 					char c = e.getKeyChar();
-				    if(!Character.isAlphabetic(c) && c != ' ')
-					{
+					if (!Character.isAlphabetic(c) && c != ' ') {
 						e.consume();
 					}
 				}
@@ -158,8 +157,7 @@ public class RegistrarCita extends JDialog {
 				@Override
 				public void keyTyped(KeyEvent e) {
 					char c = e.getKeyChar();
-				    if(!Character.isAlphabetic(c) && c != ' ')
-					{
+					if (!Character.isAlphabetic(c) && c != ' ') {
 						e.consume();
 					}
 				}
@@ -284,11 +282,11 @@ public class RegistrarCita extends JDialog {
 			JLabel lblNewLabel_4 = new JLabel("Apellido:");
 			lblNewLabel_4.setBounds(286, 72, 61, 14);
 			panel_3.add(lblNewLabel_4);
-			
+
 			JLabel lblNewLabel_5 = new JLabel("Exequatur:");
 			lblNewLabel_5.setBounds(10, 115, 61, 14);
 			panel_3.add(lblNewLabel_5);
-			
+
 			txtExequatur = new JTextField();
 			txtExequatur.setEditable(false);
 			txtExequatur.setBounds(115, 112, 158, 20);
@@ -305,25 +303,25 @@ public class RegistrarCita extends JDialog {
 				btnregistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if (checkFields()) {
-							if(validateDateHour())
-							{
-								if(Clinica.getInstance().checkCedula(txtCedula.getText()))
-								{
-									if(JOptionPane.showConfirmDialog(null, "Agendar CITA-N." + Cita.codigoCita) == 0)
-									{
+							if (validateDateHour()) {
+								if (Clinica.getInstance().checkCedula(txtCedula.getText())) {
+									if (JOptionPane.showConfirmDialog(null, "Agendar CITA-N." + Cita.codigoCita) == 0) {
 										if (miPaciente != null) {
 											Cita cita = new Cita(
-													dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
-													miPaciente, miMedico,LocalTime.parse(txtHora.getText(),formatter));
+													dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault())
+															.toLocalDate(),
+													miPaciente, miMedico,
+													LocalTime.parse(txtHora.getText(), formatter));
 											Clinica.getInstance().AgregarCita(cita);
-											JOptionPane.showMessageDialog(null, "Cita registrada correctamente", "Registro", JOptionPane.INFORMATION_MESSAGE);
+											JOptionPane.showMessageDialog(null, "Cita registrada correctamente",
+													"Registro", JOptionPane.INFORMATION_MESSAGE);
 											clearPacienteInfo();
 											clearMedicoInfo();
 										} else {
 											registrar();
 										}
 									}
-								}else {
+								} else {
 									JOptionPane.showMessageDialog(null, "La cedula ya esta registrada!");
 								}
 							}
@@ -350,10 +348,11 @@ public class RegistrarCita extends JDialog {
 	protected void registrar() {
 		Persona newPersona = new Persona(txtNombre.getText(), txtApellido.getText(), "", "",
 				comboBoxGenero.getSelectedItem().toString(), txtCedula.getText(), txtTelefono.getText(), "");
-		Cita cita = new Cita(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
-				newPersona, miMedico,LocalTime.parse(txtHora.getText(),formatter));
+		Cita cita = new Cita(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), newPersona,
+				miMedico, LocalTime.parse(txtHora.getText(), formatter));
 		Clinica.getInstance().AgregarCita(cita);
-		JOptionPane.showMessageDialog(null, "Cita registrada correctamente", "Registro", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Cita registrada correctamente", "Registro",
+				JOptionPane.INFORMATION_MESSAGE);
 		clearPacienteInfo();
 		clearMedicoInfo();
 	}
@@ -370,74 +369,67 @@ public class RegistrarCita extends JDialog {
 	}
 
 	public boolean checkFields() {
-		
+
 		if (miPaciente != null && miMedico != null && dateChooser.getDate() != null) {
-			
-			if(chekHourAndDate())
-			{
+
+			if (chekHourAndDate()) {
 				return true;
-			}else {
+			} else {
 				return false;
 			}
 		}
-		
-		if (miPaciente == null && miMedico != null && dateChooser.getDate() != null && !txtNombre.getText().equals("") && !txtTelefono.getText().equals("")
-				&& !txtApellido.getText().equals("") && comboBoxGenero.getSelectedIndex() != 0 && !txtHora.getText().equals("")) 
-		{
-			if(chekHourAndDate())
-			{
+
+		if (miPaciente == null && miMedico != null && dateChooser.getDate() != null && !txtNombre.getText().equals("")
+				&& !txtTelefono.getText().equals("") && !txtApellido.getText().equals("")
+				&& comboBoxGenero.getSelectedIndex() != 0 && !txtHora.getText().equals("")) {
+			if (chekHourAndDate()) {
 				return true;
-			}else {
+			} else {
 				return false;
 			}
 		}
-		
-		JOptionPane.showMessageDialog(null, "Debe llenar todos los campos!", "Error",JOptionPane.INFORMATION_MESSAGE);
+
+		JOptionPane.showMessageDialog(null, "Debe llenar todos los campos!", "Error", JOptionPane.INFORMATION_MESSAGE);
 		return false;
 
 	}
-	
-	public boolean chekHourAndDate()
-	{
-		if(LocalTime.now().isAfter(LocalTime.parse(txtHora.getText(),formatter)))
-		{
-			JOptionPane.showMessageDialog(null, "Hora invalida!", "Error",JOptionPane.INFORMATION_MESSAGE);
+
+	public boolean chekHourAndDate() {
+		/*
+		 * if (LocalTime.now().isAfter(LocalTime.parse(txtHora.getText(), formatter))) {
+		 * JOptionPane.showMessageDialog(null, "Hora invalida!", "Error",
+		 * JOptionPane.INFORMATION_MESSAGE); return false; }
+		 */
+		if (LocalDate.now().isAfter(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())) {
+			JOptionPane.showMessageDialog(null, "Fecha invalida!", "Error", JOptionPane.INFORMATION_MESSAGE);
 			return false;
 		}
-		if(LocalDate.now().isAfter(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()))
-		{
-			JOptionPane.showMessageDialog(null, "Fecha invalida!", "Error",JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}
-		return true;
-	}
-	
-	public boolean validateDateHour()
-	{
-		for(Cita aux: Clinica.getInstance().getMisCitas())
-		{
-			if(aux.getMedico().equals(miMedico) && aux.getFecha().equals(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()))
-			{
-				if(aux.getHora().equals(LocalTime.parse(txtHora.getText(),formatter)))
-				{
-					JOptionPane.showMessageDialog(null, "Hay una Cita agendad ha la hora seleccionada!", "Error",JOptionPane.INFORMATION_MESSAGE);
-					return false;
-				}
-				
-				Duration duration = Duration.between(aux.getHora(), LocalTime.parse(txtHora.getText(),formatter));
-		        long minutesDifference = duration.toMinutes();
-		        
-		        if(minutesDifference < 20)
-		        {
-		        	JOptionPane.showMessageDialog(null, "Hay una Cita agendad ha la hora seleccionada!", "Error",JOptionPane.INFORMATION_MESSAGE);
-		        	return false;
-		        }
-			}
-		}
-		
 		return true;
 	}
 
+	public boolean validateDateHour() {
+		for (Cita aux : Clinica.getInstance().getMisCitas()) {
+			if (aux.getMedico().equals(miMedico) && aux.getFecha()
+					.equals(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())) {
+				if (aux.getHora().equals(LocalTime.parse(txtHora.getText(), formatter))) {
+					JOptionPane.showMessageDialog(null, "Hay una Cita agendada a la hora seleccionada!", "Error",
+							JOptionPane.INFORMATION_MESSAGE);
+					return false;
+				}
+
+				Duration duration = Duration.between(aux.getHora(), LocalTime.parse(txtHora.getText(), formatter));
+				long minutesDifference = duration.toMinutes();
+
+				if (minutesDifference < 20) {
+					JOptionPane.showMessageDialog(null, "Hay una Cita agendada a la hora seleccionada!", "Error",
+							JOptionPane.INFORMATION_MESSAGE);
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
 
 	public void enableInputs() {
 		txtNombre.setEditable(true);

@@ -7,7 +7,6 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.BevelBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -85,7 +84,7 @@ public class RegistrarEnfermedad extends JDialog {
 				txtcodigo.setEditable(false);
 				txtcodigo.setColumns(10);
 				txtcodigo.setBounds(355, 15, 174, 22);
-				txtcodigo.setText("ENFERMEDAD-"+Enfermedad.codigoEnfermedad);
+				txtcodigo.setText("ENFERMEDAD-" + Enfermedad.codigoEnfermedad);
 				panel.add(txtcodigo);
 			}
 			{
@@ -111,9 +110,10 @@ public class RegistrarEnfermedad extends JDialog {
 				txtdescripcion.setBounds(99, 91, 430, 91);
 				panel.add(txtdescripcion);
 			}
-			
+
 			comboBoxTipo = new JComboBox();
-			comboBoxTipo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Agudas", "Subagudas", "Cr\u00F3nicas"}));
+			comboBoxTipo.setModel(
+					new DefaultComboBoxModel(new String[] { "<Seleccionar>", "Agudas", "Subagudas", "Cr\u00F3nicas" }));
 			comboBoxTipo.setBounds(101, 52, 174, 20);
 			panel.add(comboBoxTipo);
 		}
@@ -206,10 +206,11 @@ public class RegistrarEnfermedad extends JDialog {
 	}
 
 	private void clean() {
-		txtcodigo.setText("ENFERMEDAD-"+Enfermedad.codigoEnfermedad);
+		txtcodigo.setText("ENFERMEDAD-" + Enfermedad.codigoEnfermedad);
 		txtnombre.setText("");
 		txtdescripcion.setText("");
-		comboBoxTipo.setSelectedIndex(0);;
+		comboBoxTipo.setSelectedIndex(0);
+		;
 		cmbestado.setSelectedIndex(0);
 	}
 

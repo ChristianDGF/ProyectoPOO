@@ -36,7 +36,6 @@ public class ListarEmpleados extends JDialog {
 	private Empleado miempleado = null;
 	private JButton btnmodificar;
 	private JButton btneliminar;
-	
 
 	public ListarEmpleados() {
 		setBounds(100, 100, 756, 542);
@@ -44,31 +43,32 @@ public class ListarEmpleados extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		
+
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Listado de Empleados:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Listado de Empleados:",
+				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setBounds(12, 13, 714, 434);
 		contentPanel.add(panel);
 		panel.setLayout(null);
-		
+
 		JLabel lblcargo = new JLabel("Cargo:");
 		lblcargo.setBounds(12, 25, 56, 16);
 		panel.add(lblcargo);
-		
+
 		cmbcargo = new JComboBox();
 		cmbcargo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			        cargarEmpleadosPorCargo();
+				cargarEmpleadosPorCargo();
 			}
 		});
-		cmbcargo.setModel(new DefaultComboBoxModel(new String[] {"<Todos>", "Medico", "Secretaria", "Vedel"}));
+		cmbcargo.setModel(new DefaultComboBoxModel(new String[] { "<Todos>", "Medico", "Secretaria", "Vedel" }));
 		cmbcargo.setBounds(65, 22, 171, 22);
 		panel.add(cmbcargo);
-		
+
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 54, 690, 367);
 		panel.add(scrollPane);
-		
+
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -79,7 +79,7 @@ public class ListarEmpleados extends JDialog {
 					btneliminar.setEnabled(true);
 					miempleado = Clinica.getInstance().getEmpleadoByCode(table.getValueAt(index, 0).toString());
 				}
-				
+
 			}
 		});
 		scrollPane.setViewportView(table);
@@ -92,14 +92,14 @@ public class ListarEmpleados extends JDialog {
 				btnmodificar.setEnabled(false);
 				btnmodificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
+
 						RegistrarEmpleado modificar = new RegistrarEmpleado(miempleado);
 						modificar.setModal(true);
 						modificar.setVisible(true);
 						cargarEmpleadosPorCargo();
 					}
 				});
-				
+
 				btneliminar = new JButton("Eliminar");
 				btneliminar.setEnabled(false);
 				btneliminar.addActionListener(new ActionListener() {
@@ -109,7 +109,7 @@ public class ListarEmpleados extends JDialog {
 									.showConfirmDialog(null,
 											"Estas seguro(a) que desea eliminar el empleado con el codigo: "
 													+ miempleado.getCodigo(),
-													"Confirmacion", JOptionPane.OK_CANCEL_OPTION);
+											"Confirmacion", JOptionPane.OK_CANCEL_OPTION);
 							if (option == JOptionPane.OK_OPTION) {
 								Clinica.getInstance().EliminarEmpleado(miempleado);
 								btneliminar.setEnabled(false);
@@ -140,26 +140,20 @@ public class ListarEmpleados extends JDialog {
 
 	private void cargarEmpleadosPorCargo() {
 		String cargoSeleccionado = cmbcargo.getSelectedItem().toString();
-		ArrayList<Empleado>listaporcargo =  Clinica.getInstance().getEmpleadosPorCargo(cargoSeleccionado);
+		ArrayList<Empleado> listaporcargo = Clinica.getInstance().getEmpleadosPorCargo(cargoSeleccionado);
 
-	    DefaultTableModel model = new DefaultTableModel();
-	    model.addColumn("Codigo");
-	    model.addColumn("Cedula");
-	    model.addColumn("Nombre");
-	    model.addColumn("Apellido");
-	    model.addColumn("Cargo");
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("Codigo");
+		model.addColumn("Cedula");
+		model.addColumn("Nombre");
+		model.addColumn("Apellido");
+		model.addColumn("Cargo");
 
-	    for (Empleado empleado : listaporcargo) {
-	        model.addRow(new Object[] {
-	        	empleado.getCodigo(),
-	            empleado.getCedula(),
-	            empleado.getNombre(),
-	            empleado.getApellido(),
-	            empleado.getCargo()
-	        });
-	    }
-	    table.setModel(model);
+		for (Empleado empleado : listaporcargo) {
+			model.addRow(new Object[] { empleado.getCodigo(), empleado.getCedula(), empleado.getNombre(),
+					empleado.getApellido(), empleado.getCargo() });
+		}
+		table.setModel(model);
 	}
-
 
 }

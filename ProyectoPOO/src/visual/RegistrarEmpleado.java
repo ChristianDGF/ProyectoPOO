@@ -103,8 +103,7 @@ public class RegistrarEmpleado extends JDialog {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char c = e.getKeyChar();
-			    if(!Character.isAlphabetic(c) && c != ' ')
-				{
+				if (!Character.isAlphabetic(c) && c != ' ') {
 					e.consume();
 				}
 			}
@@ -123,8 +122,7 @@ public class RegistrarEmpleado extends JDialog {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char c = e.getKeyChar();
-			    if(!Character.isAlphabetic(c) && c != ' ')
-				{
+				if (!Character.isAlphabetic(c) && c != ' ') {
 					e.consume();
 				}
 			}
@@ -210,7 +208,8 @@ public class RegistrarEmpleado extends JDialog {
 		panel.add(dateChooser);
 
 		DoctorPanel = new JPanel();
-		DoctorPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Informacion Medico:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		DoctorPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null),
+				"Informacion Medico:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		DoctorPanel.setBounds(10, 389, 673, 119);
 		contentPanel.add(DoctorPanel);
 		DoctorPanel.setLayout(null);
@@ -260,13 +259,11 @@ public class RegistrarEmpleado extends JDialog {
 				JButton okButton = new JButton("Registrar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(checkfield())
-						{
+						if (checkfield()) {
 							if (empleado == null) {
-								if(Clinica.getInstance().checkCedula(txtcedula.getText()))
-								{
+								if (Clinica.getInstance().checkCedula(txtcedula.getText())) {
 									registrarEmpleado();
-								}else {
+								} else {
 									JOptionPane.showMessageDialog(null, "La Cedula ya esta registrada!", "Registro",
 											JOptionPane.INFORMATION_MESSAGE);
 								}
@@ -277,7 +274,7 @@ public class RegistrarEmpleado extends JDialog {
 								dispose();
 							}
 						}
-						
+
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -298,9 +295,8 @@ public class RegistrarEmpleado extends JDialog {
 	}
 
 	private void modificarEmpleado() {
-		
-		if(empleado != null)
-		{
+
+		if (empleado != null) {
 			empleado.setCedula(txtcedula.getText());
 			empleado.setNombre(txtnombre.getText());
 			empleado.setApellido(txtapellido.getText());
@@ -410,16 +406,16 @@ public class RegistrarEmpleado extends JDialog {
 
 		return true;
 	}
-	
+
 	protected MaskFormatter createFormatter(String s) {
-	    MaskFormatter formatter = null;
-	    try {
-	        formatter = new MaskFormatter(s);
-	    } catch (java.text.ParseException exc) {
-	        System.err.println("formatter is bad: " + exc.getMessage());
-	        System.exit(-1);
-	    }
-	    return formatter;
+		MaskFormatter formatter = null;
+		try {
+			formatter = new MaskFormatter(s);
+		} catch (java.text.ParseException exc) {
+			System.err.println("formatter is bad: " + exc.getMessage());
+			System.exit(-1);
+		}
+		return formatter;
 	}
 
 }

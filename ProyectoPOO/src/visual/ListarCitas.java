@@ -32,22 +32,6 @@ public class ListarCitas extends JDialog {
 	private ArrayList<Cita> misCitas = new ArrayList<Cita>();
 	private JButton realizarBtn;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			ListarCitas dialog = new ListarCitas(null);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Create the dialog.
-	 */
 	public ListarCitas(Medico medico) {
 		miMedico = medico;
 		setTitle("Citas");
@@ -56,27 +40,26 @@ public class ListarCitas extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 11, 613, 376);
 		contentPanel.add(scrollPane);
-		
+
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int index = table.getSelectedRow();
-				if(index >= 0)
-				{
+				if (index >= 0) {
 					selected = misCitas.get(index);
 					realizarBtn.setEnabled(true);
-				}else {
+				} else {
 					selected = null;
 					realizarBtn.setEnabled(false);
 				}
 			}
 		});
-		String headers[] = {"Codigo","Persona","Cedula","Fecha","Estado"};
+		String headers[] = { "Codigo", "Persona", "Cedula", "Fecha", "Estado" };
 		CitasModel.setColumnIdentifiers(headers);
 		table.setModel(CitasModel);
 		scrollPane.setViewportView(table);
@@ -90,7 +73,8 @@ public class ListarCitas extends JDialog {
 				realizarBtn.setEnabled(false);
 				realizarBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						RegistrarConsulta regConsulta = new RegistrarConsulta(selected.getPersona(), selected.getMedico(), selected);
+						RegistrarConsulta regConsulta = new RegistrarConsulta(selected.getPersona(),
+								selected.getMedico(), selected);
 						regConsulta.setModal(true);
 						regConsulta.setLocationRelativeTo(null);
 						regConsulta.setVisible(true);
@@ -112,18 +96,14 @@ public class ListarCitas extends JDialog {
 		}
 		loadCitas();
 	}
-	
-	public void loadCitas()
-	{
+
+	public void loadCitas() {
 		CitasModel.setRowCount(0);
 		row = new Object[table.getColumnCount()];
-		
-		if(miMedico != null)
-		{
-			for(Cita cita: Clinica.getInstance().getMisCitas())
-			{
-				if(cita.getMedico().equals(miMedico))
-				{
+
+		if (miMedico != null) {
+			for (Cita cita : Clinica.getInstance().getMisCitas()) {
+				if (cita.getMedico().equals(miMedico)) {
 					misCitas.add(cita);
 					row[0] = cita.getCodigo();
 					row[1] = cita.getPersona().getNombre();
@@ -131,21 +111,20 @@ public class ListarCitas extends JDialog {
 					row[3] = cita.getFecha();
 					row[4] = cita.getEstado();
 					CitasModel.addRow(row);
-				}		
+				}
 			}
-			
-		}else {
-			
-			for(Cita cita: Clinica.getInstance().getMisCitas())
-			{
-					misCitas.add(cita);
-					row[0] = cita.getCodigo();
-					row[1] = cita.getPersona().getNombre();
-					row[2] = cita.getPersona().getCedula();
-					row[3] = cita.getFecha();
-					row[4] = cita.getEstado();
-					CitasModel.addRow(row);	
+
+		} else {
+
+			for (Cita cita : Clinica.getInstance().getMisCitas()) {
+				misCitas.add(cita);
+				row[0] = cita.getCodigo();
+				row[1] = cita.getPersona().getNombre();
+				row[2] = cita.getPersona().getCedula();
+				row[3] = cita.getFecha();
+				row[4] = cita.getEstado();
+				CitasModel.addRow(row);
 			}
-		} 
+		}
 	}
 }
