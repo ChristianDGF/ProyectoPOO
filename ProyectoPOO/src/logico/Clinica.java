@@ -739,4 +739,33 @@ public class Clinica implements Serializable {
 		return pacientesSinVacuna;
 	}
 
+	public int contarPacientesConEnfermedad(String enfermedadEspecifica) {
+		int count = 0;
+		for (Paciente paciente : misPacientes) {
+			for (Enfermedad enfermedad : paciente.getMiHistorial().getMisPadecimientos()) {
+				if (enfermedad.getCodigo().equalsIgnoreCase(enfermedadEspecifica)) {
+					count++;
+				}
+			}
+		}
+		return count;
+	}
+
+	public int contarPacientesSinEnfermedad(String enfermedadEspecifica) {
+		int count = 0;
+		for (Paciente paciente : misPacientes) {
+			boolean tieneEnfermedad = false;
+			for (Enfermedad enfermedad : paciente.getMiHistorial().getMisPadecimientos()) {
+				if (enfermedad.getCodigo().equalsIgnoreCase(enfermedadEspecifica)) {
+					tieneEnfermedad = true;
+					break;
+				}
+			}
+			if (!tieneEnfermedad) {
+				count++;
+			}
+		}
+		return count;
+	}
+
 }
