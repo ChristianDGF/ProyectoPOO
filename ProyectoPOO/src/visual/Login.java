@@ -97,7 +97,6 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
-		setResizable(false);
 		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-ambulance-48.png"));
 		this.setIconImage(icon.getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -106,6 +105,8 @@ public class Login extends JFrame {
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		setLocationRelativeTo(null);
+		setResizable(false);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
 		JPanel panel = new JPanel();

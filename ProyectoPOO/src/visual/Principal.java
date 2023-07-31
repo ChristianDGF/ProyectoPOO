@@ -372,8 +372,9 @@ public class Principal extends JFrame {
 				SwingUtilities.invokeLater(this::actualizarGraficoBarrasPanel4);
 				SwingUtilities.invokeLater(this::actualizarGraficoPastelPanel5);
 				SwingUtilities.invokeLater(this::actualizarGraficoPastelPanel6);
+				SwingUtilities.invokeLater(this::loadCitas);
 				try {
-					Thread.sleep(3600000);
+					Thread.sleep(120000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -381,8 +382,6 @@ public class Principal extends JFrame {
 		});
 		actualizacionThread.start();
 		LoadRoles();
-		loadCitas();
-
 	}
 
 	private void LoadRoles() {
