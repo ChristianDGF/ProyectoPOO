@@ -49,7 +49,6 @@ public class HistorialMedicoPaciente extends JDialog {
 	private ArrayList<Consulta> misConsultas = new ArrayList<Consulta>();
 
 	public HistorialMedicoPaciente(Paciente paciente) {
-		setEnabled(false);
 		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-medical-history-40.png"));
 		this.setIconImage(icon.getImage());
 		setTitle("Historial Medico");
