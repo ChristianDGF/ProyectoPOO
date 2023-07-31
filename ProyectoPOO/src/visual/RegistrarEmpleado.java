@@ -33,7 +33,10 @@ import java.awt.Color;
 import java.awt.event.ItemListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.awt.event.ItemEvent;
 import com.toedter.calendar.JDateChooser;
@@ -163,7 +166,7 @@ public class RegistrarEmpleado extends JDialog {
 				}
 			}
 		});
-		cmbcargo.setModel(new DefaultComboBoxModel(new String[] { "<Seleccionar>", "Medico", "Secretaria", "Vedel" }));
+		cmbcargo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Medico", "Secretario", "Bedel"}));
 		cmbcargo.setBounds(463, 127, 185, 20);
 		panel.add(cmbcargo);
 
@@ -400,6 +403,8 @@ public class RegistrarEmpleado extends JDialog {
 	}
 
 	private boolean checkfield() {
+		
+		
 		if (txtcedula.getText().isEmpty() || dateChooser.getDate() == null || txtnombre.getText().isEmpty()
 				|| txtapellido.getText().isEmpty() || txttelefono.getText().isEmpty()
 				|| cmbcargo.getSelectedIndex() == 0 || txtcorreo.getText().isEmpty() || cmbsexo.getSelectedIndex() == 0
@@ -415,6 +420,12 @@ public class RegistrarEmpleado extends JDialog {
 				JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios", "Error",JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
+		}
+		
+		if(LocalDate.from(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()).until(LocalDate.now(), ChronoUnit.YEARS) < 18)
+		{
+			JOptionPane.showMessageDialog(null, "Debe ingresar una edad valida!", "Error",JOptionPane.ERROR_MESSAGE);
+			return false;
 		}
 
 		return true;

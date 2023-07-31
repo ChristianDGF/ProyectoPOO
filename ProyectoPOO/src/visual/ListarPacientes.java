@@ -38,6 +38,7 @@ public class ListarPacientes extends JDialog {
 	private Paciente mipaciente;
 
 	public ListarPacientes() {
+		setResizable(false);
 		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-employees-24.png"));
 		this.setIconImage(icon.getImage());
 		setBounds(100, 100, 809, 589);
@@ -100,13 +101,13 @@ public class ListarPacientes extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnmodificar = new JButton("Modificar");
-				if (Clinica.getLoginUser().getTipo().equalsIgnoreCase("Privilegiado")) {
+				if (Clinica.getLoginUser().getTipo().equalsIgnoreCase("Privilegiado") || Clinica.getLoginUser().getTipo().equalsIgnoreCase("Basico")) {
 					btnmodificar.setText("Visualizar");
 				}
 				btnmodificar.setEnabled(false);
 				btnmodificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(Clinica.getLoginUser().getEmpleado() instanceof Medico)
+						if(Clinica.getLoginUser().getEmpleado() instanceof Medico || Clinica.getLoginUser().getTipo().equalsIgnoreCase("Basico"))
 						{
 							RegistrarPaciente modificar = new RegistrarPaciente(mipaciente,true);
 							modificar.setModal(true);

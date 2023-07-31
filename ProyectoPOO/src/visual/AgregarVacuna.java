@@ -49,6 +49,7 @@ public class AgregarVacuna extends JDialog {
 	private Vacuna selected = null;
 
 	public AgregarVacuna(HistorialMedico historial) {
+		setResizable(false);
 		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-vaccine-50.png"));
 		this.setIconImage(icon.getImage());
 		miHistorial = historial;

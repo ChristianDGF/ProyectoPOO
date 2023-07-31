@@ -122,7 +122,7 @@ public class SearchMedico extends JDialog {
 					}
 				}
 			});
-			btnNewButton.setBounds(628, 308, 104, 54);
+			btnNewButton.setBounds(628, 353, 104, 32);
 			panel.add(btnNewButton);
 
 			rdbtnM = new JRadioButton("Masculino");
@@ -151,7 +151,7 @@ public class SearchMedico extends JDialog {
 					loadAllMedico();
 				}
 			});
-			btnNewButton_1.setBounds(742, 308, 104, 54);
+			btnNewButton_1.setBounds(742, 353, 104, 32);
 			panel.add(btnNewButton_1);
 		}
 		{

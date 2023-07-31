@@ -36,6 +36,7 @@ public class RegistrarEnfermedad extends JDialog {
 	private JButton btnregistrar;
 
 	public RegistrarEnfermedad(Enfermedad mienfermedad, boolean mode) {
+		setResizable(false);
 		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-virus-50.png"));
 		this.setIconImage(icon.getImage());
 		enfermedad = mienfermedad;

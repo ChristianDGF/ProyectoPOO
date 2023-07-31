@@ -36,6 +36,7 @@ public class ListarUsuarios extends JDialog {
 	private User miusuario = null;
 
 	public ListarUsuarios() {
+		setResizable(false);
 		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-employees-24.png"));
 		this.setIconImage(icon.getImage());
 		setTitle("Usuarios");

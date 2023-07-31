@@ -37,6 +37,7 @@ public class ListarEnfermedades extends JDialog {
 	private Enfermedad mienfermedad = null;
 
 	public ListarEnfermedades() {
+		setResizable(false);
 		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-virus-50.png"));
 		this.setIconImage(icon.getImage());
 		setTitle("Enfermedades");

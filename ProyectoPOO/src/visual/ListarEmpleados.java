@@ -40,6 +40,7 @@ public class ListarEmpleados extends JDialog {
 	private JButton btneliminar;
 
 	public ListarEmpleados() {
+		setResizable(false);
 		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-employees-24.png"));
 		this.setIconImage(icon.getImage());
 		setTitle("Empleados");

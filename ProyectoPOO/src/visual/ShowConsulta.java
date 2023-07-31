@@ -24,6 +24,7 @@ public class ShowConsulta extends JDialog {
 	private JTextArea txtDiagnostico;
 
 	public ShowConsulta(Consulta consulta) {
+		setResizable(false);
 		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-medical-history-40.png"));
 		this.setIconImage(icon.getImage());
 		miConsulta = consulta;

@@ -46,6 +46,7 @@ public class ListarCitas extends JDialog {
 	private JComboBox comboBox;
 
 	public ListarCitas(Medico medico) {
+		setResizable(false);
 		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-calendar-40.png"));
 		this.setIconImage(icon.getImage());
 		miMedico = medico;

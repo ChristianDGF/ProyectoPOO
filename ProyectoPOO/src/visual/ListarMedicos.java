@@ -36,6 +36,7 @@ public class ListarMedicos extends JDialog {
 	private Medico mimedico;
 
 	public ListarMedicos() {
+		setResizable(false);
 		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-employees-24.png"));
 		this.setIconImage(icon.getImage());
 		setTitle("Medicos");

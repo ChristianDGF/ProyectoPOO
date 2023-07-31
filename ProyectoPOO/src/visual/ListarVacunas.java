@@ -36,6 +36,7 @@ public class ListarVacunas extends JDialog {
 	private Vacuna mivacuna = null;
 
 	public ListarVacunas() {
+		setResizable(false);
 		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-vaccine-50.png"));
 		this.setIconImage(icon.getImage());
 		setTitle("Vacunas");

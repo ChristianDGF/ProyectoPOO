@@ -61,6 +61,7 @@ public class RegistrarCita extends JDialog {
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
 
 	public RegistrarCita() {
+		setResizable(false);
 		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-calendar-40.png"));
 		this.setIconImage(icon.getImage());
 		setTitle("Agendar Cita");

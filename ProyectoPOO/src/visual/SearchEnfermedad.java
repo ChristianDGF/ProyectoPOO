@@ -112,7 +112,7 @@ public class SearchEnfermedad extends JDialog {
 				}
 			}
 		});
-		btnFiltrar.setBounds(628, 321, 102, 48);
+		btnFiltrar.setBounds(628, 354, 102, 31);
 		panel.add(btnFiltrar);
 
 		JButton btnTodos = new JButton("Todos");
@@ -121,7 +121,7 @@ public class SearchEnfermedad extends JDialog {
 				loadAllEnfermedades();
 			}
 		});
-		btnTodos.setBounds(747, 321, 102, 48);
+		btnTodos.setBounds(747, 354, 102, 31);
 		panel.add(btnTodos);
 		{
 			JPanel buttonPane = new JPanel();

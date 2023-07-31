@@ -42,6 +42,7 @@ public class RegistrarUsuario extends JDialog {
 	private JComboBox<String> cmbtipo;
 
 	public RegistrarUsuario(User miusuario) {
+		setResizable(false);
 		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-employees-24.png"));
 		this.setIconImage(icon.getImage());
 		user = miusuario;
