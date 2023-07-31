@@ -459,11 +459,14 @@ public class RegistrarConsulta extends JDialog {
 			misConsultasModel.setRowCount(0);
 			row = new Object[TableHistorialConsultas.getColumnCount()];
 			for (Consulta aux : misConsultas) {
-				row[0] = aux.getCodigo();
-				row[1] = aux.getCita().getFecha().toString();
-				row[2] = aux.getEnfermedad().getNombre();
-				row[3] = aux.getEstado();
-				misConsultasModel.addRow(row);
+				if(aux.getCita().getPersona().equals(miCita.getPersona()))
+				{
+					row[0] = aux.getCodigo();
+					row[1] = aux.getCita().getFecha().toString();
+					row[2] = aux.getEnfermedad().getNombre();
+					row[3] = aux.getEstado();
+					misConsultasModel.addRow(row);
+				}
 			}
 		}
 	}
