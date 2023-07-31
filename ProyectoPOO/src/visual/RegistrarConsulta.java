@@ -354,20 +354,20 @@ public class RegistrarConsulta extends JDialog {
 		});
 		btnEliminar.setBounds(404, 425, 121, 23);
 		panel_2.add(btnEliminar);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 46, 541, 118);
 		panel_2.add(scrollPane);
-		
-				txtSintomas = new JTextArea();
-				scrollPane.setViewportView(txtSintomas);
-				
-				JScrollPane scrollPane_1 = new JScrollPane();
-				scrollPane_1.setBounds(10, 202, 541, 118);
-				panel_2.add(scrollPane_1);
-				
-						txtDiagnosticos = new JTextArea();
-						scrollPane_1.setViewportView(txtDiagnosticos);
+
+		txtSintomas = new JTextArea();
+		scrollPane.setViewportView(txtSintomas);
+
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 202, 541, 118);
+		panel_2.add(scrollPane_1);
+
+		txtDiagnosticos = new JTextArea();
+		scrollPane_1.setViewportView(txtDiagnosticos);
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new TitledBorder(
@@ -464,10 +464,9 @@ public class RegistrarConsulta extends JDialog {
 				if (aux.getCita().getPersona().equals(miCita.getPersona())) {
 					row[0] = aux.getCodigo();
 					row[1] = aux.getCita().getFecha().toString();
-					if(aux.getEnfermedad() != null)
-					{
+					if (aux.getEnfermedad() != null) {
 						row[2] = aux.getEnfermedad().getNombre();
-					}else {
+					} else {
 						row[2] = "Salud";
 					}
 					row[3] = aux.getEstado();

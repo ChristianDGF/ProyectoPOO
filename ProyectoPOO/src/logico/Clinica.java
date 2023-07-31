@@ -769,24 +769,25 @@ public class Clinica implements Serializable {
 		}
 		return count;
 	}
-	
+
 	public boolean puedeEliminarMedico(Medico medico) {
-	    for (Cita cita : Clinica.getInstance().getMisCitas()) {
-	        if (cita.getMedico().equals(medico)) {
-	            JOptionPane.showMessageDialog(null, "No se puede eliminar el médico, tiene citas asignadas.", "Error", JOptionPane.ERROR_MESSAGE);
-	            return false;
-	        }
-	    }
+		for (Cita cita : Clinica.getInstance().getMisCitas()) {
+			if (cita.getMedico().equals(medico)) {
+				JOptionPane.showMessageDialog(null, "No se puede eliminar el médico, tiene citas asignadas.", "Error",
+						JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+		}
 
-	    for (User usuario : Clinica.getInstance().getMisUsuarios()) {
-	        if (usuario.getEmpleado() != null && usuario.getEmpleado().equals(medico)) {
-	            JOptionPane.showMessageDialog(null, "No se puede eliminar el médico, está asignado a un usuario.", "Error", JOptionPane.ERROR_MESSAGE);
-	            return false;
-	        }
-	    }
+		for (User usuario : Clinica.getInstance().getMisUsuarios()) {
+			if (usuario.getEmpleado() != null && usuario.getEmpleado().equals(medico)) {
+				JOptionPane.showMessageDialog(null, "No se puede eliminar el médico, está asignado a un usuario.",
+						"Error", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+		}
 
-	    return true;
+		return true;
 	}
-
 
 }

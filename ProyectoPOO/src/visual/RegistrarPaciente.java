@@ -343,7 +343,7 @@ public class RegistrarPaciente extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 
 						if (miPaciente != null && checkFields()) {
-							
+
 							LocalDate nac = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault())
 									.toLocalDate();
 							LocalDate current = LocalDate.now();
@@ -438,21 +438,20 @@ public class RegistrarPaciente extends JDialog {
 		}
 		return formatter;
 	}
-	
-	public boolean checkFields()
-	{
-		if(txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty())
-		{
-			JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios!", "Error",JOptionPane.ERROR_MESSAGE);
+
+	public boolean checkFields() {
+		if (txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios!", "Error",
+					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
-		
-		if(dateChooser.getDate() != null && dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isAfter(LocalDate.now()))
-		{
-			JOptionPane.showMessageDialog(null, "No puede nacer en el futuro!", "Error",JOptionPane.ERROR_MESSAGE);
+
+		if (dateChooser.getDate() != null && dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault())
+				.toLocalDate().isAfter(LocalDate.now())) {
+			JOptionPane.showMessageDialog(null, "No puede nacer en el futuro!", "Error", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
-		
+
 		return true;
 	}
 

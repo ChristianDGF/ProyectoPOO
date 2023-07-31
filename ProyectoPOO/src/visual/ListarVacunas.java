@@ -99,25 +99,29 @@ public class ListarVacunas extends JDialog {
 			{
 				btneliminar = new JButton("Eliminar");
 				btneliminar.addActionListener(new ActionListener() {
-				    public void actionPerformed(ActionEvent e) {
-				        if (mivacuna != null) {
-				            int pacientesConVacuna = Clinica.getInstance().contarPacientesConVacuna(mivacuna.getCodigo());
-				            if (pacientesConVacuna > 0) {
-				                JOptionPane.showMessageDialog(null, "No se puede eliminar la vacuna, está asignada a " + pacientesConVacuna + " pacientes.", "Error", JOptionPane.ERROR_MESSAGE);
-				                return;
-				            }
+					public void actionPerformed(ActionEvent e) {
+						if (mivacuna != null) {
+							int pacientesConVacuna = Clinica.getInstance()
+									.contarPacientesConVacuna(mivacuna.getCodigo());
+							if (pacientesConVacuna > 0) {
+								JOptionPane.showMessageDialog(null, "No se puede eliminar la vacuna, está asignada a "
+										+ pacientesConVacuna + " pacientes.", "Error", JOptionPane.ERROR_MESSAGE);
+								return;
+							}
 
-				            int option = JOptionPane.showConfirmDialog(null,
-				                    "Estas seguro(a) que desea eliminar la vacuna con el codigo: " + mivacuna.getCodigo(),
-				                    "Confirmacion", JOptionPane.OK_CANCEL_OPTION);
-				            if (option == JOptionPane.OK_OPTION) {
-				                Clinica.getInstance().EliminarVacuna(mivacuna);
-				                btneliminar.setEnabled(false);
-				                btnmodificar.setEnabled(false);
-				                listarVacunasPorTipo();
-				            }
-				        }
-				    }
+							int option = JOptionPane
+									.showConfirmDialog(null,
+											"Estas seguro(a) que desea eliminar la vacuna con el codigo: "
+													+ mivacuna.getCodigo(),
+											"Confirmacion", JOptionPane.OK_CANCEL_OPTION);
+							if (option == JOptionPane.OK_OPTION) {
+								Clinica.getInstance().EliminarVacuna(mivacuna);
+								btneliminar.setEnabled(false);
+								btnmodificar.setEnabled(false);
+								listarVacunasPorTipo();
+							}
+						}
+					}
 				});
 
 				btneliminar.setEnabled(false);

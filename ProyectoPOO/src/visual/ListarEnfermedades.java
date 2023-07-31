@@ -64,7 +64,8 @@ public class ListarEnfermedades extends JDialog {
 				cargarEnfermedades();
 			}
 		});
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"<Todos>", "Vigilancia", "Normal", "Investigacion"}));
+		comboBox.setModel(
+				new DefaultComboBoxModel(new String[] { "<Todos>", "Vigilancia", "Normal", "Investigacion" }));
 		comboBox.setBounds(80, 23, 132, 22);
 		panel.add(comboBox);
 
@@ -99,14 +100,13 @@ public class ListarEnfermedades extends JDialog {
 				btnmodificar.setEnabled(false);
 				btnmodificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador"))
-						{
-							RegistrarEnfermedad modificar = new RegistrarEnfermedad(mienfermedad,false);
+						if (Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
+							RegistrarEnfermedad modificar = new RegistrarEnfermedad(mienfermedad, false);
 							modificar.setModal(true);
 							modificar.setVisible(true);
 							cargarEnfermedades();
-						}else {
-							RegistrarEnfermedad modificar = new RegistrarEnfermedad(mienfermedad,true);
+						} else {
+							RegistrarEnfermedad modificar = new RegistrarEnfermedad(mienfermedad, true);
 							modificar.setModal(true);
 							modificar.setVisible(true);
 							cargarEnfermedades();
@@ -118,30 +118,32 @@ public class ListarEnfermedades extends JDialog {
 				btneliminar = new JButton("Eliminar");
 				btneliminar.setEnabled(false);
 				btneliminar.addActionListener(new ActionListener() {
-				    public void actionPerformed(ActionEvent e) {
-				        if (mienfermedad != null) {
-				            int pacientesConEnfermedad = Clinica.getInstance().contarPacientesConEnfermedad(mienfermedad.getCodigo());
-				            if (pacientesConEnfermedad == 0) {
-				                int option = JOptionPane.showConfirmDialog(null,
-				                        "Estas seguro(a) que desea eliminar la Enfermedad con el Codigo: " + mienfermedad.getCodigo(),
-				                        "Confirmacion", JOptionPane.OK_CANCEL_OPTION);
-				                if (option == JOptionPane.OK_OPTION) {
-				                    Clinica.getInstance().EliminarEnfermedad(mienfermedad);
-				                    btneliminar.setEnabled(false);
-				                    btnmodificar.setEnabled(false);
-				                    cargarEnfermedades();
-				                }
-				            } else {
-				                JOptionPane.showMessageDialog(null,
-				                        "No se puede eliminar la enfermedad porque está asignada a " + pacientesConEnfermedad + " paciente(s).",
-				                        "Error de eliminación", JOptionPane.ERROR_MESSAGE);
-				            }
-				        }
-				    }
+					public void actionPerformed(ActionEvent e) {
+						if (mienfermedad != null) {
+							int pacientesConEnfermedad = Clinica.getInstance()
+									.contarPacientesConEnfermedad(mienfermedad.getCodigo());
+							if (pacientesConEnfermedad == 0) {
+								int option = JOptionPane.showConfirmDialog(null,
+										"Estas seguro(a) que desea eliminar la Enfermedad con el Codigo: "
+												+ mienfermedad.getCodigo(),
+										"Confirmacion", JOptionPane.OK_CANCEL_OPTION);
+								if (option == JOptionPane.OK_OPTION) {
+									Clinica.getInstance().EliminarEnfermedad(mienfermedad);
+									btneliminar.setEnabled(false);
+									btnmodificar.setEnabled(false);
+									cargarEnfermedades();
+								}
+							} else {
+								JOptionPane.showMessageDialog(null,
+										"No se puede eliminar la enfermedad porque está asignada a "
+												+ pacientesConEnfermedad + " paciente(s).",
+										"Error de eliminación", JOptionPane.ERROR_MESSAGE);
+							}
+						}
+					}
 				});
 				buttonPane.add(btneliminar);
-				if(!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador"))
-				{
+				if (!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
 					btneliminar.setVisible(false);
 				}
 				btnmodificar.setActionCommand("OK");

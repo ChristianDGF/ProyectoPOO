@@ -58,22 +58,22 @@ public class ShowConsulta extends JDialog {
 		txtEnfermedad.setBounds(10, 433, 563, 20);
 		panel.add(txtEnfermedad);
 		txtEnfermedad.setColumns(10);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 36, 563, 153);
 		panel.add(scrollPane);
-		
-				txtSintomas = new JTextArea();
-				txtSintomas.setEditable(false);
-				scrollPane.setViewportView(txtSintomas);
-				
-				JScrollPane scrollPane_1 = new JScrollPane();
-				scrollPane_1.setBounds(10, 235, 563, 153);
-				panel.add(scrollPane_1);
-				
-						txtDiagnostico = new JTextArea();
-						txtDiagnostico.setEditable(false);
-						scrollPane_1.setViewportView(txtDiagnostico);
+
+		txtSintomas = new JTextArea();
+		txtSintomas.setEditable(false);
+		scrollPane.setViewportView(txtSintomas);
+
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 235, 563, 153);
+		panel.add(scrollPane_1);
+
+		txtDiagnostico = new JTextArea();
+		txtDiagnostico.setEditable(false);
+		scrollPane_1.setViewportView(txtDiagnostico);
 
 		loadConsulta();
 	}

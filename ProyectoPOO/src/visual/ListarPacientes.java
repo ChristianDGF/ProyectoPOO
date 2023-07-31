@@ -101,20 +101,21 @@ public class ListarPacientes extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnmodificar = new JButton("Modificar");
-				if (Clinica.getLoginUser().getTipo().equalsIgnoreCase("Privilegiado") || Clinica.getLoginUser().getTipo().equalsIgnoreCase("Basico")) {
+				if (Clinica.getLoginUser().getTipo().equalsIgnoreCase("Privilegiado")
+						|| Clinica.getLoginUser().getTipo().equalsIgnoreCase("Basico")) {
 					btnmodificar.setText("Visualizar");
 				}
 				btnmodificar.setEnabled(false);
 				btnmodificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(Clinica.getLoginUser().getEmpleado() instanceof Medico || Clinica.getLoginUser().getTipo().equalsIgnoreCase("Basico"))
-						{
-							RegistrarPaciente modificar = new RegistrarPaciente(mipaciente,true);
+						if (Clinica.getLoginUser().getEmpleado() instanceof Medico
+								|| Clinica.getLoginUser().getTipo().equalsIgnoreCase("Basico")) {
+							RegistrarPaciente modificar = new RegistrarPaciente(mipaciente, true);
 							modificar.setModal(true);
 							modificar.setVisible(true);
 							llenarTablaConPacientes();
-						}else {
-							RegistrarPaciente modificar = new RegistrarPaciente(mipaciente,false);
+						} else {
+							RegistrarPaciente modificar = new RegistrarPaciente(mipaciente, false);
 							modificar.setModal(true);
 							modificar.setVisible(true);
 							llenarTablaConPacientes();
