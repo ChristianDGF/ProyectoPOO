@@ -133,7 +133,7 @@ public class Login extends JFrame {
 				}
 			}
 		});
-		txtusuario.setForeground(Color.LIGHT_GRAY);
+		txtusuario.setForeground(Color.BLACK);
 		txtusuario.setBorder(null);
 		txtusuario.setBounds(28, 120, 260, 22);
 		panel.add(txtusuario);

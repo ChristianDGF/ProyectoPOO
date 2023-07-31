@@ -13,6 +13,7 @@ import javax.swing.border.EtchedBorder;
 import logico.Consulta;
 
 import javax.swing.JTextField;
+import javax.swing.JScrollPane;
 
 public class ShowConsulta extends JDialog {
 
@@ -43,29 +44,35 @@ public class ShowConsulta extends JDialog {
 		lblNewLabel.setBounds(10, 11, 64, 14);
 		panel.add(lblNewLabel);
 
-		txtSintomas = new JTextArea();
-		txtSintomas.setEnabled(false);
-		txtSintomas.setBounds(10, 36, 563, 153);
-		panel.add(txtSintomas);
-
 		JLabel lblNewLabel_1 = new JLabel("Diagnostico:");
 		lblNewLabel_1.setBounds(10, 210, 76, 14);
 		panel.add(lblNewLabel_1);
-
-		txtDiagnostico = new JTextArea();
-		txtDiagnostico.setEnabled(false);
-		txtDiagnostico.setBounds(10, 237, 563, 153);
-		panel.add(txtDiagnostico);
 
 		JLabel lblNewLabel_2 = new JLabel("Enfermedad");
 		lblNewLabel_2.setBounds(10, 408, 76, 14);
 		panel.add(lblNewLabel_2);
 
 		txtEnfermedad = new JTextField();
-		txtEnfermedad.setEnabled(false);
+		txtEnfermedad.setEditable(false);
 		txtEnfermedad.setBounds(10, 433, 563, 20);
 		panel.add(txtEnfermedad);
 		txtEnfermedad.setColumns(10);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 36, 563, 153);
+		panel.add(scrollPane);
+		
+				txtSintomas = new JTextArea();
+				txtSintomas.setEditable(false);
+				scrollPane.setViewportView(txtSintomas);
+				
+				JScrollPane scrollPane_1 = new JScrollPane();
+				scrollPane_1.setBounds(10, 235, 563, 153);
+				panel.add(scrollPane_1);
+				
+						txtDiagnostico = new JTextArea();
+						txtDiagnostico.setEditable(false);
+						scrollPane_1.setViewportView(txtDiagnostico);
 
 		loadConsulta();
 	}

@@ -263,10 +263,6 @@ public class RegistrarConsulta extends JDialog {
 		contentPanel.add(panel_2);
 		panel_2.setLayout(null);
 
-		txtSintomas = new JTextArea();
-		txtSintomas.setBounds(10, 48, 541, 118);
-		panel_2.add(txtSintomas);
-
 		JLabel lblNewLabel_9 = new JLabel("Sintomas:");
 		lblNewLabel_9.setBounds(10, 23, 67, 14);
 		panel_2.add(lblNewLabel_9);
@@ -274,10 +270,6 @@ public class RegistrarConsulta extends JDialog {
 		JLabel lblNewLabel_10 = new JLabel("Diagnostico:");
 		lblNewLabel_10.setBounds(10, 177, 84, 14);
 		panel_2.add(lblNewLabel_10);
-
-		txtDiagnosticos = new JTextArea();
-		txtDiagnosticos.setBounds(10, 202, 541, 118);
-		panel_2.add(txtDiagnosticos);
 
 		JLabel lblNewLabel_11 = new JLabel("Enfermedad:");
 		lblNewLabel_11.setBounds(12, 345, 84, 14);
@@ -362,6 +354,20 @@ public class RegistrarConsulta extends JDialog {
 		});
 		btnEliminar.setBounds(404, 425, 121, 23);
 		panel_2.add(btnEliminar);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 46, 541, 118);
+		panel_2.add(scrollPane);
+		
+				txtSintomas = new JTextArea();
+				scrollPane.setViewportView(txtSintomas);
+				
+				JScrollPane scrollPane_1 = new JScrollPane();
+				scrollPane_1.setBounds(10, 202, 541, 118);
+				panel_2.add(scrollPane_1);
+				
+						txtDiagnosticos = new JTextArea();
+						scrollPane_1.setViewportView(txtDiagnosticos);
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new TitledBorder(
@@ -458,7 +464,12 @@ public class RegistrarConsulta extends JDialog {
 				if (aux.getCita().getPersona().equals(miCita.getPersona())) {
 					row[0] = aux.getCodigo();
 					row[1] = aux.getCita().getFecha().toString();
-					row[2] = aux.getEnfermedad().getNombre();
+					if(aux.getEnfermedad() != null)
+					{
+						row[2] = aux.getEnfermedad().getNombre();
+					}else {
+						row[2] = "Salud";
+					}
 					row[3] = aux.getEstado();
 					misConsultasModel.addRow(row);
 				}

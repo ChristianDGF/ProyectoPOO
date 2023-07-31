@@ -40,7 +40,7 @@ public class HistorialMedicoPaciente extends JDialog {
 	private DefaultTableModel ConsultaModel = new DefaultTableModel();
 	private static Object[] row;
 	private String[] headersV = { "Codigo", "Enfermedad", "Laboratorio" };
-	private String[] headersE = { "Enfermedad" };
+	private String[] headersE = { "Enfermedad","Tipo","Estado" };
 	private String[] headersA = { "Alergia" };
 	private String[] headersC = { "Codigo", "Fecha", "Medico", "Enfermedad" };
 	private static Paciente miPaciente = null;
@@ -187,6 +187,8 @@ public class HistorialMedicoPaciente extends JDialog {
 			row = new Object[tablePadecimientos.getColumnCount()];
 			for (Enfermedad aux : miPaciente.getMiHistorial().getMisPadecimientos()) {
 				row[0] = aux.getNombre();
+				row[1] = aux.getTipo();
+				row[2] = aux.getEstado();
 				EnfermedadModel.addRow(row);
 			}
 		}
