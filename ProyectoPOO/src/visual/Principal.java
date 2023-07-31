@@ -1,11 +1,14 @@
 package visual;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -15,6 +18,7 @@ import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
+import logico.Cita;
 import logico.Cliente;
 import logico.Clinica;
 import logico.Enfermedad;
@@ -34,10 +38,15 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 import net.miginfocom.swing.MigLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
 
 public class Principal extends JFrame {
 
@@ -57,13 +66,23 @@ public class Principal extends JFrame {
 	private JPanel panel_4;
 	private JPanel panel_5;
 	private JPanel panel_6;
-	private JPanel panel_7;
 	private JPanel panel_8;
 	private JPanel panel_9;
 	private JComboBox cmbvacuna;
 	private JComboBox cmbenfermedad;
+	private JScrollPane scrollPane;
+	private JTable table;
+	private DefaultTableModel CitasModel = new DefaultTableModel();
+	private Object[] row;
+	private Medico miMedico = null;
+	private ArrayList<Cita> misCitas = new ArrayList<Cita>();
+	private ArrayList<Cita> misCitasShowed = new ArrayList<Cita>();
 
 	public Principal() {
+
+		if (Clinica.getLoginUser().getEmpleado() instanceof Medico) {
+			miMedico = (Medico) Clinica.getLoginUser().getEmpleado();
+		}
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -95,12 +114,19 @@ public class Principal extends JFrame {
 				"[5.00][300.00,grow][299.00,grow,center][300.00,grow]"));
 
 		panel_1 = new JPanel();
+        ImageIcon imageIcon = new ImageIcon("download.jpg");
+
+        JLabel imageLabel = new JLabel(imageIcon);
+
+        JPanel panel_1 = new JPanel();
+
+        panel_1.add(imageLabel);
+
 		panel_2 = new JPanel();
 		panel_3 = new JPanel();
 		panel_4 = new JPanel();
 		panel_5 = new JPanel();
 		panel_6 = new JPanel();
-		panel_7 = new JPanel();
 		panel_8 = new JPanel();
 		panel_9 = new JPanel();
 
@@ -125,10 +151,20 @@ public class Principal extends JFrame {
 		panel.add(panel_1, "cell 0 1,grow");
 		panel.add(panel_2, "cell 1 1,grow");
 		panel.add(panel_3, "cell 2 1,grow");
-		panel.add(panel_4, "cell 0 2,grow");
+		panel.add(panel_4, "cell 0 2 1 2,grow");
+		panel_4.setLayout(new BorderLayout(0, 0));
+
+		scrollPane = new JScrollPane();
+		panel_4.add(scrollPane, BorderLayout.CENTER);
+
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		String headers[] = { "Persona", "Cedula", "Hora", "Estado" };
+		CitasModel.setColumnIdentifiers(headers);
+		table.setModel(CitasModel);
+		scrollPane.setViewportView(table);
 		panel.add(panel_5, "cell 1 2,grow");
 		panel.add(panel_6, "cell 2 2,grow");
-		panel.add(panel_7, "cell 0 3,grow");
 		panel.add(panel_8, "cell 1 3,grow");
 		panel.add(panel_9, "cell 2 3,grow");
 
@@ -327,6 +363,7 @@ public class Principal extends JFrame {
 		});
 		actualizacionThread.start();
 		LoadRoles();
+		loadCitas();
 
 	}
 
@@ -470,6 +507,38 @@ public class Principal extends JFrame {
 		comboBox.addItem("<seleccionar>");
 		for (Enfermedad enfermedad : Clinica.getInstance().getMisEnfermedades()) {
 			comboBox.addItem(enfermedad.getCodigo());
+		}
+	}
+
+	public void loadCitas() {
+		CitasModel.setRowCount(0);
+		row = new Object[table.getColumnCount()];
+
+		if (miMedico != null) {
+			for (Cita cita : Clinica.getInstance().getMisCitas()) {
+				if (cita.getMedico().equals(miMedico) && cita.getEstado().equals("Pendiente")
+						&& LocalDate.now().equals(cita.getFecha())) {
+					misCitasShowed.add(cita);
+					misCitas.add(cita);
+					row[0] = cita.getPersona().getNombre();
+					row[1] = cita.getPersona().getCedula();
+					row[2] = cita.getHora();
+					row[3] = cita.getEstado();
+					CitasModel.addRow(row);
+				}
+			}
+
+		} else {
+
+			for (Cita cita : Clinica.getInstance().getMisCitas()) {
+				misCitasShowed.add(cita);
+				misCitas.add(cita);
+				row[0] = cita.getPersona().getNombre();
+				row[1] = cita.getPersona().getCedula();
+				row[2] = cita.getHora();
+				row[3] = cita.getEstado();
+				CitasModel.addRow(row);
+			}
 		}
 	}
 }
