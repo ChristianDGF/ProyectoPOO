@@ -21,7 +21,7 @@ import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
-import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 public class RegistrarVacuna extends JDialog {
 
@@ -35,8 +35,9 @@ public class RegistrarVacuna extends JDialog {
 	private Vacuna vacuna = null;
 	private JButton okButton;
 
-	public RegistrarVacuna(Vacuna mivacuna,boolean mode) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-vaccine-50.png"));
+	public RegistrarVacuna(Vacuna mivacuna, boolean mode) {
+		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-vaccine-50.png"));
+		this.setIconImage(icon.getImage());
 		setResizable(false);
 		vacuna = mivacuna;
 		if (Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
@@ -45,7 +46,7 @@ public class RegistrarVacuna extends JDialog {
 			} else {
 				setTitle("Modificar Vacuna");
 			}
-		} 
+		}
 
 		setBounds(100, 100, 580, 306);
 		getContentPane().setLayout(new BorderLayout());
@@ -115,8 +116,7 @@ public class RegistrarVacuna extends JDialog {
 				}
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(checkfield())
-						{
+						if (checkfield()) {
 							if (vacuna == null) {
 								registrarVacuna();
 							} else {
@@ -144,8 +144,7 @@ public class RegistrarVacuna extends JDialog {
 			}
 		}
 		cargarVacuna();
-		if(mode)
-		{
+		if (mode) {
 			lockfields();
 		}
 	}
@@ -206,7 +205,8 @@ public class RegistrarVacuna extends JDialog {
 		if (txtenfermedad.getText().isEmpty() || txtcodigo.getText().isEmpty() || txtlaboratorio.getText().isEmpty()
 				|| cmbtipo.getSelectedIndex() == 0 || textdescripcion.getText().isEmpty()) {
 
-			JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios", "Error",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios", "Error",
+					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
@@ -26,7 +27,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.Toolkit;
 
 public class ListarPacientes extends JDialog {
 
@@ -34,12 +34,12 @@ public class ListarPacientes extends JDialog {
 	private JTextField txtcodigopaciente;
 	private JTable table;
 	private JButton btnNewButton;
-	private JButton btneliminar;
 	private JButton btnmodificar;
 	private Paciente mipaciente;
 
 	public ListarPacientes() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-employees-24.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-employees-24.png"));
+		this.setIconImage(icon.getImage());
 		setBounds(100, 100, 809, 589);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -89,9 +89,6 @@ public class ListarPacientes extends JDialog {
 				int index = table.getSelectedRow();
 				if (index >= 0) {
 					btnmodificar.setEnabled(true);
-					if (Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
-						btneliminar.setEnabled(true);
-					}
 					mipaciente = Clinica.getInstance().getPacienteByCedula(table.getValueAt(index, 0).toString());
 				}
 			}
@@ -101,26 +98,6 @@ public class ListarPacientes extends JDialog {
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-
-			btneliminar = new JButton("Eliminar");
-			btneliminar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					if (mipaciente != null) {
-						int option = JOptionPane.showConfirmDialog(null,
-								"Estas seguro(a) que desea eliminar el Paciente con el Codigo: "
-										+ mipaciente.getCodigo(),
-								"Confirmacion", JOptionPane.OK_CANCEL_OPTION);
-						if (option == JOptionPane.OK_OPTION) {
-							Clinica.getInstance().EliminarPaciente(mipaciente);
-							btneliminar.setEnabled(false);
-							btnmodificar.setEnabled(false);
-							llenarTablaConPacientes();
-						}
-					}
-				}
-			});
-			btneliminar.setEnabled(false);
-			buttonPane.add(btneliminar);
 			{
 				btnmodificar = new JButton("Modificar");
 				if (Clinica.getLoginUser().getTipo().equalsIgnoreCase("Privilegiado")) {

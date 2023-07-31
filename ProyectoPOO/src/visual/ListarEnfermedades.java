@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
@@ -36,7 +37,8 @@ public class ListarEnfermedades extends JDialog {
 	private Enfermedad mienfermedad = null;
 
 	public ListarEnfermedades() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-virus-50.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-virus-50.png"));
+		this.setIconImage(icon.getImage());
 		setTitle("Enfermedades");
 		setBounds(100, 100, 765, 584);
 		getContentPane().setLayout(new BorderLayout());
@@ -115,21 +117,26 @@ public class ListarEnfermedades extends JDialog {
 				btneliminar = new JButton("Eliminar");
 				btneliminar.setEnabled(false);
 				btneliminar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (mienfermedad != null) {
-							int option = JOptionPane
-									.showConfirmDialog(null,
-											"Estas seguro(a) que desea eliminar la Enfermedad con el Codigo: "
-													+ mienfermedad.getCodigo(),
-											"Confirmacion", JOptionPane.OK_CANCEL_OPTION);
-							if (option == JOptionPane.OK_OPTION) {
-								Clinica.getInstance().EliminarEnfermedad(mienfermedad);
-								btneliminar.setEnabled(false);
-								btnmodificar.setEnabled(false);
-								cargarEnfermedades();
-							}
-						}
-					}
+				    public void actionPerformed(ActionEvent e) {
+				        if (mienfermedad != null) {
+				            int pacientesConEnfermedad = Clinica.getInstance().contarPacientesConEnfermedad(mienfermedad.getCodigo());
+				            if (pacientesConEnfermedad == 0) {
+				                int option = JOptionPane.showConfirmDialog(null,
+				                        "Estas seguro(a) que desea eliminar la Enfermedad con el Codigo: " + mienfermedad.getCodigo(),
+				                        "Confirmacion", JOptionPane.OK_CANCEL_OPTION);
+				                if (option == JOptionPane.OK_OPTION) {
+				                    Clinica.getInstance().EliminarEnfermedad(mienfermedad);
+				                    btneliminar.setEnabled(false);
+				                    btnmodificar.setEnabled(false);
+				                    cargarEnfermedades();
+				                }
+				            } else {
+				                JOptionPane.showMessageDialog(null,
+				                        "No se puede eliminar la enfermedad porque está asignada a " + pacientesConEnfermedad + " paciente(s).",
+				                        "Error de eliminación", JOptionPane.ERROR_MESSAGE);
+				            }
+				        }
+				    }
 				});
 				buttonPane.add(btneliminar);
 				if(!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador"))

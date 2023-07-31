@@ -2,6 +2,7 @@ package visual;
 
 import java.awt.BorderLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -25,7 +26,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Toolkit;
 
 public class HistorialMedicoPaciente extends JDialog {
 
@@ -49,7 +49,8 @@ public class HistorialMedicoPaciente extends JDialog {
 	private ArrayList<Consulta> misConsultas = new ArrayList<Consulta>();
 
 	public HistorialMedicoPaciente(Paciente paciente) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-medical-history-40.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-medical-history-40.png"));
+		this.setIconImage(icon.getImage());
 		setTitle("Historial Medico");
 		miPaciente = paciente;
 		setResizable(false);

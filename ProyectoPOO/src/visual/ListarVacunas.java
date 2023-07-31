@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
@@ -24,7 +25,6 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.Toolkit;
 
 public class ListarVacunas extends JDialog {
 
@@ -36,7 +36,8 @@ public class ListarVacunas extends JDialog {
 	private Vacuna mivacuna = null;
 
 	public ListarVacunas() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-vaccine-50.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-vaccine-50.png"));
+		this.setIconImage(icon.getImage());
 		setTitle("Vacunas");
 		setBounds(100, 100, 736, 505);
 		getContentPane().setLayout(new BorderLayout());
@@ -97,25 +98,29 @@ public class ListarVacunas extends JDialog {
 			{
 				btneliminar = new JButton("Eliminar");
 				btneliminar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (mivacuna != null) {
-							int option = JOptionPane
-									.showConfirmDialog(null,
-											"Estas seguro(a) que desea eliminar la vacuna con el codigo: "
-													+ mivacuna.getCodigo(),
-											"Confirmacion", JOptionPane.OK_CANCEL_OPTION);
-							if (option == JOptionPane.OK_OPTION) {
-								Clinica.getInstance().EliminarVacuna(mivacuna);
-								btneliminar.setEnabled(false);
-								btnmodificar.setEnabled(false);
-								listarVacunasPorTipo();
-							}
-						}
-					}
+				    public void actionPerformed(ActionEvent e) {
+				        if (mivacuna != null) {
+				            int pacientesConVacuna = Clinica.getInstance().contarPacientesConVacuna(mivacuna.getCodigo());
+				            if (pacientesConVacuna > 0) {
+				                JOptionPane.showMessageDialog(null, "No se puede eliminar la vacuna, está asignada a " + pacientesConVacuna + " pacientes.", "Error", JOptionPane.ERROR_MESSAGE);
+				                return;
+				            }
+
+				            int option = JOptionPane.showConfirmDialog(null,
+				                    "Estas seguro(a) que desea eliminar la vacuna con el codigo: " + mivacuna.getCodigo(),
+				                    "Confirmacion", JOptionPane.OK_CANCEL_OPTION);
+				            if (option == JOptionPane.OK_OPTION) {
+				                Clinica.getInstance().EliminarVacuna(mivacuna);
+				                btneliminar.setEnabled(false);
+				                btnmodificar.setEnabled(false);
+				                listarVacunasPorTipo();
+				            }
+				        }
+				    }
 				});
+
 				btneliminar.setEnabled(false);
-				if(!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador"))
-				{
+				if (!Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
 					btneliminar.setVisible(false);
 				}
 				buttonPane.add(btneliminar);
@@ -127,19 +132,18 @@ public class ListarVacunas extends JDialog {
 				}
 				btnmodificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador"))
-						{
-							RegistrarVacuna modificar = new RegistrarVacuna(mivacuna,false);
+						if (Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
+							RegistrarVacuna modificar = new RegistrarVacuna(mivacuna, false);
 							modificar.setModal(true);
 							modificar.setVisible(true);
 							listarVacunasPorTipo();
-						}else {
-							RegistrarVacuna modificar = new RegistrarVacuna(mivacuna,true);
+						} else {
+							RegistrarVacuna modificar = new RegistrarVacuna(mivacuna, true);
 							modificar.setModal(true);
 							modificar.setVisible(true);
 							listarVacunasPorTipo();
 						}
-				
+
 					}
 				});
 				btnmodificar.setEnabled(false);

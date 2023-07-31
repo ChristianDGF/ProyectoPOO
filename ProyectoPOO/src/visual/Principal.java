@@ -47,7 +47,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
-import java.awt.Toolkit;
 
 public class Principal extends JFrame {
 
@@ -80,8 +79,8 @@ public class Principal extends JFrame {
 	private ArrayList<Cita> misCitasShowed = new ArrayList<Cita>();
 
 	public Principal() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-ambulance-48.png"));
-
+		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-ambulance-48.png"));
+		this.setIconImage(icon.getImage());
 		if (Clinica.getLoginUser().getEmpleado() instanceof Medico) {
 			miMedico = (Medico) Clinica.getLoginUser().getEmpleado();
 		}
@@ -116,13 +115,13 @@ public class Principal extends JFrame {
 				"[5.00][300.00,grow][299.00,grow,center][300.00,grow]"));
 
 		panel_1 = new JPanel();
-        ImageIcon imageIcon = new ImageIcon("download.jpg");
+		ImageIcon imageIcon = new ImageIcon("download.jpg");
 
-        JLabel imageLabel = new JLabel(imageIcon);
+		JLabel imageLabel = new JLabel(imageIcon);
 
-        JPanel panel_1 = new JPanel();
+		JPanel panel_1 = new JPanel();
 
-        panel_1.add(imageLabel);
+		panel_1.add(imageLabel);
 
 		panel_2 = new JPanel();
 		panel_3 = new JPanel();
@@ -227,20 +226,19 @@ public class Principal extends JFrame {
 		MenuRegEnfermedad = new JMenuItem("Registrar Enfermedad");
 		MenuRegEnfermedad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador"))
-				{
-					RegistrarEnfermedad regenfermedad = new RegistrarEnfermedad(null,false);
+				if (Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
+					RegistrarEnfermedad regenfermedad = new RegistrarEnfermedad(null, false);
 					regenfermedad.setModal(true);
 					regenfermedad.setLocationRelativeTo(null);
 					regenfermedad.setVisible(true);
-				}else {
+				} else {
 
-					RegistrarEnfermedad regenfermedad = new RegistrarEnfermedad(null,true);
+					RegistrarEnfermedad regenfermedad = new RegistrarEnfermedad(null, true);
 					regenfermedad.setModal(true);
 					regenfermedad.setLocationRelativeTo(null);
 					regenfermedad.setVisible(true);
 				}
-		
+
 			}
 		});
 		MenuEnfermedades.add(MenuRegEnfermedad);
@@ -262,19 +260,18 @@ public class Principal extends JFrame {
 		MenuRegVacuna = new JMenuItem("Registrar Vacunas");
 		MenuRegVacuna.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador"))
-				{
-					RegistrarVacuna regvacuna = new RegistrarVacuna(null,false);
+				if (Clinica.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
+					RegistrarVacuna regvacuna = new RegistrarVacuna(null, false);
 					regvacuna.setModal(true);
 					regvacuna.setLocationRelativeTo(null);
 					regvacuna.setVisible(true);
-				}else {
-					RegistrarVacuna regvacuna = new RegistrarVacuna(null,true);
+				} else {
+					RegistrarVacuna regvacuna = new RegistrarVacuna(null, true);
 					regvacuna.setModal(true);
 					regvacuna.setLocationRelativeTo(null);
 					regvacuna.setVisible(true);
 				}
-				
+
 			}
 		});
 		MenuVacunas.add(MenuRegVacuna);

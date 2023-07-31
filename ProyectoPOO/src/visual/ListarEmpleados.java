@@ -13,11 +13,13 @@ import javax.swing.table.DefaultTableModel;
 
 import logico.Clinica;
 import logico.Empleado;
+import logico.Medico;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
@@ -26,7 +28,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
-import java.awt.Toolkit;
 
 public class ListarEmpleados extends JDialog {
 
@@ -39,7 +40,8 @@ public class ListarEmpleados extends JDialog {
 	private JButton btneliminar;
 
 	public ListarEmpleados() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-employees-24.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-employees-24.png"));
+		this.setIconImage(icon.getImage());
 		setTitle("Empleados");
 		setBounds(100, 100, 756, 542);
 		getContentPane().setLayout(new BorderLayout());
@@ -108,6 +110,13 @@ public class ListarEmpleados extends JDialog {
 				btneliminar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if (miempleado != null) {
+							if (miempleado instanceof Medico) {
+								Medico medico = (Medico) miempleado;
+								if (!Clinica.getInstance().puedeEliminarMedico(medico)) {
+									return;
+								}
+							}
+
 							int option = JOptionPane
 									.showConfirmDialog(null,
 											"Estas seguro(a) que desea eliminar el empleado con el codigo: "
@@ -122,6 +131,7 @@ public class ListarEmpleados extends JDialog {
 						}
 					}
 				});
+
 				buttonPane.add(btneliminar);
 				btnmodificar.setActionCommand("OK");
 				buttonPane.add(btnmodificar);

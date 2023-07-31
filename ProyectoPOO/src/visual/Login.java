@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -27,10 +28,6 @@ import logico.Vacuna;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextPane;
 import java.awt.Toolkit;
 import java.awt.Color;
 import java.awt.Font;
@@ -44,7 +41,7 @@ public class Login extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtusuario;
-	private JPasswordField  txtpass;
+	private JPasswordField txtpass;
 
 	/**
 	 * Launch the application.
@@ -101,8 +98,8 @@ public class Login extends JFrame {
 	 */
 	public Login() {
 		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit()
-				.getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-ambulance-48.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-ambulance-48.png"));
+		this.setIconImage(icon.getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 332, 403);
 		contentPane = new JPanel();
@@ -125,14 +122,12 @@ public class Login extends JFrame {
 		txtusuario = new JTextField();
 		txtusuario.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {	
-				if(txtusuario.getText().equalsIgnoreCase("Nombre de usuario..."))
-				{
+			public void mousePressed(MouseEvent e) {
+				if (txtusuario.getText().equalsIgnoreCase("Nombre de usuario...")) {
 					txtusuario.setText("");
 					txtusuario.setForeground(Color.black);
 				}
-				if(String.valueOf(txtpass.getPassword()).isEmpty())
-				{
+				if (String.valueOf(txtpass.getPassword()).isEmpty()) {
 					txtpass.setText("*********");
 					txtpass.setForeground(Color.gray);
 				}
@@ -150,18 +145,15 @@ public class Login extends JFrame {
 		lblusuario.setBounds(28, 93, 73, 16);
 		panel.add(lblusuario);
 
-		
 		txtpass = new JPasswordField();
 		txtpass.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				if(String.valueOf(txtpass.getPassword()).equals("*********"))
-				{
+				if (String.valueOf(txtpass.getPassword()).equals("*********")) {
 					txtpass.setText("");
 					txtpass.setForeground(Color.black);
 				}
-				if(txtusuario.getText().isEmpty())
-				{
+				if (txtusuario.getText().isEmpty()) {
 					txtusuario.setText("Nombre de usuario...");
 					txtusuario.setForeground(Color.gray);
 				}
@@ -188,7 +180,7 @@ public class Login extends JFrame {
 		separator_1.setBackground(Color.BLACK);
 		separator_1.setBounds(28, 149, 260, 8);
 		panel.add(separator_1);
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.addMouseListener(new MouseAdapter() {
 			@Override
@@ -197,8 +189,9 @@ public class Login extends JFrame {
 					Principal frame = new Principal();
 					dispose();
 					frame.setVisible(true);
-				}else {
-					JOptionPane.showMessageDialog(null, "El usuario ingresado no es valido", "Error",JOptionPane.ERROR_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "El usuario ingresado no es valido", "Error",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -206,7 +199,7 @@ public class Login extends JFrame {
 		panel_1.setBounds(93, 285, 125, 42);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Entrar");
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);

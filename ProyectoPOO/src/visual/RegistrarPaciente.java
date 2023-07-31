@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JTextFieldDateEditor;
 
@@ -42,7 +44,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.JFormattedTextField;
-import java.awt.Toolkit;
 
 public class RegistrarPaciente extends JDialog {
 
@@ -72,8 +73,9 @@ public class RegistrarPaciente extends JDialog {
 	private JButton btnActualizar;
 	private JScrollPane scrollPane;
 
-	public RegistrarPaciente(Paciente paciente,boolean mode) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-person-64.png"));
+	public RegistrarPaciente(Paciente paciente, boolean mode) {
+		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-person-64.png"));
+		this.setIconImage(icon.getImage());
 		miPaciente = paciente;
 		setTitle("Actualizar Paciente");
 		setBounds(100, 100, 1071, 465);
@@ -434,11 +436,9 @@ public class RegistrarPaciente extends JDialog {
 		}
 		return formatter;
 	}
-	
-	public void checkMode(boolean mode)
-	{
-		if(mode)
-		{
+
+	public void checkMode(boolean mode) {
+		if (mode) {
 			txtNombre.setEditable(false);
 			txtApellido.setEditable(false);
 			txtCedula.setEditable(false);
@@ -457,7 +457,7 @@ public class RegistrarPaciente extends JDialog {
 			btnAgregarAlergia.setVisible(false);
 			btnAgregarAlergia.setVisible(false);
 			scrollPane.setBounds(20, 25, 458, 335);
-			setTitle("Paciente"); 
+			setTitle("Paciente");
 		}
 	}
 }

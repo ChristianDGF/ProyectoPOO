@@ -18,6 +18,8 @@ import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
@@ -34,7 +36,8 @@ public class ListarMedicos extends JDialog {
 	private Medico mimedico;
 
 	public ListarMedicos() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-employees-24.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-employees-24.png"));
+		this.setIconImage(icon.getImage());
 		setTitle("Medicos");
 		setBounds(100, 100, 713, 559);
 		getContentPane().setLayout(new BorderLayout());

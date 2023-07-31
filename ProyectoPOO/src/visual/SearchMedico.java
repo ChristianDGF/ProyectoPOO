@@ -23,11 +23,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JRadioButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.awt.Toolkit;
 
 public class SearchMedico extends JDialog {
 
@@ -44,7 +44,8 @@ public class SearchMedico extends JDialog {
 	private JButton seleccionarBtn;
 
 	public SearchMedico() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-doctor-50.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-doctor-50.png"));
+		this.setIconImage(icon.getImage());
 		setResizable(false);
 		setTitle("Buscar Medico");
 		setBounds(100, 100, 895, 494);

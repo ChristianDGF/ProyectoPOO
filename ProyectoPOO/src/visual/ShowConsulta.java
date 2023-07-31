@@ -2,6 +2,7 @@ package visual;
 
 import java.awt.BorderLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -12,7 +13,6 @@ import javax.swing.border.EtchedBorder;
 import logico.Consulta;
 
 import javax.swing.JTextField;
-import java.awt.Toolkit;
 
 public class ShowConsulta extends JDialog {
 
@@ -23,7 +23,8 @@ public class ShowConsulta extends JDialog {
 	private JTextArea txtDiagnostico;
 
 	public ShowConsulta(Consulta consulta) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-medical-history-40.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-medical-history-40.png"));
+		this.setIconImage(icon.getImage());
 		miConsulta = consulta;
 		setTitle("Consulta");
 		setBounds(100, 100, 619, 543);
@@ -73,8 +74,7 @@ public class ShowConsulta extends JDialog {
 		if (miConsulta != null) {
 			txtSintomas.setText(miConsulta.getSintomas());
 			txtDiagnostico.setText(miConsulta.getDiagnostico());
-			if(miConsulta.getEnfermedad() != null)
-			{
+			if (miConsulta.getEnfermedad() != null) {
 				txtEnfermedad.setText(miConsulta.getEnfermedad().getNombre());
 			}
 		}

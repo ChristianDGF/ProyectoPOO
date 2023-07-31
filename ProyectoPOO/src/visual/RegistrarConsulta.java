@@ -2,6 +2,7 @@ package visual;
 
 import java.awt.BorderLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -32,7 +33,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.awt.Toolkit;
 
 public class RegistrarConsulta extends JDialog {
 
@@ -67,7 +67,8 @@ public class RegistrarConsulta extends JDialog {
 	private JRadioButton rdbtnRHMP;
 
 	public RegistrarConsulta(Persona persona, Medico doctor, Cita cita) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-doctor-50.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-doctor-50.png"));
+		this.setIconImage(icon.getImage());
 		if (persona != null) {
 			checkPaciente(cita, persona);
 		}
@@ -188,7 +189,7 @@ public class RegistrarConsulta extends JDialog {
 		JButton btnPadecimientos = new JButton("Actualizar");
 		btnPadecimientos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrarPaciente regPac = new RegistrarPaciente(miPaciente,false);
+				RegistrarPaciente regPac = new RegistrarPaciente(miPaciente, false);
 				regPac.setModal(true);
 				regPac.setLocationRelativeTo(null);
 				regPac.setVisible(true);
@@ -410,10 +411,9 @@ public class RegistrarConsulta extends JDialog {
 		Clinica.getInstance().AgregarConsulta(consulta);
 		miMedico.getMisconsultas().add(consulta);
 		miCita.setEstado("Realizada");
-		if(miEnfermedad != null)
-		{
+		if (miEnfermedad != null) {
 			miPaciente.getMiHistorial().getMisPadecimientos().add(miEnfermedad);
-		}else {
+		} else {
 			clearPacienteEnfermedades();
 		}
 		JOptionPane.showMessageDialog(null, "La consulta ha sido registrada!");
@@ -421,19 +421,15 @@ public class RegistrarConsulta extends JDialog {
 		dispose();
 
 	}
-	
-	public void clearPacienteEnfermedades()
-	{
+
+	public void clearPacienteEnfermedades() {
 		ArrayList<Enfermedad> enfermedad = new ArrayList<Enfermedad>();
-		for(Enfermedad aux: miPaciente.getMiHistorial().getMisPadecimientos())
-		{
-			if(aux.getTipo() != "Crónicas")
-			{
+		for (Enfermedad aux : miPaciente.getMiHistorial().getMisPadecimientos()) {
+			if (aux.getTipo() != "Crónicas") {
 				enfermedad.add(aux);
 			}
 		}
-		for(Enfermedad aux: enfermedad)
-		{
+		for (Enfermedad aux : enfermedad) {
 			miPaciente.getMiHistorial().getMisPadecimientos().remove(aux);
 		}
 	}
@@ -459,8 +455,7 @@ public class RegistrarConsulta extends JDialog {
 			misConsultasModel.setRowCount(0);
 			row = new Object[TableHistorialConsultas.getColumnCount()];
 			for (Consulta aux : misConsultas) {
-				if(aux.getCita().getPersona().equals(miCita.getPersona()))
-				{
+				if (aux.getCita().getPersona().equals(miCita.getPersona())) {
 					row[0] = aux.getCodigo();
 					row[1] = aux.getCita().getFecha().toString();
 					row[2] = aux.getEnfermedad().getNombre();

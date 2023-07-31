@@ -28,7 +28,7 @@ import javax.swing.JOptionPane;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 public class ListarCitas extends JDialog {
 
@@ -46,10 +46,11 @@ public class ListarCitas extends JDialog {
 	private JComboBox comboBox;
 
 	public ListarCitas(Medico medico) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\Icons for project\\icons8-calendar-40.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/icons/icons8-calendar-40.png"));
+		this.setIconImage(icon.getImage());
 		miMedico = medico;
 		setTitle("Citas");
-		setBounds(100, 100, 929, 470);
+		setBounds(100, 100, 929, 482);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -73,27 +74,27 @@ public class ListarCitas extends JDialog {
 				}
 			}
 		});
-		String headers[] = { "Codigo","Doctor", "Persona", "Cedula", "Fecha", "Estado" };
+		String headers[] = { "Codigo", "Doctor", "Persona", "Cedula", "Fecha", "Estado" };
 		CitasModel.setColumnIdentifiers(headers);
 		table.setModel(CitasModel);
 		scrollPane.setViewportView(table);
-		
+
 		JLabel lblNewLabel = new JLabel("Fecha Incial:");
 		lblNewLabel.setBounds(709, 11, 73, 14);
 		contentPanel.add(lblNewLabel);
-		
+
 		dateChooser = new JDateChooser();
 		dateChooser.setBounds(709, 36, 194, 20);
 		contentPanel.add(dateChooser);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Fecha Final:");
 		lblNewLabel_1.setBounds(709, 67, 73, 14);
 		contentPanel.add(lblNewLabel_1);
-		
+
 		dateChooser_1 = new JDateChooser();
 		dateChooser_1.setBounds(709, 92, 194, 20);
 		contentPanel.add(dateChooser_1);
-		
+
 		JButton btnNewButton = new JButton("Filtrar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -102,7 +103,7 @@ public class ListarCitas extends JDialog {
 		});
 		btnNewButton.setBounds(709, 330, 194, 23);
 		contentPanel.add(btnNewButton);
-		
+
 		JButton btnNewButton_1 = new JButton("Mostrar Todo");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -111,16 +112,16 @@ public class ListarCitas extends JDialog {
 		});
 		btnNewButton_1.setBounds(709, 364, 194, 23);
 		contentPanel.add(btnNewButton_1);
-		
+
 		JLabel lblNewLabel_2 = new JLabel("Estado:");
 		lblNewLabel_2.setBounds(709, 123, 46, 14);
 		contentPanel.add(lblNewLabel_2);
-		
+
 		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Pendiente", "Realizada"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "<Seleccionar>", "Pendiente", "Realizada" }));
 		comboBox.setBounds(709, 148, 194, 20);
 		contentPanel.add(comboBox);
-		
+
 		JButton btnMisCitas = new JButton("mis Citas");
 		btnMisCitas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -139,8 +140,7 @@ public class ListarCitas extends JDialog {
 				realizarBtn.setEnabled(false);
 				realizarBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(selected.getEstado().equalsIgnoreCase("Pendiente"))
-						{
+						if (selected.getEstado().equalsIgnoreCase("Pendiente")) {
 							RegistrarConsulta regConsulta = new RegistrarConsulta(selected.getPersona(),
 									selected.getMedico(), selected);
 							regConsulta.setModal(true);
@@ -163,23 +163,21 @@ public class ListarCitas extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-		
-		if(miMedico == null)
-		{
+
+		if (miMedico == null) {
 			realizarBtn.setVisible(false);
 		}
 		loadCitas();
 	}
-	
-	
-	public void misCitasHoy()
-	{
+
+	public void misCitasHoy() {
 		CitasModel.setRowCount(0);
 		row = new Object[table.getColumnCount()];
 		misCitasShowed.clear();
-		
+
 		for (Cita cita : misCitas) {
-			if (cita.getMedico().equals(miMedico) && cita.getEstado().equals("Pendiente") && LocalDate.now().equals(cita.getFecha())) {
+			if (cita.getMedico().equals(miMedico) && cita.getEstado().equals("Pendiente")
+					&& LocalDate.now().equals(cita.getFecha())) {
 				misCitasShowed.add(cita);
 				row[0] = cita.getCodigo();
 				row[1] = cita.getMedico().getNombre() + " " + cita.getMedico().getApellido();
@@ -190,21 +188,20 @@ public class ListarCitas extends JDialog {
 				CitasModel.addRow(row);
 			}
 		}
-		
+
 	}
-	public void filterCitas()
-	{		
-		if(dateChooser.getDate() != null && dateChooser_1.getDate() != null && comboBox.getSelectedIndex() != 0)
-		{
+
+	public void filterCitas() {
+		if (dateChooser.getDate() != null && dateChooser_1.getDate() != null && comboBox.getSelectedIndex() != 0) {
 			CitasModel.setRowCount(0);
 			row = new Object[table.getColumnCount()];
 			misCitasShowed.clear();
-			for(Cita cita: misCitas)
-			{
-				if(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isBefore(cita.getFecha()) && 
-						dateChooser_1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isAfter(cita.getFecha()) && 
-						cita.getEstado().equals(comboBox.getSelectedItem()))
-				{
+			for (Cita cita : misCitas) {
+				if (dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+						.isBefore(cita.getFecha())
+						&& dateChooser_1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+								.isAfter(cita.getFecha())
+						&& cita.getEstado().equals(comboBox.getSelectedItem())) {
 					misCitasShowed.add(cita);
 					row[0] = cita.getCodigo();
 					row[1] = cita.getMedico().getNombre() + " " + cita.getMedico().getApellido();
@@ -215,20 +212,17 @@ public class ListarCitas extends JDialog {
 					CitasModel.addRow(row);
 				}
 			}
-		}else {
+		} else {
 			JOptionPane.showMessageDialog(null, "Debe seleccionar todos los campos!");
 		}
 	}
-	
-	
-	public void refreshCitas()
-	{
+
+	public void refreshCitas() {
 		CitasModel.setRowCount(0);
 		row = new Object[table.getColumnCount()];
-		
+
 		misCitasShowed.clear();
-		for(Cita cita: misCitas)
-		{
+		for (Cita cita : misCitas) {
 			misCitasShowed.add(cita);
 			row[0] = cita.getCodigo();
 			row[1] = cita.getMedico().getNombre() + " " + cita.getMedico().getApellido();
