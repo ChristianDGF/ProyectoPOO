@@ -133,7 +133,6 @@ public class Login extends JFrame {
 				}
 			}
 		});
-		txtusuario.setText("Nombre de usuario...");
 		txtusuario.setForeground(Color.LIGHT_GRAY);
 		txtusuario.setBorder(null);
 		txtusuario.setBounds(28, 120, 260, 22);
